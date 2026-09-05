@@ -94,4 +94,4 @@ check: format-check lint lint-changes lint-skills test
 # Check markdown files for broken links
 [group('tests')]
 test:
-    bun x linkinator "*.md" "skills/**/*.md" --markdown
+    bun x linkinator "*.md" "skills/**/*.md" "docs/**/*.md" --markdown

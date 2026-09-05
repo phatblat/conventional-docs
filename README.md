@@ -28,7 +28,7 @@ designed to enable: [CHARTER.md](CHARTER.md).
 | --------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
 | Charter   | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
 | Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
-| Decisions | `DECISIONS.md`       | `docs/decisions/NNNN-slug.md`       | append-only           | what changed, why, what it cost                       |
+| Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
 | Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
@@ -51,23 +51,28 @@ hand-written directly.
 
 ### Graduating to `docs/`
 
-Small repos keep everything as `UPPERCASE.md` at the root. Move a document to
-`docs/` when either trigger fires:
+Small repos keep everything as `UPPERCASE.md` at the root, except the per-file
+logs — decisions, runbooks, incidents — which live under `docs/` from their
+first entry. Move a document to `docs/` when either trigger fires:
 
 1. the root is getting cluttered with top-level files and folders
    (dotfiles don't count — that's where config conventions live), or
 2. the document has outgrown a single file: it needs siblings, status, or
    structure (a `ROADMAP.md` that needs per-item status becomes
-   `docs/roadmap.md`; a `DECISIONS.md` splits into `docs/decisions/`).
+   `docs/roadmap.md`).
 
 Graduate in one commit, rewrite inbound links in the same commit, and let a
 link check in CI catch the rest. No stub files at the old path, and no mirrors
 in either direction — the Charter's `## Artifacts` table records where each
-document lives.
+document lives. The one exception is renaming a numbered decision log to
+dated ids, which leaves a redirect at each old filename; the
+`conventional-docs` skill has the procedure.
 
-`docs/decisions/` is the canonical decisions location. For `adr-tools`
-compatibility, add a root `.adr-dir` file containing `docs/decisions`;
-MADR already defaults to this path.
+`docs/decisions/` is the canonical decisions location, and MADR already
+defaults to that path. A root `.adr-dir` file containing `docs/decisions`
+points tools that only need the location — `adr list`, `adr generate` — at
+it. `adr new` allocates the next sequential number, so records are copied
+from the skeleton instead.
 
 ### Release notes
 
@@ -108,11 +113,11 @@ Lifecycle transitions are commits with Conventional Commits types, so hooks,
 dashboards, and chat notifications can key off `git log` without parsing files:
 
 ```text
-decision: propose 0007 <title>
-decision: accept 0007
-decision: implement 0007 (#88)
-plan: start 0007
-plan: done 0007
+decision: propose 2026-02-11-split-the-scheduler
+decision: accept 2026-02-11-split-the-scheduler
+decision: implement 2026-02-11-split-the-scheduler (#88)
+plan: start 2026-02-11-split-the-scheduler
+plan: done 2026-02-11-split-the-scheduler
 release: v1.2.0
 deploy: prod v1.2.0
 ```

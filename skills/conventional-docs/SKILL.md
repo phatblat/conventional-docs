@@ -14,12 +14,12 @@ look. Full rationale and rendered tables:
 
 ## When to use this skill
 
-Use it when creating or editing a `CHARTER.md`, `DESIGN.md`, `DECISIONS.md`,
+Use it when creating or editing a `CHARTER.md`, `DESIGN.md`, `docs/decisions/`,
 `ROADMAP.md`, or `PLAN.md` (or their graduated `docs/` forms); when deciding
 whether a change needs a Decision or a Plan; when a change is user-facing and
 needs a `.changes/<slug>.md` fragment; when writing a `decision:`, `plan:`,
-`release:`, or `deploy:` commit; or when a root document has outgrown a single
-file and needs to graduate into `docs/`.
+`release:`, or `deploy:` commit; or when a root document has outgrown a
+single file and needs to graduate into `docs/`.
 
 Do not use it for user-facing documentation — tutorials, how-tos, and
 reference docs belong to [Diátaxis](https://diataxis.fr/), not this
@@ -28,8 +28,8 @@ adopted Conventional Docs; ask first.
 
 ## Orient before writing
 
-1. Look for root `CHARTER.md`, `DESIGN.md`, `DECISIONS.md`, `ROADMAP.md`,
-   `PLAN.md`, and a `.changes/` directory.
+1. Look for root `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `PLAN.md`, and a
+   `.changes/` directory.
 2. Look for the graduated forms under `docs/` (`docs/charter.md`,
    `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/plan.md`,
    `docs/runbooks/`, `docs/incidents/`, `docs/todo.md`).
@@ -46,7 +46,7 @@ adopted Conventional Docs; ask first.
 | --------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
 | Charter   | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
 | Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
-| Decisions | `DECISIONS.md`       | `docs/decisions/NNNN-slug.md`       | append-only           | what changed, why, what it cost                       |
+| Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
 | Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
@@ -76,9 +76,9 @@ intent → Decision (proposed) → review → Decision (accepted)
 ```
 
 - **Decision (proposed)** — written when a change crosses a threshold above;
-  committed with `decision: propose NNNN <title>`.
+  committed with `decision: propose <id>`.
 - **Decision (accepted)** — the spec is frozen after review; committed with
-  `decision: accept NNNN`.
+  `decision: accept <id>`.
 - **Plan written** — the accepted decision's exact steps, for handoff or a
   cold restart; not a separate commit event of its own.
 - **execute** — the Plan's steps happen; per-session state goes in agent
@@ -86,44 +86,138 @@ intent → Decision (proposed) → review → Decision (accepted)
 - **PR merged / Design updated** — the living Design doc is updated to match
   reality; the Plan file is deleted in the same branch.
 - **Decision → implemented** — committed with
-  `decision: implement NNNN (#PR)` once merged.
+  `decision: implement <id> (#PR)` once merged.
 
 ## Decisions
 
-Numbering is 4-digit zero-padded and sequential (`0001`, `0002`, …); the next
-number is the highest existing number plus one. Statuses: `proposed`,
-`accepted`, `implemented`, `superseded by NNNN`. Never rewrite an accepted
-decision; supersede it with a new one instead.
+A decision record is always its own file, `docs/decisions/YYYY-MM-DD-slug.md`.
+There is no single-file form and no graduation step.
 
-Entry template (MADR-shaped):
+The id is `YYYY-MM-DD-slug` — the date the record was written plus a kebab-case
+slug of its title — and it is the filename without `.md`. It is fixed at
+creation: never re-date, renumber, or rename a record, not when its status
+changes and not when a later decision supersedes it. Several decisions may
+share a date; their slugs tell them apart. Never add a counter or suffix, and
+never renumber to settle a merge.
+
+`docs/decisions/` is canonical, and MADR already defaults to this path. A root
+`.adr-dir` file containing `docs/decisions` points location-only ADR tooling
+(`adr list`, `adr generate`) at it. Do not use `adr new`: it allocates the next
+sequential number.
+
+### Structure
+
+Use exactly this skeleton, H2 sections in this order:
 
 ```markdown
-# NNNN. Title in the imperative
+# <Decision title>
 
-- Status: proposed
-- Date: YYYY-MM-DD
+## Issue
 
-## Context
+<The problem requiring a decision, with links to the motivating issue and PRs.
+If this decision extends another, the first sentence is `This decision extends
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` and nothing from that decision is
+restated.>
 
-The forces and constraints that make this a decision.
+## Status
 
-## Decision
+This is a proposal that is **awaiting review**.
 
-What we will do.
+## Assumptions and Constraints
 
-## Consequences
+- <Facts bounding the choice: environment, compatibility guarantees, prior
+  decisions. For a change to a public surface, state the compatibility
+  guarantee it has to keep here.>
 
-What this costs, what it rules out, what follows from it.
+## Argument
+
+<Why the chosen direction beats the alternatives. Name any alternative that
+shapes the choice, with its verdict (**Chosen.** / **Rejected.**), and reserve
+full reasoning for Positions. `N/A` is acceptable when the constraints make the
+decision self-evident.>
+
+## Architectural Decision
+
+<The decision itself, as numbered clauses a reviewer can point at. Include code
+or YAML only where it pins down a contract — a field name, a struct variant,
+one representative manifest — never to reproduce the implementation.>
+
+## Positions
+
+<Alternatives considered and rejected, each with its reason, or `N/A`.>
+
+## Dates
+
+- Published: TBD (set at merge).
 ```
 
-In a single-file `DECISIONS.md`, the same entry appears one heading level
-deeper (`## NNNN. Title`, `### Context`, …) and is **appended** to the end of
-the file, never inserted or reordered. In `docs/decisions/`, the file is
-`NNNN-slug.md` and keeps the heading levels shown above.
+Optional sections, in position:
 
-`docs/decisions/` is the canonical graduated location. For `adr-tools`
-compatibility, a root `.adr-dir` file containing `docs/decisions` points
-existing ADR tooling at it; MADR already defaults to this path.
+- `## Consequences` — after Architectural Decision, before Positions: rollout
+  order, breaking changes, migration burden, follow-up documentation owed.
+- `## References` — before Dates: bulleted links with `—` descriptions
+  (tracking issue, implementation PRs, related decisions, external specs).
+
+H3 subsections are permitted inside Argument, Architectural Decision, and
+Positions when they improve skimmability.
+
+### Status and date lifecycle
+
+Status is prose, and it moves with the commit events:
+
+- **Proposed** (`decision: propose <id>`) — `This is a proposal that is
+**awaiting review**.` with `- Published: TBD (set at merge).`
+- **Accepted** (`decision: accept <id>`) — `This is a proposal that is
+**accepted**.` and `- Published: YYYY-MM-DD` set to the merge date.
+- **Implemented** (`decision: implement <id> (#PR)`) — `This is a proposal that
+is **implemented**.`, or lead with `Implemented in [owner/repo#NN](<url>).`,
+  and append `- Updated: YYYY-MM-DD (implemented)` under Dates.
+- **Superseded** — `This proposal is **superseded** by
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` and append an `- Updated:` line.
+
+Material later edits append `- Updated: YYYY-MM-DD (<what changed>)` under
+Dates. Never rewrite a merged decision silently; extend it with a new decision
+instead.
+
+### Cross-linking decisions
+
+An extension decision opens Issue with `This decision extends
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` In the same PR, edit the extended
+decision to add `This decision is extended by
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` under its Issue heading. Reference
+decisions from prose as `[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md)`, with
+relative links.
+
+### Keep it brief
+
+- Record the decision and its rationale only. Implementation diaries, debugging
+  history, delivery staging, and local setup notes belong in PR descriptions,
+  not the durable record.
+- Link another decision's content; never copy it.
+- One decision per file when the parts can land independently.
+
+### Adopting in a repo with a numbered log
+
+1. Rename each `NNNN-slug.md` to `YYYY-MM-DD-slug.md`, taking the date from the
+   record's published date, or from the date the file was added when it has
+   none: `git log --diff-filter=A --format=%ad --date=short -1 -- <file>`.
+2. Rewrite inbound links in the same commit.
+3. Leave a redirect at each old filename — the one place this convention keeps
+   a file at an old path, because citations of the old id outside the repo
+   cannot be rewritten by the rename:
+
+   ```markdown
+   # Moved
+
+   Moved to [@2026-02-11-split-the-scheduler.md](2026-02-11-split-the-scheduler.md).
+   ```
+
+   Stubs are redirects, never content, and they stay. Never a symlink.
+
+A repo on the single-file `DECISIONS.md` form splits it in one commit: one
+`docs/decisions/YYYY-MM-DD-slug.md` per entry, dated from the entry's own date,
+inbound links rewritten, and `DECISIONS.md` deleted with no stub at the old
+path — the file was never an id anyone cited.
 
 ## Plans
 
@@ -131,7 +225,7 @@ A Plan implements exactly one accepted decision, is committed on the branch
 for backup and handoff, and is deleted in the branch before merge.
 
 ```markdown
-# Plan: NNNN Title
+# Plan: YYYY-MM-DD-slug
 
 Decision: <link or path to the accepted decision>
 
@@ -174,11 +268,11 @@ dashboards, and chat notifications can key off `git log` without parsing
 files:
 
 ```text
-decision: propose 0007 <title>
-decision: accept 0007
-decision: implement 0007 (#88)
-plan: start 0007
-plan: done 0007
+decision: propose 2026-02-11-split-the-scheduler
+decision: accept 2026-02-11-split-the-scheduler
+decision: implement 2026-02-11-split-the-scheduler (#88)
+plan: start 2026-02-11-split-the-scheduler
+plan: done 2026-02-11-split-the-scheduler
 release: v1.2.0
 deploy: prod v1.2.0
 ```
@@ -203,19 +297,20 @@ commit is the event.
 
 ## Graduating to `docs/`
 
-Small repos keep everything as `UPPERCASE.md` at the root. Move a document to
-`docs/` when either trigger fires:
+Small repos keep everything as `UPPERCASE.md` at the root, except the per-file
+logs — decisions, runbooks, incidents — which live under `docs/` from their
+first entry. Move a document to `docs/` when either trigger fires:
 
 1. the root is getting cluttered with top-level files and folders (dotfiles
    don't count — that's where config conventions live), or
 2. the document has outgrown a single file: it needs siblings, status, or
    structure (a `ROADMAP.md` that needs per-item status becomes
-   `docs/roadmap.md`; a `DECISIONS.md` splits into `docs/decisions/`).
+   `docs/roadmap.md`).
 
-Graduate in one commit, rewrite inbound links in the same commit. No stub
-file at the old path, and no mirror in either direction. Update the
-Charter's `## Artifacts` table to record the new location, and let a link
-check in CI catch stale links.
+Graduate in one commit, rewrite inbound links in the same commit. No stub file
+at the old path, and no mirror in either direction; renaming a numbered
+decision log, above, is the one exception. Update the Charter's `## Artifacts`
+table to record the new location, and let a link check in CI catch stale links.
 
 ## Files that never graduate
 
