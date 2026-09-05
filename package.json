@@ -7,7 +7,9 @@
   "type": "module",
   "private": false,
   "files": [
-    "*.md"
+    "*.md",
+    ".claude-plugin",
+    "skills"
   ],
   "scripts": {
     "prepare": "husky"

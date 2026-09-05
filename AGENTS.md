@@ -27,3 +27,9 @@ pinned versions are the ones that execute.
 - `package.json`'s `scripts.prepare` is the one exception to "no scripts": it is
   never run by hand, only by the package manager on install, to wire up Husky's
   git hooks.
+- The operational rules for this project's own convention live in
+  `skills/conventional-docs/SKILL.md`. Read it before creating or editing any
+  Charter, Design, Decisions, Roadmap, Plan, or `.changes` artifact.
+  `README.md` is the human-facing spec and rationale; the skill is the
+  agent-facing procedure, so a change to the convention updates both in the
+  same commit.

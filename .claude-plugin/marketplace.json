@@ -1,0 +1,16 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "conventional-docs",
+  "description": "The Conventional Docs agent skill, as a Claude Code plugin.",
+  "owner": {
+    "name": "Ben Chatelain",
+    "url": "https://github.com/phatblat"
+  },
+  "plugins": [
+    {
+      "name": "conventional-docs",
+      "source": "./",
+      "description": "Teaches agents the Conventional Docs convention for a repository's documentation set."
+    }
+  ]
+}

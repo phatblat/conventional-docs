@@ -150,8 +150,24 @@ verified. Rows older than ~90 days render as unverified.
 
 ## Reference implementation
 
-An agent skill (`conventional-docs`) teaches coding agents to read, write, and
-graduate these artifacts, and to pick up a branch cold from its Plan.
+The `conventional-docs` agent skill (`skills/conventional-docs/SKILL.md`)
+teaches coding agents to read, write, and graduate these artifacts, and to
+pick up a branch cold from its Plan. It is a plain
+[Agent Skills](https://agentskills.io/specification) directory, so it installs
+into any agent that reads `SKILL.md`:
+
+```bash
+npx skills add phatblat/conventional-docs      # this project; -g for all projects
+```
+
+Claude Code installs it as a plugin instead:
+
+```text
+/plugin marketplace add phatblat/conventional-docs
+/plugin install conventional-docs@conventional-docs
+```
+
+Or copy `skills/conventional-docs/` into the agent's skills directory by hand.
 
 ## Related and complementary efforts
 

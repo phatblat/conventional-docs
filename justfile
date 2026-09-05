@@ -63,6 +63,11 @@ lint:
 lint-changes:
     bun scripts/validate-changes.mjs
 
+# Validate SKILL.md frontmatter against the Agent Skills spec
+[group('checks')]
+lint-skills:
+    bun scripts/validate-skills.mjs
+
 # Lint commit messages in a range (defaults to auto-detected base..HEAD)
 [group('checks')]
 [script]
@@ -80,7 +85,7 @@ commitlint from="" to="HEAD":
 
 # Run every gate: formatting, markdown lint, link check
 [group('checks')]
-check: format-check lint lint-changes test
+check: format-check lint lint-changes lint-skills test
 
 #
 # tests group recipes
@@ -89,4 +94,4 @@ check: format-check lint lint-changes test
 # Check markdown files for broken links
 [group('tests')]
 test:
-    bun x linkinator "*.md" --markdown
+    bun x linkinator "*.md" "skills/**/*.md" --markdown

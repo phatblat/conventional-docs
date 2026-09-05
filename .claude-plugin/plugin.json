@@ -1,0 +1,16 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "conventional-docs",
+  "description": "Teaches agents the Conventional Docs convention for a repository's documentation set.",
+  "author": { "name": "Ben Chatelain" },
+  "homepage": "https://github.com/phatblat/conventional-docs#readme",
+  "repository": "https://github.com/phatblat/conventional-docs",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "conventions",
+    "adr",
+    "changelog",
+    "agent-skill"
+  ]
+}
