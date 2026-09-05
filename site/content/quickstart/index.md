@@ -7,7 +7,7 @@ Adoption fits in one sitting. No tool is required.
 
 ## Start here
 
-Add these four files at the repository root:
+Add these to the repository:
 
 **`CHARTER.md`**
 
@@ -24,7 +24,7 @@ Add these four files at the repository root:
 
 - Charter: CHARTER.md
 - Design: DESIGN.md
-- Decisions: DECISIONS.md
+- Decisions: docs/decisions/
 ```
 
 **`DESIGN.md`**
@@ -37,21 +37,29 @@ Add these four files at the repository root:
 ## Components
 ```
 
-**`DECISIONS.md`**
+**`docs/decisions/YYYY-MM-DD-slug.md`** — decisions have no root form; the
+first one starts the directory:
 
 ```markdown
-# Decisions
+# <Decision title>
 
-## 0001: <first decision>
+## Issue
 
-- Status: proposed
-- Date: 2026-01-01
+## Status
 
-### Context
+This is a proposal that is **awaiting review**.
 
-### Decision
+## Assumptions and Constraints
 
-### Consequences
+## Argument
+
+## Architectural Decision
+
+## Positions
+
+## Dates
+
+- Published: TBD (set at merge).
 ```
 
 **`.changes/`** — an empty directory that gets a `<slug>.md` fragment file
@@ -68,6 +76,7 @@ commitlint config:
   'build', 'chore', 'ci',
   'decision', 'deploy', 'docs', 'feat', 'fix', 'perf',
   'plan', 'refactor', 'release', 'revert', 'style', 'test',
+  'todo',
 ]],
 ```
 

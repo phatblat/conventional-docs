@@ -1,0 +1,5 @@
+- Added: a detail page for every artifact under `/artifacts/` (Charter, Design, Decisions, Roadmap, Plan, Changes, Runbooks, Incidents, Todo), each with a skeleton and a worked example — Runbooks and Incidents stay a one-paragraph hint, since this project doesn't use them yet.
+- Added: a diagram of the loop on the homepage, alongside the existing text version.
+- Added: the Events artifact to the site's artifacts tables, with the same "proposed, not settled" note as `README.md`.
+- Fixed: the site's Decisions, Plan, and Todo paths, and its `by lifetime` table, to match the current convention — Decisions is `docs/decisions/YYYY-MM-DD-slug.md` only, and Plan and Todo live at the repository root with no graduated form.
+- Changed: every mention of Keep a Changelog on the site now links to it.

@@ -10,8 +10,7 @@ Small repos keep everything as `UPPERCASE.md` at the root. Move a document to
    don't count — that's where config conventions live), or
 2. the document has outgrown a single file: it needs siblings, per-item
    status, or internal structure (a `ROADMAP.md` that needs per-item status
-   becomes `docs/roadmap.md`; a `DECISIONS.md` splits into
-   `docs/decisions/`).
+   becomes `docs/roadmap.md`).
 
 ## The one-commit move
 
@@ -22,9 +21,20 @@ catches anything the commit missed.
 
 ## Decisions specifically
 
-`docs/decisions/` is the canonical graduated location. For `adr-tools`
-compatibility, add a root `.adr-dir` file containing `docs/decisions`; MADR
-already defaults to this path.
+Decisions have no small-repo form at all: every decision is its own file at
+`docs/decisions/YYYY-MM-DD-slug.md` — the date the record was written plus a
+kebab-case slug of its title — from the very first decision, whether or not
+the rest of the repository has graduated. The id is fixed at creation and is
+never re-dated, renumbered, or renamed. For `adr-tools` compatibility, add a
+root `.adr-dir` file containing `docs/decisions`; MADR already defaults to
+this path.
+
+## Plan and Todo never graduate
+
+Neither trigger above can fire for `PLAN.md` or `TODO.md`: both live on one
+branch or worktree and are deleted rather than grown, so there is no
+`docs/plan.md` and no `docs/todo.md`. The artifacts table shows `—` in the
+Graduated column for both.
 
 ## Graduating out of the repository entirely
 

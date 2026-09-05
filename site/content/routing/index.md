@@ -14,9 +14,9 @@ the answer.
 2. **Does it describe how the system works right now?** → Design
    (`DESIGN.md` / `docs/design.md`).
 3. **Is it a choice between alternatives, made once, with consequences?** →
-   Decision (`DECISIONS.md` / `docs/decisions/NNNN-slug.md`).
-4. **Are these the ordered steps to carry out an accepted decision?** → Plan
-   (`PLAN.md` / `docs/plan.md`).
+   [Decision](../artifacts/decisions/index.md) (`docs/decisions/YYYY-MM-DD-slug.md`, no small-repo form).
+4. **Are these the ordered steps to carry out an accepted decision?** →
+   [Plan](../artifacts/plan/index.md) (`PLAN.md`, no graduated form).
 5. **Is it something intended for later, not now?** → Roadmap
    (`ROADMAP.md` / `docs/roadmap.md`).
 6. **Will a user of the software notice this change?** → a fragment at
@@ -30,8 +30,9 @@ the answer.
 10. **Is it how an outsider installs or uses the project?** → `README.md`, or
     user documentation — [Diátaxis](https://diataxis.fr/) territory, outside
     this convention.
-11. **Is it true only for the next hour?** → a session Todo. Uncommitted by
-    default; `docs/todo.md` only if you deliberately opt in.
+11. **Is it where this branch's work currently stands, for a cold restart or
+    handoff?** → [Todo](../artifacts/todo/index.md) (`TODO.md`, no graduated form), committed and
+    refreshed at each checkpoint, deleted before merge.
 
 ## By lifetime
 
@@ -40,9 +41,8 @@ the answer.
 | Project               | Charter                   |
 | Living                | Design, Roadmap, Runbooks |
 | Append-only           | Decisions, Incidents      |
-| One branch / worktree | Plan                      |
+| One branch / worktree | Plan, Todo                |
 | Per-release           | Changes                   |
-| One session           | Todo                      |
 
 ## Common mis-routes
 
