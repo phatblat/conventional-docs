@@ -1,0 +1,2 @@
+- Added: a `details` shortcode that renders code samples as native, no-JS collapsible `<details>`/`<summary>` blocks, initially collapsed.
+- Changed: the five code samples on the Quickstart page now use it.

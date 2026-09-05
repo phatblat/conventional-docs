@@ -9,7 +9,7 @@ Adoption fits in one sitting. No tool is required.
 
 Add these to the repository:
 
-**`CHARTER.md`**
+{{< details summary="CHARTER.md" >}}
 
 ```markdown
 # Charter
@@ -27,7 +27,9 @@ Add these to the repository:
 - Decisions: docs/decisions/
 ```
 
-**`DESIGN.md`**
+{{< /details >}}
+
+{{< details summary="DESIGN.md" >}}
 
 ```markdown
 # Design
@@ -37,8 +39,11 @@ Add these to the repository:
 ## Components
 ```
 
-**`docs/decisions/YYYY-MM-DD-slug.md`** — decisions have no root form; the
-first one starts the directory:
+{{< /details >}}
+
+Decisions have no root form; the first one starts the directory:
+
+{{< details summary="docs/decisions/YYYY-MM-DD-slug.md" >}}
 
 ```markdown
 # <Decision title>
@@ -62,6 +67,8 @@ This is a proposal that is **awaiting review**.
 - Published: TBD (set at merge).
 ```
 
+{{< /details >}}
+
 **`.changes/`** — an empty directory that gets a `<slug>.md` fragment file
 alongside every user-facing change from now on.
 
@@ -70,6 +77,8 @@ alongside every user-facing change from now on.
 Publishing lifecycle events as Conventional Commits lets hooks and dashboards
 key off `git log` without parsing files. Add the custom types to your
 commitlint config:
+
+{{< details summary="commitlint.config.js" >}}
 
 ```js
 'type-enum': [2, 'always', [
@@ -80,11 +89,17 @@ commitlint config:
 ]],
 ```
 
+{{< /details >}}
+
 ## Tell people
+
+{{< details summary="README.md" >}}
 
 ```markdown
 [![Conventional Docs](https://img.shields.io/badge/Conventional%20Docs-draft-5B3DF5)](https://phatblat.github.io/conventional-docs/)
 ```
+
+{{< /details >}}
 
 ## Required vs. recommended
 

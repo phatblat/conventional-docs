@@ -242,6 +242,56 @@ pre code {
   font-size: 0.9em;
 }
 
+/* Collapsible code samples (details/summary shortcode) */
+
+.code-details {
+  margin-bottom: 1.5rem;
+}
+
+.code-details summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  background: var(--c-bg-raised);
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  list-style: none;
+}
+
+.code-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.code-details summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.6em;
+  font-size: 0.7em;
+  transition: transform 0.15s ease;
+}
+
+.code-details summary:hover,
+.code-details summary:focus-visible {
+  border-color: var(--c-accent);
+  outline: none;
+}
+
+.code-details[open] summary {
+  border-radius: var(--radius) var(--radius) 0 0;
+  margin-bottom: 0;
+}
+
+.code-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.code-details pre {
+  margin-top: 0;
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
 /* Callouts */
 
 .callout {
