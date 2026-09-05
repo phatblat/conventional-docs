@@ -1,0 +1,65 @@
+/* Hugoplate: near-black + white, Heebo/Signika typography, generous
+   Tailwind-style section spacing, and a solid + outline button pairing —
+   the signature look of the Hugoplate Tailwind SaaS starter
+   (zeon-studio/hugoplate). */
+
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Signika:wght@600;700&display=swap');
+
+:root {
+  --font-body:
+    'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading:
+    'Signika', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --measure: 44rem;
+  --radius: 0.5rem;
+  --weight-heading: 700;
+  --tracking-heading: -0.01em;
+  --scale-h1: clamp(2.25rem, 5vw, 3.5rem);
+  --line-height: 1.75;
+
+  --c-bg: #ffffff;
+  --c-bg-raised: #f6f6f6;
+  --c-fg: #121212;
+  --c-fg-muted: #5b5b5b;
+  --c-rule: #e5e5e5;
+  --c-accent: #121212;
+  --c-accent-fg: #ffffff;
+  --c-accent-soft: rgba(18, 18, 18, 0.06);
+  --c-code-bg: #f6f6f6;
+  --hero-bg: #f6f6f6;
+  --hero-fg: #121212;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #1c1c1c;
+    --c-bg-raised: #262626;
+    --c-fg: #ffffff;
+    --c-fg-muted: #a3a3a3;
+    --c-rule: #333333;
+    --c-accent: #ffffff;
+    --c-accent-fg: #1c1c1c;
+    --c-accent-soft: rgba(255, 255, 255, 0.08);
+    --c-code-bg: #262626;
+    --hero-bg: #262626;
+    --hero-fg: #ffffff;
+  }
+}
+
+/* Style-specific rules */
+
+.hero .wrap {
+  padding-block: 5rem;
+}
+
+.actions a:not(:first-child) {
+  background: transparent;
+  color: var(--hero-fg, var(--c-fg));
+  border: 2px solid var(--hero-fg, var(--c-fg));
+}
+
+.callout {
+  background: var(--c-bg-raised);
+  border-left-width: 4px;
+}

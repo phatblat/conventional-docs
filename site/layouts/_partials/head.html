@@ -22,7 +22,7 @@
 {{ $base := resources.Get "css/base.css" }}
 {{ if site.Params.stylePreview }}
   {{ $styles := dict }}
-  {{ range slice "ink" "terminal" "editorial" }}
+  {{ range slice "fixit" "doks" "hugoplate" }}
     {{ $theme := resources.Get (printf "css/theme-%s.css" .) }}
     {{ $bundle := resources.Concat (printf "css/site-%s.css" .) (slice $base $theme) | minify | fingerprint }}
     {{ $styles = merge $styles (dict . $bundle.RelPermalink) }}

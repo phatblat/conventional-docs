@@ -1,6 +1,6 @@
 /* Structural rules only. Every visual property comes from a custom property
-   defined by the active theme file (theme-ink.css, theme-terminal.css, or
-   theme-editorial.css). Nothing in this file names a color, font, or size
+   defined by the active theme file (theme-fixit.css, theme-doks.css, or
+   theme-hugoplate.css). Nothing in this file names a color, font, or size
    directly. */
 
 *,

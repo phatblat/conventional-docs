@@ -10,7 +10,7 @@ params:
   tagline: A predictable shape for a repository's docs, so humans and agents know where to look.
   repo: https://github.com/phatblat/conventional-docs
   specStatus: draft
-  style: ink
+  style: fixit
   stylePreview: true
 markup:
   goldmark:

@@ -1,0 +1,79 @@
+/* FixIt: vibrant magenta/pink accent, rounded blog-card design, admonition-
+   style callouts, and a macOS-style three-dot code block header — the
+   signature look of the FixIt Hugo theme (hugo-fixit/FixIt). */
+
+:root {
+  --font-body:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-heading:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --measure: 42rem;
+  --radius: 0.75rem;
+  --weight-heading: 700;
+  --tracking-heading: -0.01em;
+  --scale-h1: 2.25rem;
+  --line-height: 1.7;
+
+  --c-bg: #ffffff;
+  --c-bg-raised: #f7f7f9;
+  --c-fg: #2e2e33;
+  --c-fg-muted: #6b7280;
+  --c-rule: #e5e7eb;
+  --c-accent: #d6006b;
+  --c-accent-fg: #ffffff;
+  --c-accent-soft: rgba(255, 64, 136, 0.12);
+  --c-code-bg: #f7f7f9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #1b1c1f;
+    --c-bg-raised: #232428;
+    --c-fg: #e8e9ec;
+    --c-fg-muted: #9aa0ac;
+    --c-rule: #33353a;
+    --c-accent: #ff6fa8;
+    --c-accent-fg: #1b1c1f;
+    --c-accent-soft: rgba(255, 111, 168, 0.14);
+    --c-code-bg: #202124;
+  }
+}
+
+/* Style-specific rules */
+
+.button {
+  border-radius: 999px;
+}
+
+.cards li {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.callout {
+  border-left-width: 4px;
+}
+
+/* macOS-style traffic-light code block header, a FixIt/LoveIt-family signature */
+pre {
+  position: relative;
+  padding-top: 2.25rem;
+}
+
+pre::before {
+  content: '';
+  position: absolute;
+  top: 0.9rem;
+  left: 1.15rem;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow:
+    1.1rem 0 0 #ffbd2e,
+    2.2rem 0 0 #27c93f;
+}
