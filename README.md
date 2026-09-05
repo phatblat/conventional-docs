@@ -19,6 +19,9 @@ Two axes decide everything else:
 - **Audience** — who reads it. Outsiders and machines read the repo root;
   maintainers read `docs/`.
 
+Why this convention exists, what it is trying to achieve, and what it is
+designed to enable: [CHARTER.md](CHARTER.md).
+
 ## The artifacts
 
 | Artifact  | Small repo           | Graduated                           | Lifetime              | Answers                                               |
