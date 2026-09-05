@@ -58,10 +58,20 @@ format-check:
 lint:
     {{ mise }} markdownlint-cli2 "**/*.md"
 
-# Lint commit messages in a range (defaults to the last commit)
+# Lint commit messages in a range (defaults to auto-detected base..HEAD)
 [group('checks')]
-commitlint from="HEAD~1" to="HEAD":
-    bun x commitlint --from {{ from }} --to {{ to }} --verbose
+[script]
+commitlint from="" to="HEAD":
+    set -euo pipefail
+    base="{{ from }}"
+    if [ -z "$base" ]; then
+      if git rev-parse HEAD~1 >/dev/null 2>&1; then
+        base=HEAD~1
+      else
+        base=$(git rev-list --max-parents=0 HEAD)
+      fi
+    fi
+    bun x commitlint --from "$base" --to {{ to }} --verbose
 
 # Run every gate: formatting, markdown lint, link check
 [group('checks')]
