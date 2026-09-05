@@ -1,0 +1,1 @@
+- Fixed: the spec's `decision: propose <id>` subject no longer carries a leftover `<title>` argument from the old numbered-id era — the id is the whole reference, matching `EVENTS.md`.

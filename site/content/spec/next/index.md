@@ -162,7 +162,7 @@ interpreted as described in
     by reference, MUST NOT duplicate its content, and MUST NOT be a symlink.
 27. A repository that publishes lifecycle events MUST publish them as
     Conventional Commits with the types `decision`, `plan`, `todo`, `release`,
-    `deploy` and these subject forms: `decision: propose <id> <title>`,
+    `deploy` and these subject forms: `decision: propose <id>`,
     `decision: accept <id>`, `decision: reject <id>`,
     `decision: implement <id> (#<pr>)`, `plan: start <id>`, `plan: done <id>`,
     `todo: sync`, `todo: clear`, `release: v<semver>`,
