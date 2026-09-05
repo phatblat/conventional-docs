@@ -85,7 +85,7 @@ interpreted as described in
 19. At release time, fragments MUST be folded into the release notes and
     `CHANGELOG.md`, and the consumed files MUST be deleted in the same commit
     as the version bump.
-20. `CHANGELOG.md` MUST follow [Keep a Changelog](https://keepachangelog.com/)
+20. `CHANGELOG.md` MUST follow [Keep a Changelog](https://keepachangelog.com/en/2.0.0/)
     and MUST NOT be hand-edited.
 21. Runbooks are OPTIONAL; when present they MUST live at
     `docs/runbooks/<trigger>.md`, one file per trigger.

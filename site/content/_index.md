@@ -62,7 +62,7 @@ session, or handed to another agent, needs a Plan.
 - **Not user documentation.** Tutorials, how-tos, and reference docs are
   [Diátaxis](https://diataxis.fr/)'s territory. Where they overlap, Design is
   explanation/reference and runbooks are how-to.
-- **Not a tool, but tooling helps.** Like [Keep a Changelog](https://keepachangelog.com/), this convention
+- **Not a tool, but tooling helps.** Like [Keep a Changelog](https://keepachangelog.com/en/2.0.0/), this convention
   costs only attention to follow by hand — no CI check or generator is
   required. Both are highly recommended once you adopt it: a required CI
   check is a checkpoint that confirms the right artifact was captured before

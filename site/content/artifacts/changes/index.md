@@ -14,7 +14,7 @@ What will ship in the next release, in plain language.
 One file per user-facing change, added in the same commit or pull request as
 the change itself, with a kebab-case slug matching the change. Every
 non-blank line is a markdown unordered list item opening with one of the six
-[Keep a Changelog](https://keepachangelog.com/) categories — `Added`,
+[Keep a Changelog](https://keepachangelog.com/en/2.0.0/) categories — `Added`,
 `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security` — in the exact form
 `- <Category>: <description>`.
 
@@ -42,7 +42,7 @@ At release time, every fragment is concatenated, grouped by category, and
 folded into that release's notes and `CHANGELOG.md`. The consumed fragment
 files are deleted in the same commit as the version bump —
 `.changes/` holds only what hasn't shipped yet. `CHANGELOG.md` itself follows
-[Keep a Changelog](https://keepachangelog.com/) and is never hand-edited;
+[Keep a Changelog](https://keepachangelog.com/en/2.0.0/) and is never hand-edited;
 version fields are never hand-bumped.
 
 **Anti-pattern:** reconstructing release notes from commit messages after the

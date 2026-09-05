@@ -238,7 +238,7 @@ Or copy `skills/conventional-docs/` into the agent's skills directory by hand.
   **[conventional-changelog](https://github.com/conventional-changelog)** — the
   namesake. The event prefixes above are ordinary Conventional Commits with
   custom types.
-- **[Keep a Changelog](https://keepachangelog.com/)** — the changelog itself,
+- **[Keep a Changelog](https://keepachangelog.com/en/2.0.0/)** — the changelog itself,
   and the model for how small a convention should be.
 - **[ADRs](https://adr.github.io/)** / **[MADR](https://adr.github.io/madr/)** —
   the Decisions folder is an ADR log with a status lifecycle; a proposed ADR is
