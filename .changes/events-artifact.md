@@ -1,0 +1,1 @@
+- Added: `EVENTS.md`, a proposed home for the lifecycle event vocabulary, graduating to `docs/events.md`.

@@ -1,8 +1,8 @@
 export default {
   extends: ['@commitlint/config-conventional'],
   rules: {
-    // Add this project's own lifecycle event types (see README.md#events)
-    // to the standard Conventional Commits type list.
+    // Add this project's own lifecycle event types (see EVENTS.md) to the
+    // standard Conventional Commits type list.
     'type-enum': [
       2,
       'always',

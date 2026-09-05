@@ -1,6 +1,6 @@
 ---
 name: conventional-docs
-description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, and .changes release-note fragments. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when adding a user-facing change that needs a release-note fragment, when writing decision, plan, release, or deploy commit events, or when graduating root documents into docs/.
+description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Events, and .changes release-note fragments. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when adding a user-facing change that needs a release-note fragment, when writing decision, plan, release, or deploy commit events, or when graduating root documents into docs/.
 license: MIT
 ---
 
@@ -15,11 +15,11 @@ look. Full rationale and rendered tables:
 ## When to use this skill
 
 Use it when creating or editing a `CHARTER.md`, `DESIGN.md`, `docs/decisions/`,
-`ROADMAP.md`, or `PLAN.md` (or their graduated `docs/` forms); when deciding
-whether a change needs a Decision or a Plan; when a change is user-facing and
-needs a `.changes/<slug>.md` fragment; when writing a `decision:`, `plan:`,
-`release:`, or `deploy:` commit; or when a root document has outgrown a
-single file and needs to graduate into `docs/`.
+`ROADMAP.md`, `PLAN.md`, or `EVENTS.md` (or their graduated `docs/` forms);
+when deciding whether a change needs a Decision or a Plan; when a change is
+user-facing and needs a `.changes/<slug>.md` fragment; when writing a
+`decision:`, `plan:`, `release:`, or `deploy:` commit; or when a root document
+has outgrown a single file and needs to graduate into `docs/`.
 
 Do not use it for user-facing documentation — tutorials, how-tos, and
 reference docs belong to [Diátaxis](https://diataxis.fr/), not this
@@ -28,11 +28,11 @@ adopted Conventional Docs; ask first.
 
 ## Orient before writing
 
-1. Look for root `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `PLAN.md`, and a
-   `.changes/` directory.
+1. Look for root `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `PLAN.md`,
+   `EVENTS.md`, and a `.changes/` directory.
 2. Look for the graduated forms under `docs/` (`docs/charter.md`,
    `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/plan.md`,
-   `docs/runbooks/`, `docs/incidents/`, `docs/todo.md`).
+   `docs/events.md`, `docs/runbooks/`, `docs/incidents/`, `docs/todo.md`).
 3. When a Charter exists, its `## Artifacts` table is authoritative for where
    each document lives; trust it over guessing.
 4. When `PLAN.md`/`docs/plan.md` exists, read it first — it is the cold-start
@@ -50,9 +50,13 @@ adopted Conventional Docs; ask first.
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
 | Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
+| Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
 | Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
 | Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
 | Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
+
+_Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
+as its home is still under review._
 
 A _proposed_ decision is the spec. Once accepted it is frozen; changing your
 mind is a new decision that supersedes it. The Plan is written from an
@@ -267,6 +271,11 @@ Lifecycle transitions are commits with Conventional Commits types, so hooks,
 dashboards, and chat notifications can key off `git log` without parsing
 files:
 
+A repo's own vocabulary lives in `EVENTS.md` (graduated: `docs/events.md`)
+when it has one — read it before writing an event commit, because a repo may
+announce types beyond the ones below. `EVENTS.md` is a proposed artifact, not
+a settled one: read an existing file, and do not create one unless asked.
+
 ```text
 decision: propose 2026-02-11-split-the-scheduler
 decision: accept 2026-02-11-split-the-scheduler
@@ -276,6 +285,9 @@ plan: done 2026-02-11-split-the-scheduler
 release: v1.2.0
 deploy: prod v1.2.0
 ```
+
+The id is the entire reference; there is no separate title argument, which
+also keeps the subject inside the 100-character header limit.
 
 These are ordinary Conventional Commits types, so an adopting repo's
 commitlint config must extend `type-enum` with `decision`, `deploy`, `plan`,
@@ -291,6 +303,10 @@ and `release`:
   ],
 ],
 ```
+
+`type-enum` is the half that always exists, and it is what rejects a bad
+subject, so extend it first when a repo adds an event type; where a repo
+writes the prose half down is what `EVENTS.md` is still proposing.
 
 Notifications are doorbells: they say where to look, never what to do. The
 commit is the event.

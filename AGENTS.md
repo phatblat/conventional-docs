@@ -18,7 +18,8 @@ pinned versions are the ones that execute.
 - Formatting is owned by the formatter. Run `just format`; never hand-format.
 - Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/),
   plus this project's own `decision:`/`plan:`/`release:`/`deploy:` event types
-  (see `commitlint.config.js`). `.husky/commit-msg` enforces this on every commit.
+  (`EVENTS.md`, enforced by `commitlint.config.js`). `.husky/commit-msg` runs
+  commitlint on every commit.
 - Releases are automated by `semantic-release` on push to `main`; never hand-edit
   `CHANGELOG.md` or bump `package.json`'s version. Every user-facing change adds
   a `.changes/<slug>.md` fragment in the same commit (see `.changes/README.md`);

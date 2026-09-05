@@ -32,9 +32,13 @@ designed to enable: [CHARTER.md](CHARTER.md).
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
 | Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
+| Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
 | Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
 | Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
 | Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
+
+_Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
+as its home is [still under review](docs/decisions/2026-09-05-give-events-their-own-artifact.md)._
 
 A _proposed_ decision is the spec. Once accepted it is frozen; changing your
 mind is a new decision that supersedes it. The Plan is written from an accepted
@@ -107,23 +111,8 @@ Thresholds: a PR over ~100 lines, or one that changes behavior, an interface,
 or a dependency, needs a Decision. Work spanning more than one session, or
 handed to another agent, needs a Plan. Anything smaller just happens.
 
-## Events
-
-Lifecycle transitions are commits with Conventional Commits types, so hooks,
-dashboards, and chat notifications can key off `git log` without parsing files:
-
-```text
-decision: propose 2026-02-11-split-the-scheduler
-decision: accept 2026-02-11-split-the-scheduler
-decision: implement 2026-02-11-split-the-scheduler (#88)
-plan: start 2026-02-11-split-the-scheduler
-plan: done 2026-02-11-split-the-scheduler
-release: v1.2.0
-deploy: prod v1.2.0
-```
-
-Notifications are doorbells: they say where to look, never what to do. The
-commit is the event.
+Each transition is announced by a commit; the vocabulary is in
+[EVENTS.md](EVENTS.md).
 
 ## Agent instruction files
 
