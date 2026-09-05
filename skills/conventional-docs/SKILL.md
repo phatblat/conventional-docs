@@ -1,6 +1,6 @@
 ---
 name: conventional-docs
-description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Events, and .changes release-note fragments. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when adding a user-facing change that needs a release-note fragment, when writing decision, plan, release, or deploy commit events, or when graduating root documents into docs/.
+description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and .changes release-note fragments. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when adding a user-facing change that needs a release-note fragment, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/.
 license: MIT
 ---
 
@@ -15,11 +15,12 @@ look. Full rationale and rendered tables:
 ## When to use this skill
 
 Use it when creating or editing a `CHARTER.md`, `DESIGN.md`, `docs/decisions/`,
-`ROADMAP.md`, `PLAN.md`, or `EVENTS.md` (or their graduated `docs/` forms);
-when deciding whether a change needs a Decision or a Plan; when a change is
-user-facing and needs a `.changes/<slug>.md` fragment; when writing a
-`decision:`, `plan:`, `release:`, or `deploy:` commit; or when a root document
-has outgrown a single file and needs to graduate into `docs/`.
+`ROADMAP.md`, or `EVENTS.md` (or their graduated `docs/` forms), or a
+`PLAN.md` or `TODO.md`; when deciding whether a change needs a Decision or a
+Plan; when a change is user-facing and needs a `.changes/<slug>.md` fragment;
+when writing a `decision:`, `plan:`, `todo:`, `release:`, or `deploy:` commit;
+or when a root document has outgrown a single file and needs to graduate into
+`docs/`.
 
 Do not use it for user-facing documentation — tutorials, how-tos, and
 reference docs belong to [Diátaxis](https://diataxis.fr/), not this
@@ -29,14 +30,16 @@ adopted Conventional Docs; ask first.
 ## Orient before writing
 
 1. Look for root `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `PLAN.md`,
-   `EVENTS.md`, and a `.changes/` directory.
+   `TODO.md`, `EVENTS.md`, and a `.changes/` directory.
 2. Look for the graduated forms under `docs/` (`docs/charter.md`,
-   `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/plan.md`,
-   `docs/events.md`, `docs/runbooks/`, `docs/incidents/`, `docs/todo.md`).
+   `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/events.md`,
+   `docs/runbooks/`, `docs/incidents/`); `PLAN.md` and `TODO.md` have no
+   graduated form.
 3. When a Charter exists, its `## Artifacts` table is authoritative for where
    each document lives; trust it over guessing.
-4. When `PLAN.md`/`docs/plan.md` exists, read it first — it is the cold-start
-   handoff for the current branch, and names the decision it implements.
+4. When `PLAN.md` exists, read it first — it is the cold-start handoff for
+   the current branch, and names the decision it implements. When `TODO.md`
+   exists, read it next: it is where the last session left off.
 5. When none of these exist, the repo has not adopted the convention: say so
    and ask before creating artifacts.
 
@@ -48,12 +51,12 @@ adopted Conventional Docs; ask first.
 | Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
 | Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
-| Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
+| Plan      | `PLAN.md`            | —                                   | one branch / worktree | exact steps for the current decision                  |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
 | Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
 | Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
 | Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
+| Todo      | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
 
 _Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
 as its home is still under review._
@@ -75,8 +78,8 @@ to another agent, needs a Plan. Anything smaller just happens.
 intent → Decision (proposed) → review → Decision (accepted)
                                               ↓
    Design updated ← PR merged ← execute ← Plan written
-   Decision → implemented          (Todo)
-   Plan deleted
+   Decision → implemented       Todo cached
+   Plan and Todo deleted
 ```
 
 - **Decision (proposed)** — written when a change crosses a threshold above;
@@ -85,10 +88,11 @@ intent → Decision (proposed) → review → Decision (accepted)
   `decision: accept <id>`.
 - **Plan written** — the accepted decision's exact steps, for handoff or a
   cold restart; not a separate commit event of its own.
-- **execute** — the Plan's steps happen; per-session state goes in agent
-  memory or an opt-in `docs/todo.md`, not a commit.
+- **execute** — the Plan's steps happen, and the agent's own list is cached
+  in `TODO.md` and committed with `todo: sync` at each checkpoint.
 - **PR merged / Design updated** — the living Design doc is updated to match
-  reality; the Plan file is deleted in the same branch.
+  reality; `PLAN.md` is deleted by `plan: done` and `TODO.md` by
+  `todo: clear`, both before merge.
 - **Decision → implemented** — committed with
   `decision: implement <id> (#PR)` once merged.
 
@@ -247,6 +251,46 @@ The commands or checks that prove the work is done.
 Where this branch left off, for whoever picks it up next.
 ```
 
+## Todo
+
+`TODO.md` at the repository root is a cache of the list the agent is already
+keeping, never a source and never a backlog; write it whenever tracking a
+list at all, refresh it as the list changes, and commit it at each checkpoint
+with `todo: sync`; there is no threshold, so a change too small for a Plan
+still gets a Todo when the agent is tracking steps for it.
+
+```markdown
+# Todo
+
+- Session: <agent session id, or the agent's name when it has none>
+- Synced: <YYYY-MM-DDTHH:MM:SSZ>
+- Plan: `PLAN.md` — or `none` when the change needs no Plan
+
+## Steps
+
+- [x] A finished step
+- [ ] The step in progress
+- [ ] A step not started
+
+## Notes
+
+What the list cannot carry: a blocked step, a command that failed, a choice
+made mid-flight. Omit this section when there is nothing to say.
+```
+
+- Refresh `Synced` on every write, so a reader can tell the cache from the
+  session that is gone.
+- The file belongs to the branch, not the session: a later session on the
+  same branch reads it and takes it over.
+- Delete it before merge, in a `todo: clear` commit of its own.
+- The single-artifact rule for `todo:` and `plan:` commits and its net-zero
+  consequence applies here too: never fold the cache into a commit that
+  carries work.
+- `TODO.md` passes the same markdown gates as every other file, so keep the
+  skeleton's shape: `-` bullets, a blank line around every list and heading.
+- A repo whose existing `TODO.md` is a durable backlog has a Roadmap under
+  the wrong name and renames it to `ROADMAP.md` when adopting.
+
 ## Release-note fragments
 
 One `.changes/<slug>.md` file per user-facing change, with a kebab-case slug
@@ -269,7 +313,7 @@ fields are never hand-bumped.
 
 Lifecycle transitions are commits with Conventional Commits types, so hooks,
 dashboards, and chat notifications can key off `git log` without parsing
-files:
+files.
 
 A repo's own vocabulary lives in `EVENTS.md` (graduated: `docs/events.md`)
 when it has one — read it before writing an event commit, because a repo may
@@ -282,6 +326,8 @@ decision: accept 2026-02-11-split-the-scheduler
 decision: implement 2026-02-11-split-the-scheduler (#88)
 plan: start 2026-02-11-split-the-scheduler
 plan: done 2026-02-11-split-the-scheduler
+todo: sync
+todo: clear
 release: v1.2.0
 deploy: prod v1.2.0
 ```
@@ -291,7 +337,7 @@ also keeps the subject inside the 100-character header limit.
 
 These are ordinary Conventional Commits types, so an adopting repo's
 commitlint config must extend `type-enum` with `decision`, `deploy`, `plan`,
-and `release`:
+`release`, and `todo`:
 
 ```js
 'type-enum': [
@@ -300,6 +346,7 @@ and `release`:
   [
     'build', 'chore', 'ci', 'decision', 'deploy', 'docs', 'feat', 'fix',
     'perf', 'plan', 'refactor', 'release', 'revert', 'style', 'test',
+    'todo',
   ],
 ],
 ```
@@ -322,6 +369,10 @@ first entry. Move a document to `docs/` when either trigger fires:
 2. the document has outgrown a single file: it needs siblings, status, or
    structure (a `ROADMAP.md` that needs per-item status becomes
    `docs/roadmap.md`).
+
+`PLAN.md` and `TODO.md` never move: neither trigger can fire for a document
+that lives on one branch and is deleted rather than grown; there is no
+`docs/plan.md` and no `docs/todo.md`.
 
 Graduate in one commit, rewrite inbound links in the same commit. No stub file
 at the old path, and no mirror in either direction; renaming a numbered

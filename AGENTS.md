@@ -17,9 +17,9 @@ pinned versions are the ones that execute.
 
 - Formatting is owned by the formatter. Run `just format`; never hand-format.
 - Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/),
-  plus this project's own `decision:`/`plan:`/`release:`/`deploy:` event types
-  (`EVENTS.md`, enforced by `commitlint.config.js`). `.husky/commit-msg` runs
-  commitlint on every commit.
+  plus this project's own `decision:`/`plan:`/`todo:`/`release:`/`deploy:` event
+  types (`EVENTS.md`, enforced by `commitlint.config.js`). `.husky/commit-msg`
+  runs commitlint on every commit.
 - Releases are automated by `semantic-release` on push to `main`; never hand-edit
   `CHANGELOG.md` or bump `package.json`'s version. Every user-facing change adds
   a `.changes/<slug>.md` fragment in the same commit (see `.changes/README.md`);
@@ -30,7 +30,7 @@ pinned versions are the ones that execute.
   git hooks.
 - The operational rules for this project's own convention live in
   `skills/conventional-docs/SKILL.md`. Read it before creating or editing any
-  Charter, Design, Decisions, Roadmap, Plan, or `.changes` artifact.
+  Charter, Design, Decisions, Roadmap, Plan, Todo, or `.changes` artifact.
   `README.md` is the human-facing spec and rationale; the skill is the
   agent-facing procedure, so a change to the convention updates both in the
   same commit.

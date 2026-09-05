@@ -14,6 +14,8 @@ decision: accept 2026-02-11-split-the-scheduler
 decision: implement 2026-02-11-split-the-scheduler (#88)
 plan: start 2026-02-11-split-the-scheduler
 plan: done 2026-02-11-split-the-scheduler
+todo: sync
+todo: clear
 release: v1.2.0
 deploy: prod v1.2.0
 ```
@@ -23,6 +25,8 @@ deploy: prod v1.2.0
 - `decision: implement <id> (#PR)` — the change merged.
 - `plan: start <id>` — a Plan for the accepted decision is on a branch.
 - `plan: done <id>` — the Plan's steps are finished and its file is deleted.
+- `todo: sync` — `TODO.md` is refreshed from the agent's live list.
+- `todo: clear` — `TODO.md` is deleted; the session's list is done with.
 - `release: v<version>` — a version shipped.
 - `deploy: <environment> v<version>` — a version reached an environment.
 
@@ -31,8 +35,13 @@ deploy: prod v1.2.0
 `propose` carries no second copy of it and the subject stays inside
 Conventional Commits' 100-character header limit.
 
+`todo: sync` and `todo: clear` carry no id, because the cache belongs to a
+session rather than a decision. A `plan:` or `todo:` commit touches only its
+own artifact, which is what makes each pair net-zero and the bookkeeping
+mechanically removable.
+
 These are ordinary Conventional Commits types, so this repo's commitlint config
-extends `type-enum` with `decision`, `deploy`, `plan`, and `release`:
+extends `type-enum` with `decision`, `deploy`, `plan`, `release`, and `todo`:
 
 ```js
 'type-enum': [
@@ -41,6 +50,7 @@ extends `type-enum` with `decision`, `deploy`, `plan`, and `release`:
   [
     'build', 'chore', 'ci', 'decision', 'deploy', 'docs', 'feat', 'fix',
     'perf', 'plan', 'refactor', 'release', 'revert', 'style', 'test',
+    'todo',
   ],
 ],
 ```

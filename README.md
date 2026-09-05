@@ -30,19 +30,21 @@ designed to enable: [CHARTER.md](CHARTER.md).
 | Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
 | Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
-| Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
+| Plan      | `PLAN.md`            | —                                   | one branch / worktree | exact steps for the current decision                  |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
 | Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
 | Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
 | Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
+| Todo      | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
 
 _Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
 as its home is [still under review](docs/decisions/2026-09-05-give-events-their-own-artifact.md)._
 
 A _proposed_ decision is the spec. Once accepted it is frozen; changing your
 mind is a new decision that supersedes it. The Plan is written from an accepted
-decision, committed for backup and handoff, and deleted before merge.
+decision, committed for backup and handoff, and deleted before merge. The Todo
+is the agent's own list, cached in git so a lost session is recoverable, and
+deleted the same way.
 
 ### Files that never graduate
 
@@ -64,6 +66,10 @@ first entry. Move a document to `docs/` when either trigger fires:
 2. the document has outgrown a single file: it needs siblings, status, or
    structure (a `ROADMAP.md` that needs per-item status becomes
    `docs/roadmap.md`).
+
+`PLAN.md` and `TODO.md` never move: neither trigger can fire for a document
+that lives on one branch and is deleted rather than grown. There is no
+`docs/plan.md` and no `docs/todo.md`.
 
 Graduate in one commit, rewrite inbound links in the same commit, and let a
 link check in CI catch the rest. No stub files at the old path, and no mirrors
@@ -97,14 +103,37 @@ and folded into that release's notes and the `CHANGELOG.md` entry. The
 consumed fragment files are deleted in the same commit as the version bump —
 `.changes/` holds only what hasn't shipped yet.
 
+### The todo cache
+
+`TODO.md` is the working list the agent is already keeping, written to a file
+and committed. It is a cache, not a source: the live list is in the session,
+and the file carries the session id and the time it was taken so a reader can
+tell it from a session that is gone. A committed list is a rollback point; a
+pushed one survives the machine. The agent writes it whenever it is tracking a
+list at all, commits it with `todo: sync` at each checkpoint, and deletes it
+with `todo: clear` before merge.
+
+A `plan:` or `todo:` commit touches only its own artifact. That is what makes
+the bookkeeping disposable: `plan: start` adds `PLAN.md` and `plan: done`
+deletes it, `todo: sync` writes `TODO.md` and `todo: clear` deletes it, so
+dropping every one of those commits from a branch leaves the tree exactly as
+it was, and a squash merge erases them for free. A commit that mixes one of
+these files with real work cannot be dropped, so it is not one of these
+events.
+
+`TODO.md` is not a backlog. Where a repo already keeps one under that name, it
+is a Roadmap and is renamed to `ROADMAP.md` when the convention is adopted;
+the Roadmap outlives every branch and the Todo does not outlive the one it is
+on.
+
 ## The loop
 
 ```text
 intent → Decision (proposed) → review → Decision (accepted)
                                               ↓
    Design updated ← PR merged ← execute ← Plan written
-   Decision → implemented          (Todo)
-   Plan deleted
+   Decision → implemented       Todo cached
+   Plan and Todo deleted
 ```
 
 Thresholds: a PR over ~100 lines, or one that changes behavior, an interface,

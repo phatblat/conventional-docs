@@ -22,6 +22,7 @@ export default {
         'revert',
         'style',
         'test',
+        'todo',
       ],
     ],
   },

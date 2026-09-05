@@ -62,11 +62,16 @@ describes.
   conflict.
 - History is free: `git log` on an artifact's path is that artifact's audit
   trail, and the convention's lifecycle commit types (`decision:`, `plan:`,
-  `release:`, `deploy:` — see [README.md](README.md)) make phase transitions
-  greppable events rather than parsed state.
+  `todo:`, `release:`, `deploy:` — see [README.md](README.md)) make phase
+  transitions greppable events rather than parsed state.
 - An actor with no network access — a sandboxed agent, an offline reviewer, a
   hermetic CI job — can still answer why this exists, what changed, and what is
   next.
+
+The Todo is the rule's hardest case, because its source is an agent's working
+memory, which is not durable at all; committing it makes a rollback point,
+pushing it makes the list survive the machine, and nothing else in the repo
+can answer where a lost session left off.
 
 ## When a project outgrows git
 
@@ -84,7 +89,9 @@ anyone crawls history and diffs.
 
 A projection must carry the identity and revision of its source (which record,
 which version) so a reader can tell current from stale. The exact field names
-are deliberately not fixed here; that is a later decision.
+are deliberately not fixed here; that is a later decision. The Todo is that
+rule turned inward, its source being the session that wrote it, so it names
+the session and the time the list was taken.
 
 ## What the shape is designed to enable
 
@@ -122,11 +129,11 @@ Where this project keeps its own artifacts.
 | Design    | —                    | the convention is the product; its spec is `README.md` and the skill |
 | Decisions | —                    | none recorded yet                                                    |
 | Roadmap   | `ROADMAP.md`         | in use                                                               |
-| Plan      | —                    | written per branch as `PLAN.md`, deleted before merge                |
+| Plan      | —                    | written per branch as `PLAN.md`, deleted at `plan: done`             |
 | Changes   | `.changes/<slug>.md` | in use                                                               |
 | Runbooks  | —                    | not used                                                             |
 | Incidents | —                    | not used                                                             |
-| Todo      | agent memory         | not committed                                                        |
+| Todo      | —                    | written per branch as `TODO.md`, deleted at `todo: clear`            |
 
 The Design row's claim is the repo's stated split (see `AGENTS.md`):
 `README.md` is the human-facing spec and rationale, and

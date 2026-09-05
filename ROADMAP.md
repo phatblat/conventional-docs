@@ -14,3 +14,9 @@ applies.
 - [ ] Decide whether `docs:`-only commits should keep triggering a patch
       release indefinitely, or whether that rule needs narrowing once the
       convention stabilizes.
+- [ ] State an explicit release rule in `.releaserc.json` for every custom
+      event type (`decision`, `deploy`, `plan`, `release`, `todo`) instead of
+      relying on the commit analyzer ignoring unknown types.
+- [ ] Build the paired CLI that writes, syncs, and clears `TODO.md` and
+      `PLAN.md`, so the bookkeeping commits are produced and dropped
+      mechanically rather than by hand.
