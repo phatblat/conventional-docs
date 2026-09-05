@@ -118,6 +118,18 @@ The exact steps for the current decision.
 Anti-pattern: leaving a Plan committed after the work merges. It is scaffolding
 for one branch, not a durable record — the Decision is the record.
 
+## Todo
+
+Where this session is.
+
+- Paths: agent memory by default; `docs/todo.md` only if a repo opts in to
+  committing it.
+- Lifetime: one session.
+- Answers: where this session is.
+
+Anti-pattern: treating a committed Todo as durable state. It is scratch space
+for picking a session back up, not a Plan and not a Decision.
+
 ## Changes
 
 What will ship in the next release, in plain language.
@@ -185,15 +197,3 @@ What broke, what we learned.
 
 Anti-pattern: closing the incident record before the follow-up items are
 tracked somewhere durable — usually the Roadmap.
-
-## Todo
-
-Where this session is.
-
-- Paths: agent memory by default; `docs/todo.md` only if a repo opts in to
-  committing it.
-- Lifetime: one session.
-- Answers: where this session is.
-
-Anti-pattern: treating a committed Todo as durable state. It is scratch space
-for picking a session back up, not a Plan and not a Decision.

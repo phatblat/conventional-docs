@@ -27,7 +27,7 @@ the Decision it came from stays forever.
 ## Do I need all nine artifacts?
 
 No. Charter, Design, and Decisions are the load-bearing three. Roadmap, Plan,
-Runbooks, Incidents, and Todo are OPTIONAL — add them when the project
+Todo, Runbooks, and Incidents are OPTIONAL — add them when the project
 actually needs them.
 
 ## What if my repo already has a `docs/` site?

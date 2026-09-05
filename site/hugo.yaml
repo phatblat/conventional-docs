@@ -10,8 +10,7 @@ params:
   tagline: A predictable shape for a repository's docs, so humans and agents know where to look.
   repo: https://github.com/phatblat/conventional-docs
   specStatus: draft
-  style: fixit
-  stylePreview: true
+  style: doks
 markup:
   goldmark:
     renderHooks:
@@ -30,7 +29,7 @@ menus:
     - name: Spec
       pageRef: /spec/next
       weight: 10
-    - name: Where does this go?
+    - name: wheredoc
       pageRef: /routing
       weight: 20
     - name: Artifacts

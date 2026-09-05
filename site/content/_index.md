@@ -3,7 +3,7 @@ title: Conventional Docs
 description: A predictable shape for a repository's docs, so humans and agents know where to look.
 tagline: A predictable shape for a repository's docs, so humans and agents know where to look.
 actions:
-  - text: Where does this go?
+  - text: wheredoc
     href: /routing
   - text: Read the spec
     href: /spec/next
@@ -31,10 +31,10 @@ maintainers read `docs/`.
 | Decisions | `DECISIONS.md`       | `docs/decisions/NNNN-slug.md`       | append-only           | what changed, why, what it cost                       |
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
 | Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
+| Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
 | Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
 | Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
 
 ## The loop
 
@@ -55,5 +55,9 @@ session, or handed to another agent, needs a Plan.
 - **Not user documentation.** Tutorials, how-tos, and reference docs are
   [Diátaxis](https://diataxis.fr/)'s territory. Where they overlap, Design is
   explanation/reference and runbooks are how-to.
-- **Not a tool.** Like Keep a Changelog, this convention should cost only
-  attention — no required CI check, no required generator.
+- **Not a tool, but tooling helps.** Like Keep a Changelog, this convention
+  costs only attention to follow by hand — no CI check or generator is
+  required. Both are highly recommended once you adopt it: a required CI
+  check is a checkpoint that confirms the right artifact was captured before
+  an agent launches, and a generator is an integration point where future
+  tools or spawned agents get event visibility and rule enforcement.

@@ -20,32 +20,6 @@
   type="image/svg+xml"
 />
 {{ $base := resources.Get "css/base.css" }}
-{{ if site.Params.stylePreview }}
-  {{ $styles := dict }}
-  {{ range slice "fixit" "doks" "hugoplate" }}
-    {{ $theme := resources.Get (printf "css/theme-%s.css" .) }}
-    {{ $bundle := resources.Concat (printf "css/site-%s.css" .) (slice $base $theme) | minify | fingerprint }}
-    {{ $styles = merge $styles (dict . $bundle.RelPermalink) }}
-  {{ end }}
-  <link
-    id="site-css"
-    rel="stylesheet"
-    href="{{ index $styles site.Params.style }}"
-  />
-  <script>
-    window.CD_STYLES = {{ jsonify $styles | safeJS }};
-    (function () {
-      var saved = window.localStorage.getItem("cd-style");
-      if (saved && window.CD_STYLES[saved]) {
-        document
-          .getElementById("site-css")
-          .setAttribute("href", window.CD_STYLES[saved]);
-        document.documentElement.setAttribute("data-style", saved);
-      }
-    })();
-  </script>
-{{ else }}
-  {{ $theme := resources.Get (printf "css/theme-%s.css" site.Params.style) }}
-  {{ $bundle := resources.Concat "css/site.css" (slice $base $theme) | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $bundle.RelPermalink }}" />
-{{ end }}
+{{ $theme := resources.Get (printf "css/theme-%s.css" site.Params.style) }}
+{{ $bundle := resources.Concat "css/site.css" (slice $base $theme) | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $bundle.RelPermalink }}" />

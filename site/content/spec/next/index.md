@@ -9,8 +9,8 @@ specVersion: next
 
 Conventional Docs is a convention for where a repository's lifecycle
 documentation lives, in markdown, in git. It defines a fixed set of artifacts —
-Charter, Design, Decisions, Roadmap, Plan, Changes, Runbooks, Incidents, and
-Todo — each with a small-repo path and a graduated path, so a human or an
+Charter, Design, Decisions, Roadmap, Plan, Todo, Changes, Runbooks, and
+Incidents — each with a small-repo path and a graduated path, so a human or an
 agent can find the right document without asking. Two axes decide everything
 else: how long a document stays true (its **lifetime**), and who is expected
 to read it (its **audience**).
@@ -24,10 +24,10 @@ to read it (its **audience**).
 | Decisions | `DECISIONS.md`       | `docs/decisions/NNNN-slug.md`       | append-only           | what changed, why, what it cost                       |
 | Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
 | Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
+| Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
 | Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
 | Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
 | Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
 
 ## Example
 
@@ -110,23 +110,23 @@ interpreted as described in
     work it describes.
 15. Work spanning more than one working session, or handed to another person
     or agent, SHOULD have a Plan.
-16. Every user-facing change MUST add a release-note fragment at
+16. A session Todo is OPTIONAL; when committed it MUST live at `docs/todo.md`,
+    and consumers MUST NOT treat it as durable state.
+17. Every user-facing change MUST add a release-note fragment at
     `.changes/<slug>.md` in the same commit or pull request as the change.
-17. Each line of a fragment MUST be a markdown unordered list item beginning
+18. Each line of a fragment MUST be a markdown unordered list item beginning
     with one of `Added:`, `Changed:`, `Deprecated:`, `Removed:`, `Fixed:`, or
     `Security:`.
-18. At release time, fragments MUST be folded into the release notes and
+19. At release time, fragments MUST be folded into the release notes and
     `CHANGELOG.md`, and the consumed files MUST be deleted in the same commit
     as the version bump.
-19. `CHANGELOG.md` MUST follow [Keep a Changelog](https://keepachangelog.com/)
+20. `CHANGELOG.md` MUST follow [Keep a Changelog](https://keepachangelog.com/)
     and MUST NOT be hand-edited.
-20. Runbooks are OPTIONAL; when present they MUST live at
+21. Runbooks are OPTIONAL; when present they MUST live at
     `docs/runbooks/<trigger>.md`, one file per trigger.
-21. Incident records are OPTIONAL; when present they MUST live at
+22. Incident records are OPTIONAL; when present they MUST live at
     `docs/incidents/YYYY-MM-DD-slug.md` and MUST NOT be rewritten after the
     incident closes, except to append follow-up references.
-22. A session Todo is OPTIONAL; when committed it MUST live at `docs/todo.md`,
-    and consumers MUST NOT treat it as durable state.
 23. An artifact SHOULD graduate from root form to graduated form when the
     repository root has become crowded with top-level files, or when the
     artifact needs siblings, per-item status, or internal structure.

@@ -1,10 +1,11 @@
 ---
-title: Where does this go?
+title: wheredoc
 description: Answer the routing question for any piece of content in one pass.
 ---
 
-Every piece of durable text you're about to write already has a place. Work
-down this list; the first question that fits is the answer.
+**Where does this go?** Every piece of durable text you're about to write
+already has a place. Work down this list; the first question that fits is
+the answer.
 
 ## Answer in order
 

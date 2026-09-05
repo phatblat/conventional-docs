@@ -77,9 +77,12 @@ commitlint config:
 [![Conventional Docs](https://img.shields.io/badge/Conventional%20Docs-draft-5B3DF5)](https://phatblat.github.io/conventional-docs/)
 ```
 
-## What you do not need
+## Required vs. recommended
 
-No tool, no CI check, no generator. Everything above is plain markdown in git.
-CI checks (a link checker, a fragment-format lint) and a coding-agent skill
-that reads and writes these files are both optional accelerants, never
-requirements.
+No tool is required to start: everything above is plain markdown in git. A
+CI check (a link checker, a fragment-format lint) and a generator or
+coding-agent skill that reads and writes these files are not required
+either — but both are highly recommended once adopted. A required check is
+the checkpoint that confirms the right artifact was captured before an
+agent launches, and a generator is the integration point where future
+tools or spawned agents get event visibility and rule enforcement.

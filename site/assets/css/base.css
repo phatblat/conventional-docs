@@ -1,7 +1,6 @@
 /* Structural rules only. Every visual property comes from a custom property
-   defined by the active theme file (theme-fixit.css, theme-doks.css, or
-   theme-hugoplate.css). Nothing in this file names a color, font, or size
-   directly. */
+   defined by theme-doks.css. Nothing in this file names a color, font, or
+   size directly. */
 
 *,
 *::before,
@@ -377,34 +376,4 @@ footer nav a:hover {
   color: var(--c-fg-muted);
   font-size: 0.85rem;
   margin: 0;
-}
-
-/* Style switcher (preview only) */
-
-.style-switcher {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 50;
-  display: flex;
-  gap: 0.4rem;
-  background: var(--c-bg-raised);
-  padding: 0.4rem;
-  border-radius: var(--radius);
-}
-
-.style-switcher button {
-  font: inherit;
-  border: 1px solid var(--c-rule);
-  background: var(--c-bg);
-  color: var(--c-fg-muted);
-  border-radius: calc(var(--radius) * 0.75);
-  padding: 0.35rem 0.6rem;
-  cursor: pointer;
-}
-
-.style-switcher button[aria-pressed='true'] {
-  color: var(--c-accent-fg);
-  background: var(--c-accent);
-  border-color: var(--c-accent);
 }

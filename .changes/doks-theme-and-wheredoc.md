@@ -1,0 +1,5 @@
+- Changed: the site now ships a single Doks theme; the preview theme switcher, FixIt, and Hugoplate styles are gone.
+- Changed: the "Where does this go?" nav item, hero button, and card are now labeled `wheredoc`.
+- Changed: the page container grows wider on large displays instead of staying letterboxed.
+- Changed: Todo is now listed and documented immediately after Plan wherever artifacts are enumerated.
+- Changed: the "no required CI check, no required generator" wording now recommends both as checkpoints and integration points, without making them mandatory.
