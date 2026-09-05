@@ -106,10 +106,10 @@ interpreted as described in
 27. A repository that publishes lifecycle events MUST publish them as
     Conventional Commits with the types `decision`, `plan`, `todo`, `release`,
     `deploy` and these subject forms: `decision: propose <id>`,
-    `decision: accept <id>`, `decision: reject <id>`,
-    `decision: implement <id> (#<pr>)`, `plan: start <id>`, `plan: done <id>`,
-    `todo: sync`, `todo: clear`, `release: v<semver>`,
-    `deploy: <environment> v<semver>`, where `<id>` is `YYYY-MM-DD-slug`.
+    `decision: accept <id>`, `decision: implement <id> (#<pr>)`,
+    `plan: start <id>`, `plan: done <id>`, `todo: sync`, `todo: clear`,
+    `release: v<semver>`, `deploy: <environment> v<semver>`, where `<id>` is
+    `YYYY-MM-DD-slug`.
 28. The commit MUST be the event of record; a notification MAY point at it
     and MUST NOT carry state that is absent from the repository.
 29. An artifact MAY graduate out of the repository into an external system;
