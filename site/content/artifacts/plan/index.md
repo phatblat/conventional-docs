@@ -1,7 +1,7 @@
 ---
 title: Plan
 description: The exact steps for the current decision.
-weight: 50
+weight: 30
 ---
 
 The exact steps for the current decision.

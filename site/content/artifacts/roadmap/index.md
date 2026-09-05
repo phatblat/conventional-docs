@@ -1,7 +1,7 @@
 ---
 title: Roadmap
 description: What's next, in order.
-weight: 40
+weight: 20
 ---
 
 What's next, in order.

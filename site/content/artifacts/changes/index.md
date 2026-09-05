@@ -1,7 +1,7 @@
 ---
 title: Changes
 description: What will ship in the next release, in plain language.
-weight: 60
+weight: 70
 ---
 
 What will ship in the next release, in plain language.

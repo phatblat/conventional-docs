@@ -1,7 +1,7 @@
 ---
 title: Decisions
 description: What changed, why, and what it cost.
-weight: 30
+weight: 60
 ---
 
 What changed, why, and what it cost.

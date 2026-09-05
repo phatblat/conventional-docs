@@ -27,15 +27,15 @@ maintainers read `docs/`.
 | Artifact                                  | Small repo           | Graduated                           | Lifetime              | Answers                                               |
 | ----------------------------------------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
 | [Charter](artifacts/charter/index.md)     | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
-| [Design](artifacts/design/index.md)       | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
-| [Decisions](artifacts/decisions/index.md) | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
 | [Roadmap](artifacts/roadmap/index.md)     | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
 | [Plan](artifacts/plan/index.md)           | `PLAN.md`            | —                                   | one branch / worktree | exact steps for the current decision                  |
-| [Changes](artifacts/changes/index.md)     | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
+| [Todo](artifacts/todo/index.md)           | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
+| [Design](artifacts/design/index.md)       | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
 | [Events](events/index.md)                 | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
+| [Decisions](artifacts/decisions/index.md) | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
+| [Changes](artifacts/changes/index.md)     | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
 | [Runbooks](artifacts/runbooks/index.md)   | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
 | [Incidents](artifacts/incidents/index.md) | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| [Todo](artifacts/todo/index.md)           | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
 
 _Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
 as its home is
