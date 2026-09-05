@@ -58,6 +58,11 @@ format-check:
 lint:
     {{ mise }} markdownlint-cli2 "**/*.md"
 
+# Validate release-note fragment format in .changes/
+[group('checks')]
+lint-changes:
+    bun scripts/validate-changes.mjs
+
 # Lint commit messages in a range (defaults to auto-detected base..HEAD)
 [group('checks')]
 [script]
@@ -75,7 +80,7 @@ commitlint from="" to="HEAD":
 
 # Run every gate: formatting, markdown lint, link check
 [group('checks')]
-check: format-check lint test
+check: format-check lint lint-changes test
 
 #
 # tests group recipes

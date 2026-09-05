@@ -1,0 +1,1 @@
+- Added: public-facing release notes are now assembled from `.changes/*.md` fragment files at release time instead of being derived from commit messages.

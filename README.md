@@ -15,22 +15,23 @@ agent can walk into any project cold and know where to look.
 Two axes decide everything else:
 
 - **Lifetime** — how long a document stays true. Project, living, append-only,
-  branch, or session.
+  branch, session, or per-release.
 - **Audience** — who reads it. Outsiders and machines read the repo root;
   maintainers read `docs/`.
 
 ## The artifacts
 
-| Artifact  | Small repo     | Graduated                           | Lifetime              | Answers                              |
-| --------- | -------------- | ----------------------------------- | --------------------- | ------------------------------------ |
-| Charter   | `CHARTER.md`   | `docs/charter.md`                   | project               | why it exists, goals, route          |
-| Design    | `DESIGN.md`    | `docs/design.md`                    | living                | what the system is and does _now_    |
-| Decisions | `DECISIONS.md` | `docs/decisions/NNNN-slug.md`       | append-only           | what changed, why, what it cost      |
-| Roadmap   | `ROADMAP.md`   | `docs/roadmap.md`                   | living                | what's next, in order                |
-| Plan      | `PLAN.md`      | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision |
-| Runbooks  | —              | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires            |
-| Incidents | —              | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned          |
-| Todo      | agent memory   | `docs/todo.md` (opt-in)             | one session           | where this session is                |
+| Artifact  | Small repo           | Graduated                           | Lifetime              | Answers                                               |
+| --------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
+| Charter   | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
+| Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
+| Decisions | `DECISIONS.md`       | `docs/decisions/NNNN-slug.md`       | append-only           | what changed, why, what it cost                       |
+| Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
+| Plan      | `PLAN.md`            | `docs/plan.md`                      | one branch / worktree | exact steps for the current decision                  |
+| Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
+| Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
+| Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
+| Todo      | agent memory         | `docs/todo.md` (opt-in)             | one session           | where this session is                                 |
 
 A _proposed_ decision is the spec. Once accepted it is frozen; changing your
 mind is a new decision that supersedes it. The Plan is written from an accepted
@@ -41,7 +42,9 @@ decision, committed for backup and handoff, and deleted before merge.
 `README.md`, `LICENSE`, `CHANGELOG.md`, and `AGENTS.md` stay at the root
 permanently. Their consumers — registries, GitHub, coding agents — look only
 there, and several of them don't go through a filesystem that could follow a
-link. `CHANGELOG.md` follows [Keep a Changelog](https://keepachangelog.com/).
+link. `CHANGELOG.md` follows [Keep a Changelog](https://keepachangelog.com/);
+its entries are assembled from `.changes/` fragments at release time, never
+hand-written directly.
 
 ### Graduating to `docs/`
 
@@ -62,6 +65,25 @@ document lives.
 `docs/decisions/` is the canonical decisions location. For `adr-tools`
 compatibility, add a root `.adr-dir` file containing `docs/decisions`;
 MADR already defaults to this path.
+
+### Release notes
+
+Public-facing release notes are written incrementally, alongside the change
+itself, not reconstructed from commit messages after the fact. Each
+user-facing change adds a fragment file under `.changes/<slug>.md` in the same
+commit or PR. A fragment is one or more lines; each line is a markdown
+unordered list item starting with one of the six
+[Keep a Changelog](https://keepachangelog.com/) categories:
+
+```markdown
+- Added: support for custom output formats.
+- Fixed: a race condition when releasing concurrently.
+```
+
+At release time, every fragment file is concatenated, grouped by category,
+and folded into that release's notes and the `CHANGELOG.md` entry. The
+consumed fragment files are deleted in the same commit as the version bump —
+`.changes/` holds only what hasn't shipped yet.
 
 ## The loop
 
