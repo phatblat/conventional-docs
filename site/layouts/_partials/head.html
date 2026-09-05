@@ -1,0 +1,51 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta
+  name="description"
+  content="{{ .Description | default site.Params.tagline }}"
+/>
+<link rel="canonical" href="{{ .Permalink }}" />
+<meta property="og:title" content="{{ .Title }}" />
+<meta
+  property="og:description"
+  content="{{ .Description | default site.Params.tagline }}"
+/>
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<link
+  rel="icon"
+  href="{{ "favicon.svg" | relURL }}"
+  type="image/svg+xml"
+/>
+{{ $base := resources.Get "css/base.css" }}
+{{ if site.Params.stylePreview }}
+  {{ $styles := dict }}
+  {{ range slice "ink" "terminal" "editorial" }}
+    {{ $theme := resources.Get (printf "css/theme-%s.css" .) }}
+    {{ $bundle := resources.Concat (printf "css/site-%s.css" .) (slice $base $theme) | minify | fingerprint }}
+    {{ $styles = merge $styles (dict . $bundle.RelPermalink) }}
+  {{ end }}
+  <link
+    id="site-css"
+    rel="stylesheet"
+    href="{{ index $styles site.Params.style }}"
+  />
+  <script>
+    window.CD_STYLES = {{ jsonify $styles | safeJS }};
+    (function () {
+      var saved = window.localStorage.getItem("cd-style");
+      if (saved && window.CD_STYLES[saved]) {
+        document
+          .getElementById("site-css")
+          .setAttribute("href", window.CD_STYLES[saved]);
+        document.documentElement.setAttribute("data-style", saved);
+      }
+    })();
+  </script>
+{{ else }}
+  {{ $theme := resources.Get (printf "css/theme-%s.css" site.Params.style) }}
+  {{ $bundle := resources.Concat "css/site.css" (slice $base $theme) | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $bundle.RelPermalink }}" />
+{{ end }}

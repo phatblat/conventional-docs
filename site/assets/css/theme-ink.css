@@ -1,0 +1,55 @@
+/* Ink on paper: quiet, editorial-neutral, one accent color. */
+
+:root {
+  --font-body:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-heading:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --measure: 44rem;
+  --radius: 0.5rem;
+  --weight-heading: 650;
+  --tracking-heading: -0.015em;
+  --scale-h1: 2.25rem;
+  --line-height: 1.65;
+
+  --c-bg: #ffffff;
+  --c-bg-raised: #f6f7f9;
+  --c-fg: #111317;
+  --c-fg-muted: #5a6072;
+  --c-rule: #e3e5eb;
+  --c-accent: #5b3df5;
+  --c-accent-fg: #ffffff;
+  --c-accent-soft: rgba(91, 61, 245, 0.08);
+  --c-code-bg: #f6f7f9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #0e0f13;
+    --c-bg-raised: #16181f;
+    --c-fg: #e6e8ee;
+    --c-fg-muted: #a2a9ba;
+    --c-rule: #262a34;
+    --c-accent: #a78bff;
+    --c-accent-fg: #0e0f13;
+    --c-accent-soft: rgba(167, 139, 255, 0.12);
+    --c-code-bg: #16181f;
+  }
+}
+
+/* Style-specific rules */
+
+table {
+  border-top: 1px solid var(--c-rule);
+}
+
+th {
+  border-bottom-width: 2px;
+}
+
+.hero {
+  border-bottom: 1px solid var(--c-rule);
+}

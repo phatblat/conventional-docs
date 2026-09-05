@@ -1,0 +1,14 @@
+<footer>
+  <div class="wrap">
+    <nav aria-label="Footer">
+      <ul>
+        {{ range site.Menus.footer }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+    </nav>
+    <p class="fine-print">
+      MIT Licensed. Specification status: {{ site.Params.specStatus }}.
+    </p>
+  </div>
+</footer>

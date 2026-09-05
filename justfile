@@ -3,6 +3,7 @@ set script-interpreter := ['bash', '-eu']
 set unstable
 
 mise := "mise exec --"
+hugo := "mise exec -- hugo --source site"
 
 [default]
 _default:
@@ -30,6 +31,7 @@ format:
 [group('configuration')]
 clean: clean-rust
     rm -rf node_modules
+    rm -rf site/public site/public-check site/resources site/.hugo_build.lock
 
 # Remove the Rust build directory
 [group('configuration')]
@@ -95,15 +97,41 @@ commitlint from="" to="HEAD":
 check: format-check lint lint-skills lint-rust test test-rust
 
 #
+# site group recipes
+#
+
+# Serve the site locally with live reload at http://localhost:1313/conventional-docs/
+[group('site')]
+site-dev:
+    {{ hugo }} server --buildDrafts=false --disableFastRender
+
+# Build the deployable site into site/public
+[group('site')]
+site-build:
+    {{ hugo }} --minify
+
+# Build a root-relative copy of the site for link checking
+[group('site')]
+site-build-check:
+    {{ hugo }} --minify --baseURL "/" --destination public-check
+
+#
 # tests group recipes
 #
 
-# Check markdown files for broken links
+# Check markdown files and the built site for broken links
 [group('tests')]
-test:
+test: test-markdown-links test-site-links
+
+[group('tests')]
+test-markdown-links:
     bun x linkinator "*.md" "skills/**/*.md" "docs/**/*.md" --markdown
 
 # Run the Rust test suite
 [group('tests')]
 test-rust:
     {{ mise }} cargo test
+
+[group('tests')]
+test-site-links: site-build-check
+    bun x linkinator site/public-check --recurse --directory-listing --retry --retry-errors --retry-errors-count 3
