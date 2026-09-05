@@ -4,6 +4,9 @@
 - title: Artifacts
   href: /artifacts
   blurb: Reference for every artifact — purpose, paths, lifetime, and a skeleton to copy.
+- title: Example
+  href: /example
+  blurb: A conforming repository, small and graduated.
 - title: Quickstart
   href: /quickstart
   blurb: Four files to add today, plus the badge to tell people you conform.

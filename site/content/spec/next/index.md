@@ -15,67 +15,10 @@ form, so a human or an agent can find the right document without asking. Two
 axes decide everything else: how long a document stays true (its
 **lifetime**), and who is expected to read it (its **audience**).
 
-## The artifacts
-
-| Artifact  | Small repo           | Graduated                           | Lifetime              | Answers                                               |
-| --------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
-| Charter   | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
-| Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
-| Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
-| Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
-| Plan      | `PLAN.md`            | —                                   | one branch / worktree | exact steps for the current decision                  |
-| Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
-| Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
-| Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
-| Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
-
-_Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
-as its home is
-[still under review](https://github.com/phatblat/conventional-docs/blob/main/docs/decisions/2026-09-05-give-events-their-own-artifact.md),
-so it carries no normative clause below yet._
-
-## Example
-
-A conforming small repo:
-
-```text
-CHARTER.md
-DESIGN.md
-ROADMAP.md
-AGENTS.md
-README.md
-.changes/
-  add-export-command.md
-docs/
-  decisions/
-    2026-02-11-split-the-scheduler.md
-```
-
-The same repository after graduating:
-
-```text
-docs/
-  charter.md
-  design.md
-  decisions/
-    2026-02-11-split-the-scheduler.md
-    2026-03-02-drop-plugin-api.md
-  roadmap.md
-  runbooks/
-    high-error-rate.md
-  incidents/
-    2026-03-02-billing-outage.md
-AGENTS.md
-README.md
-.changes/
-  add-export-command.md
-```
-
-`README.md`, `AGENTS.md`, and `.changes/` never move. Decisions, Runbooks, and
-Incidents have only a graduated path and live under `docs/` from their first
-entry, whether or not the rest of the repository has graduated. Nothing exists
-at both the small-repo path and the graduated path at once.
+See [Artifacts](../../artifacts/index.md) for the full table of small-repo
+and graduated paths, lifetimes, and answers, and
+[Example](../../example/index.md) for a conforming repository, small and
+graduated.
 
 ## Specification
 

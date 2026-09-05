@@ -51,6 +51,9 @@ menus:
     - name: Artifacts
       pageRef: /artifacts
       weight: 30
+    - name: Example
+      pageRef: /example
+      weight: 35
     - name: Quickstart
       pageRef: /quickstart
       weight: 40
