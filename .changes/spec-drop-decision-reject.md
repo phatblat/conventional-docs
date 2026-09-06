@@ -1,1 +1,0 @@
-- Fixed: the spec's event-subject clause no longer lists `decision: reject <id>` — no status lifecycle, `EVENTS.md`, or events page in the project defines a rejected state, so the subject had no corresponding decision status.

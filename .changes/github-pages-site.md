@@ -1,1 +1,0 @@
-- Added: a website presenting Conventional Docs as a versioned specification, with a routing guide, artifact reference, and quickstart.

@@ -1,2 +1,0 @@
-- Added: an `Example` page showing a conforming repository, small and graduated, moved off the spec page.
-- Changed: the spec page now links to `Artifacts` and `Example` instead of duplicating their tables and file trees.

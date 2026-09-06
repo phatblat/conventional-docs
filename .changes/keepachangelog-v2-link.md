@@ -1,1 +1,0 @@
-- Changed: every Keep a Changelog link now points to the pinned `2.0.0` version (`https://keepachangelog.com/en/2.0.0/`) instead of the unversioned URL.

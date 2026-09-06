@@ -1,1 +1,0 @@
-- Changed: the artifacts table (homepage and `/artifacts/`) now lists the six root-capable artifacts first, then the four that live only under `docs/` or `.changes/`, each group ordered by where it falls in the Charter's lifecycle phases.
