@@ -16,7 +16,7 @@ to the acceptance date, and the record would carry both dates in its body.
 
 ## Status
 
-This is a proposal that is **awaiting review**.
+This proposal was **rejected**.
 
 ## Assumptions and Constraints
 
