@@ -163,6 +163,81 @@ fn supersedes_an_unfrozen_target_is_rejected() {
 }
 
 #[test]
+fn supersedes_a_frozen_target_appends_an_erratum() {
+    let mut f = repo();
+    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    let target_id = "2026-09-06-cache-the-resolver-output";
+    run(&mut f, &["dec", "accept", target_id]);
+
+    let code = run(
+        &mut f,
+        &[
+            "dec",
+            "propose",
+            "Reuse the cached parse tree",
+            "--supersedes",
+            target_id,
+        ],
+    );
+    assert_eq!(code, 0);
+
+    assert_eq!(
+        read(&f, &format!("docs/decisions/{target_id}.md")),
+        golden("decision-supersedes-frozen.md")
+    );
+
+    let new_id = "2026-09-06-reuse-the-cached-parse-tree";
+    assert!(
+        read(&f, &format!("docs/decisions/{new_id}.md")).contains(&format!(
+            "This decision supersedes [{target_id}](./{target_id}.md)."
+        ))
+    );
+    assert_eq!(log_subjects(&f)[0], format!("decision: propose {new_id}"));
+}
+
+#[test]
+fn extends_a_nonexistent_target_is_rejected() {
+    let mut f = repo();
+
+    let code = run(
+        &mut f,
+        &[
+            "dec",
+            "propose",
+            "Reuse the cached parse tree",
+            "--extends",
+            "2026-01-01-nope",
+        ],
+    );
+    assert_eq!(code, 1);
+    assert!(!exists(
+        &f,
+        "docs/decisions/2026-09-06-reuse-the-cached-parse-tree.md"
+    ));
+}
+
+#[test]
+fn supersedes_a_nonexistent_target_is_rejected() {
+    let mut f = repo();
+
+    let code = run(
+        &mut f,
+        &[
+            "dec",
+            "propose",
+            "Reuse the cached parse tree",
+            "--supersedes",
+            "2026-01-01-nope",
+        ],
+    );
+    assert_eq!(code, 1);
+    assert!(!exists(
+        &f,
+        "docs/decisions/2026-09-06-reuse-the-cached-parse-tree.md"
+    ));
+}
+
+#[test]
 fn errata_on_a_frozen_record_appends_dated_lines_in_order() {
     let mut f = repo();
     run(&mut f, &["dec", "propose", "Cache the resolver output"]);

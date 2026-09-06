@@ -123,16 +123,16 @@ credentials — and every actor on that branch sees exactly the same context.
 
 Where this project keeps its own artifacts.
 
-| Artifact  | Location     | Notes                                                                |
-| --------- | ------------ | -------------------------------------------------------------------- |
-| Charter   | `CHARTER.md` | this file                                                            |
-| Design    | —            | the convention is the product; its spec is `README.md` and the skill |
-| Decisions | —            | none recorded yet                                                    |
-| Roadmap   | `ROADMAP.md` | in use                                                               |
-| Plan      | —            | written per branch as `PLAN.md`, deleted at `plan: done`             |
-| Runbooks  | —            | not used                                                             |
-| Incidents | —            | not used                                                             |
-| Todo      | —            | written per branch as `TODO.md`, deleted at `todo: clear`            |
+| Artifact  | Location          | Notes                                                                |
+| --------- | ----------------- | -------------------------------------------------------------------- |
+| Charter   | `CHARTER.md`      | this file                                                            |
+| Design    | —                 | the convention is the product; its spec is `README.md` and the skill |
+| Decisions | `docs/decisions/` | in use                                                               |
+| Roadmap   | `ROADMAP.md`      | in use                                                               |
+| Plan      | —                 | written per branch as `PLAN.md`, deleted at `plan: done`             |
+| Runbooks  | —                 | not used                                                             |
+| Incidents | —                 | not used                                                             |
+| Todo      | —                 | written per branch as `TODO.md`, deleted at `todo: clear`            |
 
 The Design row's claim is the repo's stated split (see `AGENTS.md`):
 `README.md` is the human-facing spec and rationale, and
