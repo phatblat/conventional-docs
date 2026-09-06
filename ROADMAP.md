@@ -21,16 +21,17 @@ applies.
       `PLAN.md`, so the bookkeeping commits are produced and dropped
       mechanically rather than by hand.
 
-## condoc
+## doc
 
-- [ ] Build the bookkeeping slice — `condoc status`, `condoc todo sync|clear`,
-      and `condoc plan start|done` — so `TODO.md` and `PLAN.md` are written,
-      synced, and cleared mechanically rather than by hand.
-- [ ] Build the validation slice — `condoc lint|fix|check` — including the
-      drift check that diffs a frozen record against its freeze commit.
-- [ ] Build `condoc release`, then `condoc import` and `condoc graduate`.
-- [ ] Build condoc for linux amd64/arm64 and windows; v1 is macOS arm64 only.
-- [ ] Ship condoc binaries from a tag job, alongside the npm package
+- [ ] Build the bookkeeping slice — `doc status`, `doc todo sync|clear`, and
+      `doc plan start|done` — so `TODO.md` and `PLAN.md` are written, synced,
+      and cleared mechanically rather than by hand.
+- [ ] Build the validation slice — `doc lint|fix|check` — including the drift
+      check that diffs a frozen record against its freeze commit.
+- [ ] Build `doc release`, then `doc decision import` and
+      `doc <artifact> graduate`.
+- [ ] Build `doc` for linux amd64/arm64 and windows; v1 is macOS arm64 only.
+- [ ] Ship `doc` binaries from a tag job, alongside the npm package
       semantic-release publishes.
 
 ## Site
