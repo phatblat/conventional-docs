@@ -1,0 +1,12 @@
+<ul class="cards">
+  {{ range hugo.Data.cards }}
+  {{ $item := . }}
+  {{ $target := site.GetPage $item.href }}
+  <li>
+    <a href="{{ if $target }}{{ $target.RelPermalink }}{{ else }}{{ $item.href }}{{ end }}">
+      <strong>{{ $item.title }}</strong>
+      <span>{{ $item.blurb }}</span>
+    </a>
+  </li>
+  {{ end }}
+</ul>

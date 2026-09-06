@@ -1,0 +1,19 @@
+<header>
+  <div class="wrap">
+    <a class="wordmark" href="{{ "/" | relLangURL }}">{{ site.Title }}</a>
+    <nav aria-label="Primary">
+      <ul>
+        {{ range site.Menus.main }}
+        <li>
+          <a
+            href="{{ .URL }}"
+            {{ if $.IsMenuCurrent "main" . }}aria-current="page"{{ end }}
+            >{{ .Name }}</a
+          >
+        </li>
+        {{ end }}
+      </ul>
+    </nav>
+    <a class="github-link" href="{{ site.Params.repo }}">GitHub</a>
+  </div>
+</header>

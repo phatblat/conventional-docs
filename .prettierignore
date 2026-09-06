@@ -1,4 +1,8 @@
 node_modules/
 bun.lock
 CHANGELOG.md
+site/layouts/
+site/public/
+site/public-check/
+site/resources/
 target/

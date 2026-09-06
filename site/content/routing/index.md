@@ -1,0 +1,62 @@
+---
+title: wheredoc
+description: Answer the routing question for any piece of content in one pass.
+---
+
+**Where does this go?** Every piece of durable text you're about to write
+already has a place. Work down this list; the first question that fits is
+the answer.
+
+## Answer in order
+
+1. **Is it true for the life of the project?** → Charter
+   (`CHARTER.md` / `docs/charter.md`).
+2. **Does it describe how the system works right now?** → Design
+   (`DESIGN.md` / `docs/design.md`).
+3. **Is it a choice between alternatives, made once, with consequences?** →
+   [Decision](../artifacts/decisions/index.md) (`docs/decisions/YYYY-MM-DD-slug.md`, no small-repo form).
+4. **Are these the ordered steps to carry out an accepted decision?** →
+   [Plan](../artifacts/plan/index.md) (`PLAN.md`, no graduated form).
+5. **Is it something intended for later, not now?** → Roadmap
+   (`ROADMAP.md` / `docs/roadmap.md`).
+6. **Will a user of the software notice this change?** → a line in
+   [the changelog](../artifacts/changelog/index.md)'s `## [Unreleased]`
+   section (`CHANGELOG.md`).
+7. **Is it what to do when a named alarm fires?** → Runbook
+   (`docs/runbooks/<trigger>.md`).
+8. **Did something break in production?** → Incident
+   (`docs/incidents/YYYY-MM-DD-slug.md`).
+9. **Are these instructions for how agents work in this repo?** →
+   `AGENTS.md`.
+10. **Is it how an outsider installs or uses the project?** → `README.md`, or
+    user documentation — [Diátaxis](https://diataxis.fr/) territory, outside
+    this convention.
+11. **Is it where this branch's work currently stands, for a cold restart or
+    handoff?** → [Todo](../artifacts/todo/index.md) (`TODO.md`, no graduated form), committed and
+    refreshed at each checkpoint, deleted before merge.
+
+## By lifetime
+
+| Lifetime              | Artifact                          |
+| --------------------- | --------------------------------- |
+| Project               | Charter                           |
+| Living                | Design, Roadmap, Runbooks, Events |
+| Append-only           | Decisions, Incidents              |
+| One branch / worktree | Plan, Todo                        |
+
+## Common mis-routes
+
+| Wrong place                                          | Right place                                                                         |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Planned work written into Design                     | Decision, plus a Plan for the steps                                                 |
+| An accepted decision edited in place                 | An erratum for a correction; a new decision that supersedes it for a change of mind |
+| A changelog reconstructed from commits at release    | A line in `[Unreleased]`, written alongside the change                              |
+| This branch's steps appended to the Roadmap          | Plan                                                                                |
+| Architecture rationale left only in a PR description | Decision, committed to the repo                                                     |
+
+## If two answers fit
+
+Split the content. Put the durable half in the longer-lived artifact — the
+Charter or Design, usually — and a pointer or one-sentence summary in the
+shorter-lived one. Cross-link rather than duplicate; a fact maintained in two
+places will eventually be true in only one of them.

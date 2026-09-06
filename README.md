@@ -22,6 +22,12 @@ Two axes decide everything else:
 Why this convention exists, what it is trying to achieve, and what it is
 designed to enable: [CHARTER.md](CHARTER.md).
 
+## Specification
+
+The normative specification lives at
+[`site/content/spec/next/index.md`](site/content/spec/next/index.md). It uses
+RFC 2119 keywords and is a draft until version 1.0.0.
+
 ## The artifacts
 
 | Artifact  | Small repo   | Graduated                           | Lifetime              | Answers                                            |
@@ -232,7 +238,7 @@ Or copy `skills/conventional-docs/` into the agent's skills directory by hand.
   **[conventional-changelog](https://github.com/conventional-changelog)** — the
   namesake. The event prefixes above are ordinary Conventional Commits with
   custom types.
-- **[Keep a Changelog](https://keepachangelog.com/)** — the changelog itself,
+- **[Keep a Changelog](https://keepachangelog.com/en/2.0.0/)** — the changelog itself,
   and the model for how small a convention should be.
 - **[ADRs](https://adr.github.io/)** / **[MADR](https://adr.github.io/madr/)** —
   the Decisions folder is an ADR log with a status lifecycle; a proposed ADR is
@@ -250,8 +256,9 @@ Or copy `skills/conventional-docs/` into the agent's skills directory by hand.
 ## Development
 
 ```bash
-just deps    # install pinned tools and dependencies
-just check   # formatting, markdown lint, link check
+just deps       # install pinned tools and dependencies
+just check      # formatting, markdown lint, link check
+just site-dev   # preview the website at http://localhost:1313/conventional-docs/
 ```
 
 `just --list` shows every recipe.

@@ -1,5 +1,9 @@
 *.log
 .DS_Store
+.hugo_build.lock
 .omc/
 node_modules/
-/target/
+site/public/
+site/public-check/
+site/resources/
+target/

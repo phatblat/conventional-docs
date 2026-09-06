@@ -1,0 +1,24 @@
+- title: wheredoc
+  href: /routing
+  blurb: Answer the routing question for any piece of content in one pass.
+- title: Artifacts
+  href: /artifacts
+  blurb: Reference for every artifact — purpose, paths, lifetime, and a skeleton to copy.
+- title: Example
+  href: /example
+  blurb: A conforming repository, small and graduated.
+- title: Quickstart
+  href: /quickstart
+  blurb: Four files to add today, plus the badge to tell people you conform.
+- title: Graduating
+  href: /graduating
+  blurb: When and how an artifact moves from a root file to a graduated location.
+- title: Events
+  href: /events
+  blurb: Publish lifecycle activity as Conventional Commits, so the repo stays the record.
+- title: condoc
+  href: /condoc
+  blurb: The optional binary that writes the artifacts and their lifecycle commits.
+- title: Read the spec
+  href: /spec/next
+  blurb: The normative specification, in RFC 2119 terms.

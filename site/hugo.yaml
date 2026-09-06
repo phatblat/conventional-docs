@@ -1,0 +1,77 @@
+baseURL: https://phatblat.github.io/conventional-docs/
+locale: en-US
+title: Conventional Docs
+enableRobotsTXT: true
+disableKinds:
+  - taxonomy
+  - term
+  - rss
+params:
+  tagline: A predictable shape for a repository's docs, so humans and agents know where to look.
+  repo: https://github.com/phatblat/conventional-docs
+  specStatus: draft
+  style: doks
+markup:
+  goldmark:
+    renderHooks:
+      link:
+        useEmbedded: fallback
+      image:
+        useEmbedded: fallback
+  highlight:
+    codeFences: false
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+    ordered: false
+menus:
+  main:
+    - name: Spec
+      pageRef: /spec/next
+      weight: 10
+    - name: wheredoc
+      pageRef: /routing
+      weight: 20
+    - name: Artifacts
+      pageRef: /artifacts
+      weight: 30
+    - name: Quickstart
+      pageRef: /quickstart
+      weight: 40
+    - name: condoc
+      pageRef: /condoc
+      weight: 45
+    - name: About
+      pageRef: /about
+      weight: 50
+  footer:
+    - name: Spec
+      pageRef: /spec/next
+      weight: 10
+    - name: Routing
+      pageRef: /routing
+      weight: 20
+    - name: Artifacts
+      pageRef: /artifacts
+      weight: 30
+    - name: Example
+      pageRef: /example
+      weight: 35
+    - name: Quickstart
+      pageRef: /quickstart
+      weight: 40
+    - name: Graduating
+      pageRef: /graduating
+      weight: 50
+    - name: Events
+      pageRef: /events
+      weight: 60
+    - name: condoc
+      pageRef: /condoc
+      weight: 65
+    - name: FAQ
+      pageRef: /faq
+      weight: 70
+    - name: About
+      pageRef: /about
+      weight: 80

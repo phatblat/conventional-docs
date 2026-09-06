@@ -1,0 +1,25 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta
+  name="description"
+  content="{{ .Description | default site.Params.tagline }}"
+/>
+<link rel="canonical" href="{{ .Permalink }}" />
+<meta property="og:title" content="{{ .Title }}" />
+<meta
+  property="og:description"
+  content="{{ .Description | default site.Params.tagline }}"
+/>
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<link
+  rel="icon"
+  href="{{ "favicon.svg" | relURL }}"
+  type="image/svg+xml"
+/>
+{{ $base := resources.Get "css/base.css" }}
+{{ $theme := resources.Get (printf "css/theme-%s.css" site.Params.style) }}
+{{ $bundle := resources.Concat "css/site.css" (slice $base $theme) | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $bundle.RelPermalink }}" />

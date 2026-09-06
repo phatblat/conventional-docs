@@ -1,0 +1,10 @@
+{{ define "main" }}
+<article class="wrap page">
+  <h1>{{ .Title }}</h1>
+  {{ if and (eq site.Params.specStatus "draft") .Params.showStatus }}
+  <p class="callout">This specification is a draft. It may change without notice until version 1.0.0.</p>
+  {{ end }}
+  {{ if gt (len .Fragments.Identifiers) 1 }}<aside class="toc">{{ .TableOfContents }}</aside>{{ end }}
+  <div class="prose">{{ .Content }}</div>
+</article>
+{{ end }}
