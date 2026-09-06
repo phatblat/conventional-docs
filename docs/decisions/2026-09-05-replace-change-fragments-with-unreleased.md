@@ -23,7 +23,7 @@ which fills the changelog with noise."
 
 ## Status
 
-This is a proposal that is **awaiting review**.
+This is a proposal that is **accepted**.
 
 ## Assumptions and Constraints
 
