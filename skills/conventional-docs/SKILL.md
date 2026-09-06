@@ -1,6 +1,6 @@
 ---
 name: conventional-docs
-description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and .changes release-note fragments. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when adding a user-facing change that needs a release-note fragment, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/.
+description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and the CHANGELOG. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when recording a user-facing change in the changelog's Unreleased section, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/.
 license: MIT
 ---
 
@@ -17,9 +17,9 @@ look. Full rationale and rendered tables:
 Use it when creating or editing a `CHARTER.md`, `DESIGN.md`, `docs/decisions/`,
 `ROADMAP.md`, or `EVENTS.md` (or their graduated `docs/` forms), or a
 `PLAN.md` or `TODO.md`; when deciding whether a change needs a Decision or a
-Plan; when a change is user-facing and needs a `.changes/<slug>.md` fragment;
-when writing a `decision:`, `plan:`, `todo:`, `release:`, or `deploy:` commit;
-or when a root document has outgrown a single file and needs to graduate into
+Plan; when a change is user-facing and needs a changelog line; when writing a
+`decision:`, `plan:`, `todo:`, `release:`, or `deploy:` commit; or when a root
+document has outgrown a single file and needs to graduate into
 `docs/`.
 
 Do not use it for user-facing documentation — tutorials, how-tos, and
@@ -30,7 +30,7 @@ adopted Conventional Docs; ask first.
 ## Orient before writing
 
 1. Look for root `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `PLAN.md`,
-   `TODO.md`, `EVENTS.md`, and a `.changes/` directory.
+   `TODO.md`, and `EVENTS.md`.
 2. Look for the graduated forms under `docs/` (`docs/charter.md`,
    `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/events.md`,
    `docs/runbooks/`, `docs/incidents/`); `PLAN.md` and `TODO.md` have no
@@ -45,18 +45,17 @@ adopted Conventional Docs; ask first.
 
 ## Artifacts
 
-| Artifact  | Small repo           | Graduated                           | Lifetime              | Answers                                               |
-| --------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
-| Charter   | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
-| Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
-| Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
-| Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
-| Plan      | `PLAN.md`            | —                                   | one branch / worktree | exact steps for the current decision                  |
-| Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
-| Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
-| Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
-| Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
+| Artifact  | Small repo   | Graduated                           | Lifetime              | Answers                                            |
+| --------- | ------------ | ----------------------------------- | --------------------- | -------------------------------------------------- |
+| Charter   | `CHARTER.md` | `docs/charter.md`                   | project               | why it exists, goals, route                        |
+| Design    | `DESIGN.md`  | `docs/design.md`                    | living                | what the system is and does _now_                  |
+| Decisions | —            | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                    |
+| Roadmap   | `ROADMAP.md` | `docs/roadmap.md`                   | living                | what's next, in order                              |
+| Plan      | `PLAN.md`    | —                                   | one branch / worktree | exact steps for the current decision               |
+| Events    | `EVENTS.md`  | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce |
+| Runbooks  | —            | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                          |
+| Incidents | —            | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                        |
+| Todo      | `TODO.md`    | —                                   | one branch / worktree | where the work left off                            |
 
 _Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
 as its home is still under review._
@@ -78,7 +77,7 @@ to another agent, needs a Plan. Anything smaller just happens.
 intent → Decision (proposed) → review → Decision (accepted)
                                               ↓
    Design updated ← PR merged ← execute ← Plan written
-   Decision → implemented       Todo cached
+                                Todo cached
    Plan and Todo deleted
 ```
 
@@ -93,8 +92,6 @@ intent → Decision (proposed) → review → Decision (accepted)
 - **PR merged / Design updated** — the living Design doc is updated to match
   reality; `PLAN.md` is deleted by `plan: done` and `TODO.md` by
   `todo: clear`, both before merge.
-- **Decision → implemented** — committed with
-  `decision: implement <id> (#PR)` once merged.
 
 ## Decisions
 
@@ -153,48 +150,76 @@ one representative manifest — never to reproduce the implementation.>
 ## Positions
 
 <Alternatives considered and rejected, each with its reason, or `N/A`.>
-
-## Dates
-
-- Published: TBD (set at merge).
 ```
 
 Optional sections, in position:
 
 - `## Consequences` — after Architectural Decision, before Positions: rollout
   order, breaking changes, migration burden, follow-up documentation owed.
-- `## References` — before Dates: bulleted links with `—` descriptions
+- `## References` — after Positions: bulleted links with `—` descriptions
   (tracking issue, implementation PRs, related decisions, external specs).
+- `## Errata` — last, after References: append-only corrections and
+  supersession pointers, added only once the record is frozen.
 
 H3 subsections are permitted inside Argument, Architectural Decision, and
 Positions when they improve skimmability.
 
-### Status and date lifecycle
+### Status lifecycle
 
-Status is prose, and it moves with the commit events:
+A record has four states and moves through them in one direction:
+**draft → proposed → accepted | rejected**. Each transition is a commit, and
+`## Status` carries exactly one line:
 
-- **Proposed** (`decision: propose <id>`) — `This is a proposal that is
-**awaiting review**.` with `- Published: TBD (set at merge).`
-- **Accepted** (`decision: accept <id>`) — `This is a proposal that is
-**accepted**.` and `- Published: YYYY-MM-DD` set to the merge date.
-- **Implemented** (`decision: implement <id> (#PR)`) — `This is a proposal that
-is **implemented**.`, or lead with `Implemented in [owner/repo#NN](<url>).`,
-  and append `- Updated: YYYY-MM-DD (implemented)` under Dates.
-- **Superseded** — `This proposal is **superseded** by
-[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` and append an `- Updated:` line.
+- **draft** (`decision: draft <id>`) — `This is a **draft**; it is not ready
+for review.` The record exists and is being written; it is not the spec, and
+  nothing may be planned against it. The state is optional — a record written
+  in one sitting is proposed directly — but it is the only honest status for a
+  record committed before it is ready to be read.
+- **proposed** (`decision: propose <id>`) — `This is a proposal that is
+**awaiting review**.` It is the spec.
+- **accepted** (`decision: accept <id>`) — `This is a proposal that is
+**accepted**.`
+- **rejected** (`decision: reject <id>`) — `This proposal was **rejected**.`
+  A rejected record stays in the log: it says what was considered and why it
+  was refused.
 
-Material later edits append `- Updated: YYYY-MM-DD (<what changed>)` under
-Dates. Never rewrite a merged decision silently; extend it with a new decision
-instead.
+`accept` and `reject` end review, and that commit is the last write to the
+record's body. A record carries no dates: its date is its id, and every other
+date it could carry is a commit date `git log` already holds. There is no
+`implemented`, `superseded`, or `deprecated` status — what shipped is
+`CHANGELOG.md`'s question, and `plan: done <id>` already announces that an
+accepted decision's work is finished.
+
+### Errata
+
+A frozen record is corrected by appending to `## Errata`, its last section,
+one dated line per entry, newest last:
+
+```markdown
+## Errata
+
+- 2026-03-04: The second clause named `--strict`; the flag shipped as
+  `--pedantic`. The decision is unchanged.
+```
+
+Exactly two kinds of entry are admissible: a correction of fact or expression
+that leaves the decision itself unchanged, and a pointer to a record that
+supersedes or extends this one. Anything that changes the decision is a new
+decision. Never edit an existing erratum, and never edit the body above the
+heading.
+
+Supersession is stated twice — in the superseding record's Issue, and as an
+erratum on the superseded record. Neither record's status changes.
 
 ### Cross-linking decisions
 
 An extension decision opens Issue with `This decision extends
-[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` In the same PR, edit the extended
-decision to add `This decision is extended by
-[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` under its Issue heading. Reference
-decisions from prose as `[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md)`, with
-relative links.
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` In the same PR, give the extended
+record its reciprocal link: a draft or proposed record is edited in place,
+adding `This decision is extended by
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` under its Issue heading, while a
+frozen record receives an erratum instead. Reference decisions from prose as
+`[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md)`, with relative links.
 
 ### Keep it brief
 
@@ -291,23 +316,39 @@ made mid-flight. Omit this section when there is nothing to say.
 - A repo whose existing `TODO.md` is a durable backlog has a Roadmap under
   the wrong name and renames it to `ROADMAP.md` when adopting.
 
-## Release-note fragments
+## Changelog
 
-One `.changes/<slug>.md` file per user-facing change, with a kebab-case slug
-matching the change, added in the same commit or PR as the change. Every
-non-blank line is a markdown list item opening with one of the six
-[Keep a Changelog](https://keepachangelog.com/) categories — `Added`,
-`Changed`, `Deprecated`, `Removed`, `Fixed`, `Security` — in the exact form
-`- <Category>: <description>`:
+`CHANGELOG.md` at the repository root answers both what shipped and what will
+ship next. It follows
+[Keep a Changelog 2.0.0](https://keepachangelog.com/en/2.0.0/): a `# Changelog`
+heading with the fixed preamble, `## [Unreleased]` at the top, released
+versions as `## [x.y.z] - YYYY-MM-DD` newest first, the six categories —
+`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security` — as `###`
+subsections, `**Breaking:**` markers inside the type they belong to, and
+reference-style links at the bottom resolving each version to a compare diff.
+
+Add a notable user-facing change to `## [Unreleased]` in the same commit or PR
+as the change:
 
 ```markdown
-- Added: support for custom output formats.
-- Fixed: a race condition when releasing concurrently.
+## [Unreleased]
+
+### Added
+
+- Support for custom output formats.
 ```
 
-Fragments are concatenated, grouped by category, and deleted at release time.
-`CHANGELOG.md` is assembled from them and is never hand-edited; version
-fields are never hand-bumped.
+- Notable is a judgment: no check requires a changelog edit, and a change no
+  user would notice gets no line.
+- Never hand-edit a released section, and never hand-bump a version heading or
+  a version field. The `release:` event renames `[Unreleased]` to the new
+  version in both the heading and its reference link, and opens a fresh empty
+  `[Unreleased]`.
+- Resolve a conflict in `[Unreleased]` by keeping both lines; order within a
+  category carries no meaning.
+- A line may cite the decision id it came from — a portable reference (a path
+  in the repo, not one host's number), which is the form Keep a Changelog
+  recommends over a bare `(#1234)`.
 
 ## Commit events
 
@@ -321,9 +362,10 @@ announce types beyond the ones below. `EVENTS.md` is a proposed artifact, not
 a settled one: read an existing file, and do not create one unless asked.
 
 ```text
+decision: draft 2026-02-11-split-the-scheduler
 decision: propose 2026-02-11-split-the-scheduler
 decision: accept 2026-02-11-split-the-scheduler
-decision: implement 2026-02-11-split-the-scheduler (#88)
+decision: reject 2026-02-11-split-the-scheduler
 plan: start 2026-02-11-split-the-scheduler
 plan: done 2026-02-11-split-the-scheduler
 todo: sync

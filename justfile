@@ -22,13 +22,19 @@ deps:
 [group('configuration')]
 format:
     {{ mise }} prettier --write .
+    {{ mise }} cargo fmt
     mise fmt
     just --fmt
 
 # Remove installed dependencies
 [group('configuration')]
-clean:
+clean: clean-rust
     rm -rf node_modules
+
+# Remove the Rust build directory
+[group('configuration')]
+clean-rust:
+    {{ mise }} cargo clean
 
 # Report tools and dependencies with newer versions available
 [group('configuration')]
@@ -58,15 +64,16 @@ format-check:
 lint:
     {{ mise }} markdownlint-cli2 "**/*.md"
 
-# Validate release-note fragment format in .changes/
-[group('checks')]
-lint-changes:
-    bun scripts/validate-changes.mjs
-
 # Validate SKILL.md frontmatter against the Agent Skills spec
 [group('checks')]
 lint-skills:
     bun scripts/validate-skills.mjs
+
+# Lint Rust sources and verify their formatting
+[group('checks')]
+lint-rust:
+    {{ mise }} cargo fmt --check
+    {{ mise }} cargo clippy --all-targets -- -D warnings
 
 # Lint commit messages in a range (defaults to auto-detected base..HEAD)
 [group('checks')]
@@ -83,9 +90,9 @@ commitlint from="" to="HEAD":
     fi
     bun x commitlint --from "$base" --to {{ to }} --verbose
 
-# Run every gate: formatting, markdown lint, link check
+# Run every gate: formatting, markdown lint, Rust lint, link check, tests
 [group('checks')]
-check: format-check lint lint-changes lint-skills test
+check: format-check lint lint-skills lint-rust test test-rust
 
 #
 # tests group recipes
@@ -95,3 +102,8 @@ check: format-check lint lint-changes lint-skills test
 [group('tests')]
 test:
     bun x linkinator "*.md" "skills/**/*.md" "docs/**/*.md" --markdown
+
+# Run the Rust test suite
+[group('tests')]
+test-rust:
+    {{ mise }} cargo test

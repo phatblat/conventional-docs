@@ -153,8 +153,3 @@ moves with the rest of the vocabulary.
   under review.
 - [Conventional Commits](https://www.conventionalcommits.org/) — the type
   syntax `todo:` extends.
-
-## Dates
-
-- Published: 2026-09-05
-</content>

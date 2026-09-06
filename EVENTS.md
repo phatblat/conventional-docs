@@ -9,9 +9,10 @@ Lifecycle transitions are commits with
 dashboards, and chat notifications can key off `git log` without parsing files.
 
 ```text
+decision: draft 2026-02-11-split-the-scheduler
 decision: propose 2026-02-11-split-the-scheduler
 decision: accept 2026-02-11-split-the-scheduler
-decision: implement 2026-02-11-split-the-scheduler (#88)
+decision: reject 2026-02-11-split-the-scheduler
 plan: start 2026-02-11-split-the-scheduler
 plan: done 2026-02-11-split-the-scheduler
 todo: sync
@@ -20,9 +21,12 @@ release: v1.2.0
 deploy: prod v1.2.0
 ```
 
-- `decision: propose <id>` — a decision record is written; it is the spec.
-- `decision: accept <id>` — the spec is frozen after review.
-- `decision: implement <id> (#PR)` — the change merged.
+- `decision: draft <id>` — a record is being written; it is not the spec yet.
+- `decision: propose <id>` — a decision record is submitted for review; it is
+  the spec.
+- `decision: accept <id>` — review ended and the record's body is frozen.
+- `decision: reject <id>` — review refused the proposal; the record stays in
+  the log.
 - `plan: start <id>` — a Plan for the accepted decision is on a branch.
 - `plan: done <id>` — the Plan's steps are finished and its file is deleted.
 - `todo: sync` — `TODO.md` is refreshed from the agent's live list.

@@ -1,3 +1,0 @@
-- Changed: the Todo artifact is now `TODO.md` at the repository root, committed as a cache of the agent's working list, replacing `agent memory` and the opt-in `docs/todo.md`.
-- Added: `todo: sync` and `todo: clear` commit events, plus the rule that a `plan:` or `todo:` commit touches only its own artifact so the bookkeeping can be dropped or squashed away.
-- Removed: the `docs/plan.md` and `docs/todo.md` graduated forms — a Plan and a Todo never graduate.

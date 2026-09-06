@@ -1,9 +1,13 @@
 [tools]
-bun = "1.4.1"
+bun = "1.4.2"
 just = "1.58.0"
 "npm:markdownlint-cli2" = "0.23.2"
 "npm:prettier" = "3.9.6"
 
+[tools.rust]
+version = "1.98.1"
+profile = "minimal"
+components = ["clippy", "rustfmt"]
 # `mise deps` runs `bun install` when package.json or bun.lock changes.
 [deps.bun]
 

@@ -96,7 +96,3 @@ carries a note, and the `conventional-docs` skill reads an existing
 - [Conventional Commits](https://www.conventionalcommits.org/) — the type
   syntax these events extend.
 - [vuejs/core commit convention](https://github.com/vuejs/core/blob/main/.github/commit-convention.md) — the precedent weighed in Positions.
-
-## Dates
-
-- Published: TBD (set at merge).
