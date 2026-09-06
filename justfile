@@ -28,8 +28,13 @@ format:
 
 # Remove installed dependencies
 [group('configuration')]
-clean:
+clean: clean-rust
     rm -rf node_modules
+
+# Remove the Rust build directory
+[group('configuration')]
+clean-rust:
+    {{ mise }} cargo clean
 
 # Report tools and dependencies with newer versions available
 [group('configuration')]
