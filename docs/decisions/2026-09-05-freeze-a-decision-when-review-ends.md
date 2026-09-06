@@ -32,7 +32,7 @@ rewriting a record in place violates.
 
 ## Status
 
-This is a proposal that is **awaiting review**.
+This is a proposal that is **accepted**.
 
 ## Assumptions and Constraints
 
@@ -84,16 +84,6 @@ is editable by whoever edits the body — it catches accidents, not intent.
 Everything the tail does not carry moves to the artifact that owns it.
 `CHANGELOG.md` already answers what shipped and when, and `plan: done` already
 announces that an accepted decision's work is finished.
-
-### Open before acceptance
-
-- Whether an erratum pointing at a superseding record is the same kind of thing
-  as a correction. Clause 7 says yes, because neither changes the decision. If
-  review disagrees, the section is named `## Addenda` and both kinds stay, or
-  the pointer is dropped and a reader of a superseded record is on their own.
-- Whether `decision: draft` earns an event, or a draft is simply a record whose
-  propose event has not fired yet. Clause 1 gives it one, so that a hook can
-  refuse to plan against a record nobody has submitted.
 
 ## Architectural Decision
 
