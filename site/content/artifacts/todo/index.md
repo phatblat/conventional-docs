@@ -68,8 +68,9 @@ flip until a full day of job history confirms parity.
 Write and refresh `TODO.md` whenever tracking a list at all — there's no
 threshold below which the cache is skipped — and commit it at each checkpoint
 with `todo: sync` (see [Events](../../events/index.md)). Delete it before
-merge with `todo: clear`; `plan: done` and `todo: clear` are a matched pair,
-so dropping both from a branch's history leaves the tree exactly as it was.
+merge with `todo: clear`; `todo: sync` and `todo: clear` are a matched pair
+for `TODO.md`, so dropping both from a branch's history leaves the tree
+exactly as it was.
 The file belongs to the branch, not the session: a later session on the same
 branch reads it and takes it over.
 
