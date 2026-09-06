@@ -39,11 +39,16 @@ designed to enable: [CHARTER.md](CHARTER.md).
 _Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
 as its home is [still under review](docs/decisions/2026-09-05-give-events-their-own-artifact.md)._
 
-A _proposed_ decision is the spec. Once accepted it is frozen; changing your
-mind is a new decision that supersedes it. The Plan is written from an accepted
-decision, committed for backup and handoff, and deleted before merge. The Todo
-is the agent's own list, cached in git so a lost session is recoverable, and
-deleted the same way.
+A decision record moves through four states — **draft**, **proposed**,
+**accepted**, **rejected** — and each transition is a commit. A _proposed_
+decision is the spec. `accept` and `reject` end review and freeze the record's
+body: changing your mind is a new decision that supersedes it, and a
+correction or a supersession pointer is a dated line in the record's
+append-only `## Errata` tail. A rejected record stays in the log; it says
+what was considered and why it was refused. The Plan is written from an
+accepted decision, committed for backup and handoff, and deleted before
+merge. The Todo is the agent's own list, cached in git so a lost session is
+recoverable, and deleted the same way.
 
 ### Files that never graduate
 
@@ -115,6 +120,10 @@ The `release:` event renames `[Unreleased]` to the new version in both the
 heading and its reference link, adds a fresh empty `[Unreleased]` pointing at
 `HEAD`, and leaves the released section untouched thereafter.
 
+A line may cite the decision id it came from — a path in the repo rather than
+one host's number, which is the portable form Keep a Changelog recommends
+over a bare `(#1234)`.
+
 ### The todo cache
 
 `TODO.md` is the working list the agent is already keeping, written to a file
@@ -144,7 +153,7 @@ on.
 intent → Decision (proposed) → review → Decision (accepted)
                                               ↓
    Design updated ← PR merged ← execute ← Plan written
-   Decision → implemented       Todo cached
+                                Todo cached
    Plan and Todo deleted
 ```
 

@@ -149,7 +149,3 @@ The nine-artifact table is a user-visible change to the convention and needs a
   [towncrier](https://towncrier.readthedocs.io/) — the fragment-directory
   precedent being dropped.
 - [CHARTER.md](../../CHARTER.md) — the "costs attention, not tooling" goal.
-
-## Dates
-
-- Published: TBD (set at merge).

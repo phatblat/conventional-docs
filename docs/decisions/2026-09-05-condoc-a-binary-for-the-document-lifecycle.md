@@ -225,7 +225,3 @@ closing the gap properly is a separate question for `README.md` and the skill.
 - [EVENTS.md](../../EVENTS.md) — the vocabulary the command surface mirrors.
 - [ROADMAP.md](../../ROADMAP.md) — the paired-CLI item this answers.
 - [gitoxide](https://github.com/GitoxideLabs/gitoxide) — the read layer.
-
-## Dates
-
-- Published: TBD (set at merge).

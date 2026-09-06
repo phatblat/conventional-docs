@@ -142,6 +142,10 @@ for the relative cross-links between records to be checked.
 - [MADR](https://adr.github.io/madr/) — the template family this skeleton
   departs from, and the source of the `docs/decisions/` default path.
 
-## Dates
+## Errata
 
-- Published: 2026-09-05
+- 2026-09-06: Clauses 2, 5, and 6 are superseded by
+  [2026-09-05-freeze-a-decision-when-review-ends](./2026-09-05-freeze-a-decision-when-review-ends.md):
+  the skeleton has no `## Dates` section, the status set is draft, proposed,
+  accepted, and rejected, and a later correction is an `## Errata` line rather
+  than an `- Updated:` line.

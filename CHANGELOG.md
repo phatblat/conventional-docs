@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Decision records are identified by date (`YYYY-MM-DD-slug`) instead of a sequential number, so ids no longer race between branches.
 - The Todo artifact is now `TODO.md` at the repository root, committed as a cache of the agent's working list, replacing `agent memory` and the opt-in `docs/todo.md`.
 - Release notes are curated in this file's `[Unreleased]` section instead of `.changes/*.md` fragment files, and no check requires a changelog edit on a change.
+- A decision record is frozen when review ends: four states (draft, proposed, accepted, rejected), no `## Dates` section, and later corrections in an append-only `## Errata` tail (`2026-09-05-freeze-a-decision-when-review-ends`).
 
 ### Removed
 

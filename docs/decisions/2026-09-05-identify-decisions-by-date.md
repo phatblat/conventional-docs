@@ -85,7 +85,3 @@ with the caveat that some existing tooling stops applying. Here that is exactly
 - **Date plus a per-day counter** (`2026-09-05-01-slug`). _Rejected._ Restores
   an allocation race inside the day for no gain; the slug already
   disambiguates.
-
-## Dates
-
-- Published: 2026-09-05

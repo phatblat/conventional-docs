@@ -77,7 +77,7 @@ to another agent, needs a Plan. Anything smaller just happens.
 intent → Decision (proposed) → review → Decision (accepted)
                                               ↓
    Design updated ← PR merged ← execute ← Plan written
-   Decision → implemented       Todo cached
+                                Todo cached
    Plan and Todo deleted
 ```
 
@@ -92,8 +92,6 @@ intent → Decision (proposed) → review → Decision (accepted)
 - **PR merged / Design updated** — the living Design doc is updated to match
   reality; `PLAN.md` is deleted by `plan: done` and `TODO.md` by
   `todo: clear`, both before merge.
-- **Decision → implemented** — committed with
-  `decision: implement <id> (#PR)` once merged.
 
 ## Decisions
 
@@ -152,48 +150,76 @@ one representative manifest — never to reproduce the implementation.>
 ## Positions
 
 <Alternatives considered and rejected, each with its reason, or `N/A`.>
-
-## Dates
-
-- Published: TBD (set at merge).
 ```
 
 Optional sections, in position:
 
 - `## Consequences` — after Architectural Decision, before Positions: rollout
   order, breaking changes, migration burden, follow-up documentation owed.
-- `## References` — before Dates: bulleted links with `—` descriptions
+- `## References` — after Positions: bulleted links with `—` descriptions
   (tracking issue, implementation PRs, related decisions, external specs).
+- `## Errata` — last, after References: append-only corrections and
+  supersession pointers, added only once the record is frozen.
 
 H3 subsections are permitted inside Argument, Architectural Decision, and
 Positions when they improve skimmability.
 
-### Status and date lifecycle
+### Status lifecycle
 
-Status is prose, and it moves with the commit events:
+A record has four states and moves through them in one direction:
+**draft → proposed → accepted | rejected**. Each transition is a commit, and
+`## Status` carries exactly one line:
 
-- **Proposed** (`decision: propose <id>`) — `This is a proposal that is
-**awaiting review**.` with `- Published: TBD (set at merge).`
-- **Accepted** (`decision: accept <id>`) — `This is a proposal that is
-**accepted**.` and `- Published: YYYY-MM-DD` set to the merge date.
-- **Implemented** (`decision: implement <id> (#PR)`) — `This is a proposal that
-is **implemented**.`, or lead with `Implemented in [owner/repo#NN](<url>).`,
-  and append `- Updated: YYYY-MM-DD (implemented)` under Dates.
-- **Superseded** — `This proposal is **superseded** by
-[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` and append an `- Updated:` line.
+- **draft** (`decision: draft <id>`) — `This is a **draft**; it is not ready
+for review.` The record exists and is being written; it is not the spec, and
+  nothing may be planned against it. The state is optional — a record written
+  in one sitting is proposed directly — but it is the only honest status for a
+  record committed before it is ready to be read.
+- **proposed** (`decision: propose <id>`) — `This is a proposal that is
+**awaiting review**.` It is the spec.
+- **accepted** (`decision: accept <id>`) — `This is a proposal that is
+**accepted**.`
+- **rejected** (`decision: reject <id>`) — `This proposal was **rejected**.`
+  A rejected record stays in the log: it says what was considered and why it
+  was refused.
 
-Material later edits append `- Updated: YYYY-MM-DD (<what changed>)` under
-Dates. Never rewrite a merged decision silently; extend it with a new decision
-instead.
+`accept` and `reject` end review, and that commit is the last write to the
+record's body. A record carries no dates: its date is its id, and every other
+date it could carry is a commit date `git log` already holds. There is no
+`implemented`, `superseded`, or `deprecated` status — what shipped is
+`CHANGELOG.md`'s question, and `plan: done <id>` already announces that an
+accepted decision's work is finished.
+
+### Errata
+
+A frozen record is corrected by appending to `## Errata`, its last section,
+one dated line per entry, newest last:
+
+```markdown
+## Errata
+
+- 2026-03-04: The second clause named `--strict`; the flag shipped as
+  `--pedantic`. The decision is unchanged.
+```
+
+Exactly two kinds of entry are admissible: a correction of fact or expression
+that leaves the decision itself unchanged, and a pointer to a record that
+supersedes or extends this one. Anything that changes the decision is a new
+decision. Never edit an existing erratum, and never edit the body above the
+heading.
+
+Supersession is stated twice — in the superseding record's Issue, and as an
+erratum on the superseded record. Neither record's status changes.
 
 ### Cross-linking decisions
 
 An extension decision opens Issue with `This decision extends
-[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` In the same PR, edit the extended
-decision to add `This decision is extended by
-[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` under its Issue heading. Reference
-decisions from prose as `[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md)`, with
-relative links.
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` In the same PR, give the extended
+record its reciprocal link: a draft or proposed record is edited in place,
+adding `This decision is extended by
+[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md).` under its Issue heading, while a
+frozen record receives an erratum instead. Reference decisions from prose as
+`[YYYY-MM-DD-slug](./YYYY-MM-DD-slug.md)`, with relative links.
 
 ### Keep it brief
 
@@ -320,6 +346,9 @@ as the change:
   `[Unreleased]`.
 - Resolve a conflict in `[Unreleased]` by keeping both lines; order within a
   category carries no meaning.
+- A line may cite the decision id it came from — a portable reference (a path
+  in the repo, not one host's number), which is the form Keep a Changelog
+  recommends over a bare `(#1234)`.
 
 ## Commit events
 
@@ -333,9 +362,10 @@ announce types beyond the ones below. `EVENTS.md` is a proposed artifact, not
 a settled one: read an existing file, and do not create one unless asked.
 
 ```text
+decision: draft 2026-02-11-split-the-scheduler
 decision: propose 2026-02-11-split-the-scheduler
 decision: accept 2026-02-11-split-the-scheduler
-decision: implement 2026-02-11-split-the-scheduler (#88)
+decision: reject 2026-02-11-split-the-scheduler
 plan: start 2026-02-11-split-the-scheduler
 plan: done 2026-02-11-split-the-scheduler
 todo: sync

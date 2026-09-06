@@ -234,7 +234,3 @@ This record is written under the convention in force, so it still carries a
   and widens at the other.
 - [Keep a Changelog 2.0.0](https://keepachangelog.com/en/2.0.0/) — portable
   references over host-specific numbers.
-
-## Dates
-
-- Published: TBD (set at merge).
