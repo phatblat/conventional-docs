@@ -61,16 +61,32 @@ This is a proposal that is **awaiting review**.
 ## Architectural Decision
 
 ## Positions
-
-## Dates
-
-- Published: TBD (set at merge).
 ```
 
 {{< /details >}}
 
-**`.changes/`** — an empty directory that gets a `<slug>.md` fragment file
-alongside every user-facing change from now on.
+A notable user-facing change adds its line under `## [Unreleased]` from now
+on:
+
+{{< details summary="CHANGELOG.md" >}}
+
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+```
+
+{{< /details >}}
+
+[`condoc`](/condoc/) writes all four of these mechanically: `condoc init`
+writes `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, and `CHANGELOG.md` in one
+commit, and `condoc dec propose <title>` writes the first decision with its
+own.
 
 ## Wire the events (optional)
 

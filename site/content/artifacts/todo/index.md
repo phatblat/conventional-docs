@@ -70,6 +70,8 @@ threshold below which the cache is skipped — and commit it at each checkpoint
 with `todo: sync` (see [Events](../../events/index.md)). Delete it before
 merge with `todo: clear`; `plan: done` and `todo: clear` are a matched pair,
 so dropping both from a branch's history leaves the tree exactly as it was.
+The file belongs to the branch, not the session: a later session on the same
+branch reads it and takes it over.
 
 **Anti-pattern:** treating a committed `TODO.md` as a durable backlog. A repo
 whose existing `TODO.md` already means "durable backlog" has a

@@ -14,8 +14,8 @@ explains them.
 
 Decisions here _are_ an ADR log with a status lifecycle — a proposed decision
 is the spec. Conventional Docs adds the other artifacts an ADR log doesn't
-cover: a Charter, a living Design doc, a Roadmap, a Plan, and release-note
-fragments, all at predictable paths.
+cover: a Charter, a living Design doc, a Roadmap, a Plan, a Todo, and a
+curated changelog, all at predictable paths.
 
 ## How is this different from spec-kit or Kiro?
 
@@ -48,6 +48,13 @@ The predictable paths and small, fixed shapes are precisely what make that
 tractable: an agent doesn't have to guess where a decision belongs, it looks
 it up. The reference implementation includes an agent skill built on exactly
 this assumption.
+
+## Do I need condoc?
+
+No. [`condoc`](../condoc/index.md) is experimental, macOS arm64 only, and
+writes nothing a person could not write by hand; it exists so the exact
+status prose, ids, reciprocal links, and commit subjects are produced
+mechanically.
 
 ## What happens when a document gets too big?
 

@@ -46,9 +46,9 @@ separate issue for each one, and delete anything that no longer applies.
 ```
 
 **Anti-pattern:** letting finished or abandoned items pile up. A Roadmap is a
-queue, not a history — once an item ships it belongs in
-[Changes](../changes/index.md) and the changelog, and once it's abandoned it's
-deleted outright.
+queue, not a history — once an item ships it belongs in the
+[Changelog](../changelog/index.md), and once it's abandoned it's deleted
+outright.
 
 A repo whose existing `TODO.md` is actually a durable backlog has a Roadmap
 under the wrong name; rename it to `ROADMAP.md` and keep the real

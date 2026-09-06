@@ -11,8 +11,7 @@ DESIGN.md
 ROADMAP.md
 AGENTS.md
 README.md
-.changes/
-  add-export-command.md
+CHANGELOG.md
 docs/
   decisions/
     2026-02-11-split-the-scheduler.md
@@ -34,11 +33,10 @@ docs/
     2026-03-02-billing-outage.md
 AGENTS.md
 README.md
-.changes/
-  add-export-command.md
+CHANGELOG.md
 ```
 
-`README.md`, `AGENTS.md`, and `.changes/` never move. Decisions, Runbooks, and
+`README.md`, `AGENTS.md`, and `CHANGELOG.md` never move. Decisions, Runbooks, and
 Incidents have only a graduated path and live under `docs/` from their first
 entry, whether or not the rest of the repository has graduated. Nothing exists
 at both the small-repo path and the graduated path at once.

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 380" role="img" aria-labelledby="loop-title loop-desc">
   <title id="loop-title">The Conventional Docs loop</title>
-  <desc id="loop-desc">Intent leads to a proposed Decision, then review, then an accepted Decision. A Plan is written, executed while the Todo is cached, and the pull request merges. Design is updated and the Decision is marked implemented, closing the loop back to the next intent.</desc>
+  <desc id="loop-desc">Intent leads to a proposed Decision, then review, then an accepted Decision. A Plan is written, executed while the Todo is cached, and the pull request merges. Design is updated, closing the loop back to the next intent.</desc>
   <style>
     .node { fill: #f5f7fa; stroke: #dee2e6; stroke-width: 1.5; }
     .label {
@@ -71,6 +71,6 @@
   <!-- Up the left side, closing the loop: Design updated -> next Intent -->
   <line class="flow" x1="110" y1="235" x2="110" y2="105" marker-end="url(#loop-arrow)" />
 
-  <text class="caption" x="470" y="337">Todo cached during execute (<tspan font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">todo: sync</tspan>); Decision marked implemented once merged</text>
+  <text class="caption" x="470" y="337">Todo cached during execute (<tspan font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">todo: sync</tspan>)</text>
   <text class="caption" x="470" y="357">Plan and Todo deleted before merge</text>
 </svg>

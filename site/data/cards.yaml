@@ -16,6 +16,9 @@
 - title: Events
   href: /events
   blurb: Publish lifecycle activity as Conventional Commits, so the repo stays the record.
+- title: condoc
+  href: /condoc
+  blurb: The optional binary that writes the artifacts and their lifecycle commits.
 - title: Read the spec
   href: /spec/next
   blurb: The normative specification, in RFC 2119 terms.

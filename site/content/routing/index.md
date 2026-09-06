@@ -19,8 +19,9 @@ the answer.
    [Plan](../artifacts/plan/index.md) (`PLAN.md`, no graduated form).
 5. **Is it something intended for later, not now?** → Roadmap
    (`ROADMAP.md` / `docs/roadmap.md`).
-6. **Will a user of the software notice this change?** → a fragment at
-   `.changes/<slug>.md`.
+6. **Will a user of the software notice this change?** → a line in
+   [the changelog](../artifacts/changelog/index.md)'s `## [Unreleased]`
+   section (`CHANGELOG.md`).
 7. **Is it what to do when a named alarm fires?** → Runbook
    (`docs/runbooks/<trigger>.md`).
 8. **Did something break in production?** → Incident
@@ -42,17 +43,16 @@ the answer.
 | Living                | Design, Roadmap, Runbooks |
 | Append-only           | Decisions, Incidents      |
 | One branch / worktree | Plan, Todo                |
-| Per-release           | Changes                   |
 
 ## Common mis-routes
 
-| Wrong place                                          | Right place                             |
-| ---------------------------------------------------- | --------------------------------------- |
-| Planned work written into Design                     | Decision, plus a Plan for the steps     |
-| An accepted decision edited in place                 | A new decision that supersedes it       |
-| A changelog reconstructed from commits at release    | Fragments written alongside each change |
-| This branch's steps appended to the Roadmap          | Plan                                    |
-| Architecture rationale left only in a PR description | Decision, committed to the repo         |
+| Wrong place                                          | Right place                                                                         |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Planned work written into Design                     | Decision, plus a Plan for the steps                                                 |
+| An accepted decision edited in place                 | An erratum for a correction; a new decision that supersedes it for a change of mind |
+| A changelog reconstructed from commits at release    | A line in `[Unreleased]`, written alongside the change                              |
+| This branch's steps appended to the Roadmap          | Plan                                                                                |
+| Architecture rationale left only in a PR description | Decision, committed to the repo                                                     |
 
 ## If two answers fit
 
