@@ -37,12 +37,12 @@ the answer.
 
 ## By lifetime
 
-| Lifetime              | Artifact                  |
-| --------------------- | ------------------------- |
-| Project               | Charter                   |
-| Living                | Design, Roadmap, Runbooks |
-| Append-only           | Decisions, Incidents      |
-| One branch / worktree | Plan, Todo                |
+| Lifetime              | Artifact                          |
+| --------------------- | --------------------------------- |
+| Project               | Charter                           |
+| Living                | Design, Roadmap, Runbooks, Events |
+| Append-only           | Decisions, Incidents              |
+| One branch / worktree | Plan, Todo                        |
 
 ## Common mis-routes
 
