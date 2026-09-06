@@ -58,11 +58,6 @@ format-check:
 lint:
     {{ mise }} markdownlint-cli2 "**/*.md"
 
-# Validate release-note fragment format in .changes/
-[group('checks')]
-lint-changes:
-    bun scripts/validate-changes.mjs
-
 # Validate SKILL.md frontmatter against the Agent Skills spec
 [group('checks')]
 lint-skills:
@@ -85,7 +80,7 @@ commitlint from="" to="HEAD":
 
 # Run every gate: formatting, markdown lint, link check
 [group('checks')]
-check: format-check lint lint-changes lint-skills test
+check: format-check lint lint-skills test
 
 #
 # tests group recipes

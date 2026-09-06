@@ -1,2 +1,0 @@
-- Changed: decision records are identified by date (`YYYY-MM-DD-slug`) instead of a sequential number, so ids no longer race between branches.
-- Removed: the single-file `DECISIONS.md` form; every decision is its own file under `docs/decisions/`, following a fixed skeleton.

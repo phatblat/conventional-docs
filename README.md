@@ -24,18 +24,17 @@ designed to enable: [CHARTER.md](CHARTER.md).
 
 ## The artifacts
 
-| Artifact  | Small repo           | Graduated                           | Lifetime              | Answers                                               |
-| --------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
-| Charter   | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
-| Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
-| Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
-| Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
-| Plan      | `PLAN.md`            | —                                   | one branch / worktree | exact steps for the current decision                  |
-| Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
-| Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
-| Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
-| Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
+| Artifact  | Small repo   | Graduated                           | Lifetime              | Answers                                            |
+| --------- | ------------ | ----------------------------------- | --------------------- | -------------------------------------------------- |
+| Charter   | `CHARTER.md` | `docs/charter.md`                   | project               | why it exists, goals, route                        |
+| Design    | `DESIGN.md`  | `docs/design.md`                    | living                | what the system is and does _now_                  |
+| Decisions | —            | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                    |
+| Roadmap   | `ROADMAP.md` | `docs/roadmap.md`                   | living                | what's next, in order                              |
+| Plan      | `PLAN.md`    | —                                   | one branch / worktree | exact steps for the current decision               |
+| Events    | `EVENTS.md`  | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce |
+| Runbooks  | —            | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                          |
+| Incidents | —            | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                        |
+| Todo      | `TODO.md`    | —                                   | one branch / worktree | where the work left off                            |
 
 _Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
 as its home is [still under review](docs/decisions/2026-09-05-give-events-their-own-artifact.md)._
@@ -51,9 +50,10 @@ deleted the same way.
 `README.md`, `LICENSE`, `CHANGELOG.md`, and `AGENTS.md` stay at the root
 permanently. Their consumers — registries, GitHub, coding agents — look only
 there, and several of them don't go through a filesystem that could follow a
-link. `CHANGELOG.md` follows [Keep a Changelog](https://keepachangelog.com/);
-its entries are assembled from `.changes/` fragments at release time, never
-hand-written directly.
+link. `CHANGELOG.md` follows
+[Keep a Changelog 2.0.0](https://keepachangelog.com/en/2.0.0/) and answers
+both what shipped and what will ship next: it is hand-curated above the
+newest released heading, so a reader needs nothing to assemble it.
 
 ### Graduating to `docs/`
 
@@ -84,24 +84,36 @@ points tools that only need the location — `adr list`, `adr generate` — at
 it. `adr new` allocates the next sequential number, so records are copied
 from the skeleton instead.
 
-### Release notes
+### The changelog
 
 Public-facing release notes are written incrementally, alongside the change
-itself, not reconstructed from commit messages after the fact. Each
-user-facing change adds a fragment file under `.changes/<slug>.md` in the same
-commit or PR. A fragment is one or more lines; each line is a markdown
-unordered list item starting with one of the six
-[Keep a Changelog](https://keepachangelog.com/) categories:
+itself, not reconstructed from commit messages after the fact. `CHANGELOG.md`
+keeps a `## [Unreleased]` section at the top, and a notable user-facing change
+adds its line there in the same commit or PR as the change:
 
 ```markdown
-- Added: support for custom output formats.
-- Fixed: a race condition when releasing concurrently.
+## [Unreleased]
+
+### Added
+
+- Support for custom output formats.
 ```
 
-At release time, every fragment file is concatenated, grouped by category,
-and folded into that release's notes and the `CHANGELOG.md` entry. The
-consumed fragment files are deleted in the same commit as the version bump —
-`.changes/` holds only what hasn't shipped yet.
+Its shape is [Keep a Changelog 2.0.0](https://keepachangelog.com/en/2.0.0/): a
+`# Changelog` heading with the fixed preamble, released versions as
+`## [x.y.z] - YYYY-MM-DD` newest first, the six categories as `###`
+subsections, `**Breaking:**` markers inside the type they belong to, and
+reference-style links at the bottom resolving each version to a compare diff,
+with `[Unreleased]` comparing the latest tag to `HEAD`.
+
+Notable is a judgment, not a gate: no check requires a changelog edit on a
+change, and nothing validates that one is present. A conflict in
+`[Unreleased]` between two branches is resolved by keeping both lines — order
+within a category carries no meaning.
+
+The `release:` event renames `[Unreleased]` to the new version in both the
+heading and its reference link, adds a fresh empty `[Unreleased]` pointing at
+`HEAD`, and leaves the released section untouched thereafter.
 
 ### The todo cache
 

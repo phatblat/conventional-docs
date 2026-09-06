@@ -40,7 +40,7 @@ Each SDLC phase ends by writing the artifact the next phase reads.
 | Planning        | the exact steps and the files they touch   | Plan                |
 | Implementation  | where this session left off                | Todo                |
 | Integration     | what the system is and does now            | Design              |
-| Release         | what shipped, in plain language            | Changes → CHANGELOG |
+| Release         | what shipped, in plain language            | CHANGELOG.md        |
 | Operation       | what to do when _x_ fires                  | Runbook             |
 | Incident review | what broke and what was learned            | Incident            |
 
@@ -123,17 +123,16 @@ credentials — and every actor on that branch sees exactly the same context.
 
 Where this project keeps its own artifacts.
 
-| Artifact  | Location             | Notes                                                                |
-| --------- | -------------------- | -------------------------------------------------------------------- |
-| Charter   | `CHARTER.md`         | this file                                                            |
-| Design    | —                    | the convention is the product; its spec is `README.md` and the skill |
-| Decisions | —                    | none recorded yet                                                    |
-| Roadmap   | `ROADMAP.md`         | in use                                                               |
-| Plan      | —                    | written per branch as `PLAN.md`, deleted at `plan: done`             |
-| Changes   | `.changes/<slug>.md` | in use                                                               |
-| Runbooks  | —                    | not used                                                             |
-| Incidents | —                    | not used                                                             |
-| Todo      | —                    | written per branch as `TODO.md`, deleted at `todo: clear`            |
+| Artifact  | Location     | Notes                                                                |
+| --------- | ------------ | -------------------------------------------------------------------- |
+| Charter   | `CHARTER.md` | this file                                                            |
+| Design    | —            | the convention is the product; its spec is `README.md` and the skill |
+| Decisions | —            | none recorded yet                                                    |
+| Roadmap   | `ROADMAP.md` | in use                                                               |
+| Plan      | —            | written per branch as `PLAN.md`, deleted at `plan: done`             |
+| Runbooks  | —            | not used                                                             |
+| Incidents | —            | not used                                                             |
+| Todo      | —            | written per branch as `TODO.md`, deleted at `todo: clear`            |
 
 The Design row's claim is the repo's stated split (see `AGENTS.md`):
 `README.md` is the human-facing spec and rationale, and

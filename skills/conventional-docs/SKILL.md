@@ -1,6 +1,6 @@
 ---
 name: conventional-docs
-description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and .changes release-note fragments. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when adding a user-facing change that needs a release-note fragment, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/.
+description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and the CHANGELOG. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when recording a user-facing change in the changelog's Unreleased section, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/.
 license: MIT
 ---
 
@@ -17,9 +17,9 @@ look. Full rationale and rendered tables:
 Use it when creating or editing a `CHARTER.md`, `DESIGN.md`, `docs/decisions/`,
 `ROADMAP.md`, or `EVENTS.md` (or their graduated `docs/` forms), or a
 `PLAN.md` or `TODO.md`; when deciding whether a change needs a Decision or a
-Plan; when a change is user-facing and needs a `.changes/<slug>.md` fragment;
-when writing a `decision:`, `plan:`, `todo:`, `release:`, or `deploy:` commit;
-or when a root document has outgrown a single file and needs to graduate into
+Plan; when a change is user-facing and needs a changelog line; when writing a
+`decision:`, `plan:`, `todo:`, `release:`, or `deploy:` commit; or when a root
+document has outgrown a single file and needs to graduate into
 `docs/`.
 
 Do not use it for user-facing documentation — tutorials, how-tos, and
@@ -30,7 +30,7 @@ adopted Conventional Docs; ask first.
 ## Orient before writing
 
 1. Look for root `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `PLAN.md`,
-   `TODO.md`, `EVENTS.md`, and a `.changes/` directory.
+   `TODO.md`, and `EVENTS.md`.
 2. Look for the graduated forms under `docs/` (`docs/charter.md`,
    `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/events.md`,
    `docs/runbooks/`, `docs/incidents/`); `PLAN.md` and `TODO.md` have no
@@ -45,18 +45,17 @@ adopted Conventional Docs; ask first.
 
 ## Artifacts
 
-| Artifact  | Small repo           | Graduated                           | Lifetime              | Answers                                               |
-| --------- | -------------------- | ----------------------------------- | --------------------- | ----------------------------------------------------- |
-| Charter   | `CHARTER.md`         | `docs/charter.md`                   | project               | why it exists, goals, route                           |
-| Design    | `DESIGN.md`          | `docs/design.md`                    | living                | what the system is and does _now_                     |
-| Decisions | —                    | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                       |
-| Roadmap   | `ROADMAP.md`         | `docs/roadmap.md`                   | living                | what's next, in order                                 |
-| Plan      | `PLAN.md`            | —                                   | one branch / worktree | exact steps for the current decision                  |
-| Changes   | `.changes/<slug>.md` | `.changes/<slug>.md`                | per-release           | what will ship in the next release, in plain language |
-| Events    | `EVENTS.md`          | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce    |
-| Runbooks  | —                    | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                             |
-| Incidents | —                    | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                           |
-| Todo      | `TODO.md`            | —                                   | one branch / worktree | where the work left off                               |
+| Artifact  | Small repo   | Graduated                           | Lifetime              | Answers                                            |
+| --------- | ------------ | ----------------------------------- | --------------------- | -------------------------------------------------- |
+| Charter   | `CHARTER.md` | `docs/charter.md`                   | project               | why it exists, goals, route                        |
+| Design    | `DESIGN.md`  | `docs/design.md`                    | living                | what the system is and does _now_                  |
+| Decisions | —            | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                    |
+| Roadmap   | `ROADMAP.md` | `docs/roadmap.md`                   | living                | what's next, in order                              |
+| Plan      | `PLAN.md`    | —                                   | one branch / worktree | exact steps for the current decision               |
+| Events    | `EVENTS.md`  | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce |
+| Runbooks  | —            | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                          |
+| Incidents | —            | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                        |
+| Todo      | `TODO.md`    | —                                   | one branch / worktree | where the work left off                            |
 
 _Events is proposed, not settled: the vocabulary is in use, but `EVENTS.md`
 as its home is still under review._
@@ -291,23 +290,36 @@ made mid-flight. Omit this section when there is nothing to say.
 - A repo whose existing `TODO.md` is a durable backlog has a Roadmap under
   the wrong name and renames it to `ROADMAP.md` when adopting.
 
-## Release-note fragments
+## Changelog
 
-One `.changes/<slug>.md` file per user-facing change, with a kebab-case slug
-matching the change, added in the same commit or PR as the change. Every
-non-blank line is a markdown list item opening with one of the six
-[Keep a Changelog](https://keepachangelog.com/) categories — `Added`,
-`Changed`, `Deprecated`, `Removed`, `Fixed`, `Security` — in the exact form
-`- <Category>: <description>`:
+`CHANGELOG.md` at the repository root answers both what shipped and what will
+ship next. It follows
+[Keep a Changelog 2.0.0](https://keepachangelog.com/en/2.0.0/): a `# Changelog`
+heading with the fixed preamble, `## [Unreleased]` at the top, released
+versions as `## [x.y.z] - YYYY-MM-DD` newest first, the six categories —
+`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security` — as `###`
+subsections, `**Breaking:**` markers inside the type they belong to, and
+reference-style links at the bottom resolving each version to a compare diff.
+
+Add a notable user-facing change to `## [Unreleased]` in the same commit or PR
+as the change:
 
 ```markdown
-- Added: support for custom output formats.
-- Fixed: a race condition when releasing concurrently.
+## [Unreleased]
+
+### Added
+
+- Support for custom output formats.
 ```
 
-Fragments are concatenated, grouped by category, and deleted at release time.
-`CHANGELOG.md` is assembled from them and is never hand-edited; version
-fields are never hand-bumped.
+- Notable is a judgment: no check requires a changelog edit, and a change no
+  user would notice gets no line.
+- Never hand-edit a released section, and never hand-bump a version heading or
+  a version field. The `release:` event renames `[Unreleased]` to the new
+  version in both the heading and its reference link, and opens a fresh empty
+  `[Unreleased]`.
+- Resolve a conflict in `[Unreleased]` by keeping both lines; order within a
+  category carries no meaning.
 
 ## Commit events
 

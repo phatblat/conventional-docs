@@ -1,1 +1,0 @@
-- Added: a `conventional-docs` agent skill, installable with `npx skills add phatblat/conventional-docs` or as a Claude Code plugin.
