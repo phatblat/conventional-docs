@@ -23,7 +23,7 @@ are both free to change now and expensive to change later.
 
 ## Status
 
-This is a proposal that is **awaiting review**.
+This is a proposal that is **accepted**.
 
 ## Assumptions and Constraints
 
