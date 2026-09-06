@@ -1,4 +1,4 @@
-//! Shared test fixture and helpers. Not every test binary (`dec.rs`,
+//! Shared test fixture and helpers. Not every test binary (`decision.rs`,
 //! `new.rs`, `init.rs`) uses every helper here, so unused-in-this-binary
 //! warnings are expected and suppressed.
 #![allow(dead_code)]
@@ -10,8 +10,8 @@ use std::process::Command;
 use std::rc::Rc;
 
 use clap::Parser;
-use condoc::cli::Cli;
-use condoc::ctx::Ctx;
+use conventional_docs::cli::Cli;
+use conventional_docs::ctx::Ctx;
 
 /// A `Write` sink backed by shared, interior-mutable storage, so the test
 /// can read `Ctx::out`'s bytes after handing ownership of the `Box<dyn
@@ -43,9 +43,9 @@ fn git_env() -> Vec<(OsString, OsString)> {
         ("GIT_CONFIG_GLOBAL", "/dev/null"),
         ("GIT_CONFIG_SYSTEM", "/dev/null"),
         ("GIT_CONFIG_NOSYSTEM", "1"),
-        ("GIT_AUTHOR_NAME", "condoc tests"),
+        ("GIT_AUTHOR_NAME", "doc tests"),
         ("GIT_AUTHOR_EMAIL", "tests@example.invalid"),
-        ("GIT_COMMITTER_NAME", "condoc tests"),
+        ("GIT_COMMITTER_NAME", "doc tests"),
         ("GIT_COMMITTER_EMAIL", "tests@example.invalid"),
     ]
     .into_iter()
@@ -89,20 +89,20 @@ pub fn repo() -> Fixture {
     Fixture { dir, ctx, output }
 }
 
-/// Parses `args` as a condoc invocation (`condoc` is implied) and runs it
-/// in-process against the fixture's `Ctx`. Returns the exit code condoc's own
+/// Parses `args` as a `doc` invocation (`doc` is implied) and runs it
+/// in-process against the fixture's `Ctx`. Returns the exit code `doc`'s own
 /// `main()` would have returned.
 pub fn run(f: &mut Fixture, args: &[&str]) -> i32 {
-    let mut argv = vec!["condoc"];
+    let mut argv = vec!["doc"];
     argv.extend_from_slice(args);
     let cli = Cli::parse_from(argv);
-    match condoc::run(&cli, &mut f.ctx) {
+    match conventional_docs::run(&cli, &mut f.ctx) {
         Ok(()) => 0,
         Err(err) => err.exit_code(),
     }
 }
 
-/// The output condoc has written so far, then clears the buffer so the next
+/// The output `doc` has written so far, then clears the buffer so the next
 /// call only sees new output.
 pub fn take_output(f: &Fixture) -> String {
     let mut buf = f.output.0.borrow_mut();
@@ -168,7 +168,7 @@ pub fn exists(f: &Fixture, path: &str) -> bool {
     f.dir.path().join(path).exists()
 }
 
-/// A golden file's contents, from `crates/condoc/tests/golden/<name>`.
+/// A golden file's contents, from `crates/conventional-docs/tests/golden/<name>`.
 pub fn golden(name: &str) -> String {
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("tests/golden")
@@ -177,7 +177,7 @@ pub fn golden(name: &str) -> String {
 }
 
 /// Stages `path` (writing it first) so a test can prove an unrelated staged
-/// change survives a condoc commit untouched.
+/// change survives a `doc` commit untouched.
 pub fn stage_unrelated(f: &Fixture, path: &str) {
     std::fs::write(f.dir.path().join(path), "unrelated\n").unwrap();
     run_git(f.dir.path(), &f.ctx.git_env, &["add", "--", path]);

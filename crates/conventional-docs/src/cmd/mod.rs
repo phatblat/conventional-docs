@@ -1,4 +1,4 @@
-pub mod dec;
+pub mod decision;
 pub mod init;
 pub mod new;
 
