@@ -120,9 +120,9 @@ commitlint config:
 ## Required vs. recommended
 
 No tool is required to start: everything above is plain markdown in git. A
-CI check (a link checker, a fragment-format lint) and a generator or
-coding-agent skill that reads and writes these files are not required
-either — but both are highly recommended once adopted. A required check is
-the checkpoint that confirms the right artifact was captured before an
-agent launches, and a generator is the integration point where future
-tools or spawned agents get event visibility and rule enforcement.
+CI check (a link checker) and a generator or coding-agent skill that reads
+and writes these files are not required either — but both are highly
+recommended once adopted. A required check is the checkpoint that confirms
+the right artifact was captured before an agent launches, and a generator is
+the integration point where future tools or spawned agents get event
+visibility and rule enforcement.
