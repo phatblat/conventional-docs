@@ -19,7 +19,7 @@ stale it is, pays that cost on every invocation.
 
 ## Status
 
-This is a proposal that is **awaiting review**.
+This is a proposal that is **accepted**.
 
 ## Assumptions and Constraints
 
