@@ -22,6 +22,7 @@ deps:
 [group('configuration')]
 format:
     {{ mise }} prettier --write .
+    {{ mise }} cargo fmt
     mise fmt
     just --fmt
 
@@ -63,6 +64,12 @@ lint:
 lint-skills:
     bun scripts/validate-skills.mjs
 
+# Lint Rust sources and verify their formatting
+[group('checks')]
+lint-rust:
+    {{ mise }} cargo fmt --check
+    {{ mise }} cargo clippy --all-targets -- -D warnings
+
 # Lint commit messages in a range (defaults to auto-detected base..HEAD)
 [group('checks')]
 [script]
@@ -78,9 +85,9 @@ commitlint from="" to="HEAD":
     fi
     bun x commitlint --from "$base" --to {{ to }} --verbose
 
-# Run every gate: formatting, markdown lint, link check
+# Run every gate: formatting, markdown lint, Rust lint, link check, tests
 [group('checks')]
-check: format-check lint lint-skills test
+check: format-check lint lint-skills lint-rust test test-rust
 
 #
 # tests group recipes
@@ -90,3 +97,8 @@ check: format-check lint lint-skills test
 [group('tests')]
 test:
     bun x linkinator "*.md" "skills/**/*.md" "docs/**/*.md" --markdown
+
+# Run the Rust test suite
+[group('tests')]
+test-rust:
+    {{ mise }} cargo test

@@ -193,7 +193,8 @@ verified. Rows older than ~90 days render as unverified.
   [Diátaxis](https://diataxis.fr/)'s territory. Where they overlap, Design is
   explanation/reference and runbooks are how-to.
 - **Not a tool.** Like Keep a Changelog, this convention should cost only
-  attention. CI checks and the agent skill are optional.
+  attention. CI checks, the agent skill, and the `condoc` binary are optional:
+  a repo maintained entirely by hand stays conformant.
 
 ## Reference implementation
 

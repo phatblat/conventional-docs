@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A `conventional-docs` agent skill, installable with `npx skills add phatblat/conventional-docs` or as a Claude Code plugin.
 - `EVENTS.md`, a proposed home for the lifecycle event vocabulary, graduating to `docs/events.md`.
 - `todo: sync` and `todo: clear` commit events, plus the rule that a `plan:` or `todo:` commit touches only its own artifact so the bookkeeping can be dropped or squashed away.
+- `condoc`, a binary that writes the convention's artifacts and their lifecycle commits: `init`, `new charter|design|roadmap|runbook|incident`, and the `dec` verbs (`2026-09-05-condoc-a-binary-for-the-document-lifecycle`).
 
 ### Changed
 

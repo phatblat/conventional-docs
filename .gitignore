@@ -2,3 +2,4 @@
 .DS_Store
 .omc/
 node_modules/
+/target/
