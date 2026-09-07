@@ -119,8 +119,11 @@ This is a proposal that is **awaiting review**.
    `## Verification`, and `## Status` bodies are left exactly as the caller
    wrote them.
 9. `plan start --stdin` requires an explicit `<id>`, because base clause 17
-   already spends stdin on the numbered prompt; the two cannot share it. With
-   no id and no terminal, clause 18's exit 2 already applies.
+   already spends stdin on the numbered prompt; the two cannot share it. `id`
+   missing with `--stdin` is exit 2 unconditionally — a usage error, not a
+   convention violation — whether or not a terminal is attached; with no id,
+   no `--stdin`, and no terminal, clause 18's exit 2 already applies for the
+   same reason: no interactive prompt is possible.
 10. `plan done` takes the id from `PLAN.md`'s `# Plan: <id>` heading, never
     from the log: the file is the fact, and a rebase or squash must not
     rename the event. A missing `PLAN.md` is exit 1.
