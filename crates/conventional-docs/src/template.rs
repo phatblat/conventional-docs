@@ -137,22 +137,107 @@ pub fn incident(id: &str) -> String {
 }
 
 /// `CHANGELOG.md`'s fixed preamble, byte-identical to this repo's own
-/// `CHANGELOG.md` lines 1-8. When `unreleased_link` is `Some`, a
-/// `[Unreleased]: <url>` reference link is appended as the file's last line.
-pub fn changelog(unreleased_link: Option<&str>) -> String {
-    let mut body = String::from(
+/// `CHANGELOG.md` lines 1-8 when `semver` is `"2.0.0"`. `semver` sets the
+/// Semantic Versioning spec version the preamble links to (`init --semver`,
+/// default `2.0.0`); it does not need to match this project's own version.
+/// When `unreleased_link` is `Some`, a `[Unreleased]: <url>` reference link
+/// is appended as the file's last line.
+pub fn changelog(unreleased_link: Option<&str>, semver: &str) -> String {
+    let mut body = format!(
         "# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v{semver}.html).
 
 ## [Unreleased]
-",
+"
     );
     if let Some(url) = unreleased_link {
         body.push_str(&format!("\n[Unreleased]: {url}\n"));
     }
     body
+}
+
+pub fn readme() -> &'static str {
+    "# Project Name
+
+<!-- Replace with the actual project name. -->
+
+## Install
+
+<!-- How to get it. -->
+
+## Usage
+
+<!-- How to use it. -->
+
+## Development
+
+<!-- How to build, test, and run it from a clone. -->
+
+## License
+
+<!-- The license name; the full text lives in the license file. -->
+"
+}
+
+pub fn contributing() -> &'static str {
+    "# Contributing
+
+This project's documentation follows
+[Conventional Docs](https://github.com/phatblat/conventional-docs).
+
+## How a change flows
+
+1. **Decide.** A change that alters behavior, a published interface, or a
+   dependency gets a decision record at `docs/decisions/YYYY-MM-DD-slug.md`
+   before it merges. A **proposed** record is the spec; **accept**ing it
+   freezes the record's body.
+2. **Plan.** Work spanning more than one session, or handed off to someone
+   else, gets a `PLAN.md` on the branch — the ordered steps to carry out the
+   accepted decision — deleted before merge.
+3. **Commit.** Commits follow
+   [Conventional Commits](https://www.conventionalcommits.org/). Lifecycle
+   transitions are announced as `decision:`, `plan:`, `todo:`, `release:`,
+   and `deploy:` commits.
+4. **Announce.** A notable user-facing change adds its line to
+   `CHANGELOG.md`'s `## [Unreleased]` section in the same pull request as the
+   change.
+
+## Where documents live
+
+<!-- Link the Charter's `## Artifacts` section here; it records where every
+document in this repository currently lives. -->
+
+<!-- Project-specific setup, tests, and review expectations. -->
+"
+}
+
+pub fn security() -> &'static str {
+    "# Security Policy
+
+## Reporting a vulnerability
+
+<!-- A private channel: a GitHub security advisory, an email address, or a
+security.txt contact. Do not ask for vulnerability reports to be filed as
+public issues. -->
+
+## Supported versions
+
+<!-- Which versions currently receive security fixes. -->
+"
+}
+
+pub fn support() -> &'static str {
+    "# Support
+
+<!-- Where to ask for help, and where not to (e.g. issues are for bugs, not
+questions). -->
+
+## Before asking
+
+<!-- What to check first: docs, existing issues, a FAQ. -->
+"
 }

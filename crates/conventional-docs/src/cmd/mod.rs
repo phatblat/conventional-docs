@@ -1,3 +1,4 @@
+pub mod adjacent;
 pub mod decision;
 pub mod init;
 pub mod new;
