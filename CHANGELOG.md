@@ -12,14 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A `conventional-docs` agent skill, installable with `npx skills add phatblat/conventional-docs` or as a Claude Code plugin.
 - `EVENTS.md`, a proposed home for the lifecycle event vocabulary, graduating to `docs/events.md`.
 - `todo: sync` and `todo: clear` commit events, plus the rule that a `plan:` or `todo:` commit touches only its own artifact so the bookkeeping can be dropped or squashed away.
-- `condoc`, a binary that writes the convention's artifacts and their lifecycle commits: `init`, `new charter|design|roadmap|runbook|incident`, and the `dec` verbs (`2026-09-05-condoc-a-binary-for-the-document-lifecycle`).
+- `doc`, a binary that writes the convention's artifacts and their lifecycle commits: `doc init`, `doc <artifact> new`, and the `doc decision` verbs, with `dec` as its one alias (`2026-09-05-condoc-a-binary-for-the-document-lifecycle`, `2026-09-06-rename-condoc-to-doc-and-group-commands-by-artifact`).
 - A website presenting Conventional Docs as a versioned specification, with a routing guide, artifact reference, and quickstart.
 - A `details` shortcode that renders code samples as native, no-JS collapsible `<details>`/`<summary>` blocks, initially collapsed.
 - An `Example` page showing a conforming repository, small and graduated, moved off the spec page.
 - A detail page for every artifact under `/artifacts/` (Charter, Design, Decisions, Roadmap, Plan, Changelog, Runbooks, Incidents, Todo), each with a skeleton and a worked example — Runbooks and Incidents stay a one-paragraph hint, since this project doesn't use them yet.
 - A diagram of the loop on the homepage, alongside the existing text version.
 - The Events artifact to the site's artifacts tables, with the same "proposed, not settled" note as `README.md`.
-- A `/condoc/` page documenting the `condoc` binary's commands, design constraints, and roadmap.
+- A `/doc/` page documenting the `doc` binary's commands, design constraints, and roadmap.
 
 ### Changed
 

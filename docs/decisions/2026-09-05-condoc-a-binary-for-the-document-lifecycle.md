@@ -225,3 +225,10 @@ closing the gap properly is a separate question for `README.md` and the skill.
 - [EVENTS.md](../../EVENTS.md) — the vocabulary the command surface mirrors.
 - [ROADMAP.md](../../ROADMAP.md) — the paired-CLI item this answers.
 - [gitoxide](https://github.com/GitoxideLabs/gitoxide) — the read layer.
+
+## Errata
+
+- 2026-09-06: Clauses 1 and 2 are extended by
+  [2026-09-06-rename-condoc-to-doc-and-group-commands-by-artifact](./2026-09-06-rename-condoc-to-doc-and-group-commands-by-artifact.md):
+  the binary is `doc`, the cargo package is `conventional-docs`, and the
+  subcommands group by artifact.

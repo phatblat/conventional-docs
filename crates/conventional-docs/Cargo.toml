@@ -1,11 +1,15 @@
 [package]
-name = "condoc"
+name = "conventional-docs"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.98"
 description = "Writes the Conventional Docs artifacts and their lifecycle commits."
 license = "MIT"
 publish = false
+
+[[bin]]
+name = "doc"
+path = "src/main.rs"
 
 [dependencies]
 clap = { version = "4.6.6", features = ["derive"] }

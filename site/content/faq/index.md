@@ -49,9 +49,9 @@ tractable: an agent doesn't have to guess where a decision belongs, it looks
 it up. The reference implementation includes an agent skill built on exactly
 this assumption.
 
-## Do I need condoc?
+## Do I need doc?
 
-No. [`condoc`](../condoc/index.md) is experimental, macOS arm64 only, and
+No. [`doc`](../doc/index.md) is experimental, macOS arm64 only, and
 writes nothing a person could not write by hand; it exists so the exact
 status prose, ids, reciprocal links, and commit subjects are produced
 mechanically.
