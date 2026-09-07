@@ -88,7 +88,10 @@ This is a proposal that is **awaiting review**.
 2. The tool never authors step text. `todo sync` and `plan start` stamp, then
    commit, a file the caller wrote; `--stdin` replaces the `## Steps` block
    from checkbox lines read on stdin; `--skeleton` writes the convention's
-   skeleton and never commits, whatever `--no-commit` says.
+   skeleton and never commits, whatever `--no-commit` says. Given an id,
+   `plan start --skeleton` still fills in the real `# Plan: <id>` heading and
+   `Decision:` link, the same as a commit would; without one, both are the
+   literal placeholder text from the skeleton.
 3. A missing artifact file with neither `--stdin` nor `--skeleton` is a
    convention violation (exit 1), and the message names both ways to create
    it. `--skeleton` on a file that already exists is also exit 1.
