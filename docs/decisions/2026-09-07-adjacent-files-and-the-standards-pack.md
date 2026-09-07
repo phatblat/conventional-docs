@@ -18,7 +18,7 @@ written for adopters and for agents, never for a human arriving through
 
 ## Status
 
-This is a proposal that is **awaiting review**.
+This is a proposal that is **accepted**.
 
 ## Assumptions and Constraints
 
