@@ -113,7 +113,7 @@ run-rust *args:
 # Install the doc binary to ~/.cargo/bin
 [group('rust')]
 install-rust:
-    {{ mise }} cargo install --path crates/conventional-docs
+    {{ mise }} cargo +stable install --path crates/conventional-docs
 
 #
 # site group recipes
