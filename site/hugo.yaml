@@ -35,6 +35,9 @@ menus:
     - name: Artifacts
       pageRef: /artifacts
       weight: 30
+    - name: Adjacent
+      pageRef: /adjacent
+      weight: 35
     - name: Quickstart
       pageRef: /quickstart
       weight: 40
@@ -63,6 +66,9 @@ menus:
     - name: Graduating
       pageRef: /graduating
       weight: 50
+    - name: Adjacent
+      pageRef: /adjacent
+      weight: 55
     - name: Events
       pageRef: /events
       weight: 60
