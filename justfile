@@ -4,6 +4,7 @@ set unstable
 
 mise := "mise exec --"
 hugo := "mise exec -- hugo --source site"
+agents_skills_dir := env_var('HOME') + "/.agents/skills"
 
 [default]
 _default:
@@ -49,6 +50,44 @@ outdated:
 upgrade:
     mise upgrade --local --bump --yes
     bun update --latest
+
+#
+# install group recipes
+#
+
+# Symlink every skill into ~/.agents/skills for local use
+[group('install')]
+[script]
+link:
+    set -euo pipefail
+    mkdir -p "{{ agents_skills_dir }}"
+    for src in "{{ justfile_directory() }}"/skills/*/; do
+        name="$(basename "$src")"
+        target="{{ agents_skills_dir }}/$name"
+        if [ -e "$target" ] && [ ! -L "$target" ]; then
+            echo "Refusing to overwrite non-symlink $target" >&2
+            exit 1
+        fi
+        ln -sfn "${src%/}" "$target"
+        echo "linked $name -> ${src%/}"
+    done
+
+# Remove the symlinks installed by `just link`
+[group('install')]
+[script]
+unlink:
+    set -euo pipefail
+    for src in "{{ justfile_directory() }}"/skills/*/; do
+        name="$(basename "$src")"
+        target="{{ agents_skills_dir }}/$name"
+        if [ -L "$target" ]; then
+            rm "$target"
+            echo "removed $target"
+        elif [ -e "$target" ]; then
+            echo "Refusing to remove non-symlink $target" >&2
+            exit 1
+        fi
+    done
 
 #
 # checks group recipes
