@@ -56,15 +56,40 @@ accepted decision, committed for backup and handoff, and deleted before
 merge. The Todo is the agent's own list, cached in git so a lost session is
 recoverable, and deleted the same way.
 
-### Files that never graduate
+### Adjacent files
 
-`README.md`, `LICENSE`, `CHANGELOG.md`, and `AGENTS.md` stay at the root
-permanently. Their consumers — registries, GitHub, coding agents — look only
-there, and several of them don't go through a filesystem that could follow a
-link. `CHANGELOG.md` follows
+An _adjacent file_ is a document a repository is expected to have that this
+convention places but does not define — its content belongs to whatever
+standard already owns it. `README.md`, the license, `CHANGELOG.md`, and
+`AGENTS.md` are the root-only case: their consumers — registries, GitHub,
+coding agents — look only there, and several of them don't go through a
+filesystem that could follow a link. `CHANGELOG.md` follows
 [Keep a Changelog 2.0.0](https://keepachangelog.com/en/2.0.0/) and answers
 both what shipped and what will ship next: it is hand-curated above the
 newest released heading, so a reader needs nothing to assemble it.
+
+The rest of the ring may live in `.github/`, the repository root, or `docs/` —
+GitHub resolves them in that order, first found wins — but only in one of
+those places at a time; a second copy in a lower-precedence location is a file
+nobody reads.
+
+| File                 | Content standard              | Locations                 |
+| -------------------- | ----------------------------- | ------------------------- |
+| `CONTRIBUTING.md`    | this convention (below)       | `.github/`, root, `docs/` |
+| `CODE_OF_CONDUCT.md` | Contributor Covenant, or none | `.github/`, root, `docs/` |
+| `SECURITY.md`        | none                          | `.github/`, root, `docs/` |
+| `SUPPORT.md`         | none                          | `.github/`, root, `docs/` |
+| `CODEOWNERS`         | GitHub syntax                 | `.github/`, root, `docs/` |
+| `CITATION.cff`       | Citation File Format 1.2.0    | root                      |
+
+An adjacent file never graduates — it keeps its host-recognized name, and a
+copy under `docs/` is a placement choice, not a graduation. The Charter's
+`## Artifacts` section records its location when it isn't the root.
+
+`CONTRIBUTING.md` is the one file in this ring whose content the convention
+does specify: it is the contributor-facing projection of the loop below — the
+Decision and Plan thresholds, the changelog rule, the event vocabulary.
+Everything else in the table is deferred entirely to its owning standard.
 
 ### Graduating to `docs/`
 
@@ -252,6 +277,12 @@ Or copy `skills/conventional-docs/` into the agent's skills directory by hand.
   discarded at merge.
 - **[Diátaxis](https://diataxis.fr/)** — how to organize user documentation;
   complementary, not overlapping.
+- **[Contributor Covenant](https://www.contributor-covenant.org/)**,
+  **[Citation File Format](https://citation-file-format.github.io/)**,
+  **[SPDX](https://spdx.org/licenses/)** / **[REUSE](https://reuse.software/)**,
+  and [GitHub's community health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions) —
+  the standards that own the content of the adjacent-files ring. Conventional
+  Docs places these; it does not restate what they say.
 
 ## Development
 

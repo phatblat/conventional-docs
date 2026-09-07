@@ -1,6 +1,6 @@
 ---
 name: conventional-docs
-description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and the CHANGELOG. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when recording a user-facing change in the changelog's Unreleased section, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/.
+description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and the CHANGELOG. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when recording a user-facing change in the changelog's Unreleased section, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/. Also use when placing an adjacent file this convention does not define the content of - CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, CODEOWNERS, CITATION.cff, or a LICENSE - or when deciding where such a file belongs.
 license: MIT
 ---
 
@@ -421,10 +421,43 @@ at the old path, and no mirror in either direction; renaming a numbered
 decision log, above, is the one exception. Update the Charter's `## Artifacts`
 table to record the new location, and let a link check in CI catch stale links.
 
-## Files that never graduate
+## Adjacent files
 
-`README.md`, `LICENSE`, `CHANGELOG.md`, and `AGENTS.md` stay at the root
-permanently. `AGENTS.md` is the canonical, tool-agnostic agent instruction
-file; a tool that reads a different filename gets a real root file that
-imports it with the `[@AGENTS.md](AGENTS.md)` link idiom — never a copy,
-never a symlink.
+An _adjacent file_ is a document a repository is expected to have that this
+convention places but does not define — its content belongs to whatever
+standard already owns it. `README.md`, `LICENSE`, `CHANGELOG.md`, and
+`AGENTS.md` stay at the root permanently. `AGENTS.md` is the canonical,
+tool-agnostic agent instruction file; a tool that reads a different filename
+gets a real root file that imports it with the `[@AGENTS.md](AGENTS.md)` link
+idiom — never a copy, never a symlink.
+
+The rest of the ring may live in `.github/`, the repository root, or `docs/` —
+GitHub resolves them in that order, first found wins — but only in one of
+those places at a time.
+
+| File                 | Content standard              | Locations                 |
+| -------------------- | ----------------------------- | ------------------------- |
+| `CONTRIBUTING.md`    | this convention               | `.github/`, root, `docs/` |
+| `CODE_OF_CONDUCT.md` | Contributor Covenant, or none | `.github/`, root, `docs/` |
+| `SECURITY.md`        | none                          | `.github/`, root, `docs/` |
+| `SUPPORT.md`         | none                          | `.github/`, root, `docs/` |
+| `CODEOWNERS`         | GitHub syntax                 | `.github/`, root, `docs/` |
+| `CITATION.cff`       | Citation File Format 1.2.0    | root                      |
+
+An adjacent file never graduates: it keeps its host-recognized name, and a
+copy under `docs/` is a placement choice, not a graduation. Record its
+location in the Charter's `## Artifacts` section when it isn't the root.
+
+When working in this ring:
+
+- **Never scaffold a license or a code of conduct into a repository without
+  asking.** They are legal and community commitments, not boilerplate — a
+  human picks the SPDX identifier and the reporting contact.
+- **A root copy and a `.github/` copy both existing is a finding, not a
+  choice.** Report the duplicate rather than picking one to keep.
+- **Write `CONTRIBUTING.md` once a repository has adopted this convention and
+  its contributors have nowhere to learn the loop** — the Decision and Plan
+  thresholds, the changelog rule, the event vocabulary above.
+- Everything else in the table (`SECURITY.md`, `SUPPORT.md`, `CODEOWNERS`,
+  `CITATION.cff`) is deferred entirely to its owning standard; this skill adds
+  no content rules for them.
