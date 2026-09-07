@@ -97,6 +97,25 @@ commitlint from="" to="HEAD":
 check: format-check lint lint-skills lint-rust test test-rust
 
 #
+# rust group recipes
+#
+
+# Build the doc binary
+[group('rust')]
+build-rust:
+    {{ mise }} cargo build
+
+# Run the doc binary, forwarding extra arguments
+[group('rust')]
+run-rust *args:
+    {{ mise }} cargo run -- {{ args }}
+
+# Install the doc binary to ~/.cargo/bin
+[group('rust')]
+install-rust:
+    {{ mise }} cargo install --path crates/conventional-docs
+
+#
 # site group recipes
 #
 
