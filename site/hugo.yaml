@@ -38,8 +38,8 @@ menus:
     - name: Quickstart
       pageRef: /quickstart
       weight: 40
-    - name: condoc
-      pageRef: /condoc
+    - name: doc
+      pageRef: /doc
       weight: 45
     - name: About
       pageRef: /about
@@ -66,8 +66,8 @@ menus:
     - name: Events
       pageRef: /events
       weight: 60
-    - name: condoc
-      pageRef: /condoc
+    - name: doc
+      pageRef: /doc
       weight: 65
     - name: FAQ
       pageRef: /faq

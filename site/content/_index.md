@@ -67,7 +67,7 @@ session, or handed to another agent, needs a Plan.
   explanation/reference and runbooks are how-to.
 - **Not a tool, but tooling helps.** Like [Keep a Changelog](https://keepachangelog.com/en/2.0.0/), this convention
   costs only attention to follow by hand — a CI check, the agent skill, and
-  the [`condoc` binary](condoc/index.md) are all optional. All three are
+  the [`doc` binary](doc/index.md) are all optional. All three are
   highly recommended once you adopt it: a required CI check is a checkpoint
   that confirms the right artifact was captured before an agent launches, and
   a generator is an integration point where future tools or spawned agents

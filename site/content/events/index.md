@@ -61,7 +61,7 @@ mechanically removable.
 - **Release automation** treats a `release:` commit as the point where
   `[Unreleased]` in [`CHANGELOG.md`](../artifacts/changelog/index.md)
   becomes the new version.
-- **[`condoc`](../condoc/index.md)** writes these commits — each event has a
+- **[`doc`](../doc/index.md)** writes these commits — each event has a
   subcommand that spells it.
 
 ## Wiring it into commitlint

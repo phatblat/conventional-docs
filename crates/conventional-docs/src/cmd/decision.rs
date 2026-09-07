@@ -9,7 +9,7 @@ use crate::record::{self, Status};
 use crate::slug::{DECISION_SLUG_MAX, slug};
 use crate::template;
 
-/// `dec draft <title>` — writes a new record in the **draft** state.
+/// `decision draft <title>` — writes a new record in the **draft** state.
 pub fn draft(ctx: &mut Ctx, no_commit: bool, title: &str) -> Result<(), Error> {
     let repo = git::discover(&ctx.cwd)?;
     let (id, path) = new_id_and_path(ctx, &repo, title)?;
@@ -23,7 +23,7 @@ pub fn draft(ctx: &mut Ctx, no_commit: bool, title: &str) -> Result<(), Error> {
     )
 }
 
-/// `dec propose <title-or-id> [--extends <id>] [--supersedes <id>]`.
+/// `decision propose <title-or-id> [--extends <id>] [--supersedes <id>]`.
 pub fn propose(
     ctx: &mut Ctx,
     no_commit: bool,
@@ -135,7 +135,7 @@ pub fn propose(
     )
 }
 
-/// `dec accept <id>` — ends review, freezing the record as **accepted**.
+/// `decision accept <id>` — ends review, freezing the record as **accepted**.
 pub fn accept(ctx: &mut Ctx, no_commit: bool, id: &str) -> Result<(), Error> {
     transition(
         ctx,
@@ -147,7 +147,7 @@ pub fn accept(ctx: &mut Ctx, no_commit: bool, id: &str) -> Result<(), Error> {
     )
 }
 
-/// `dec reject <id>` — ends review, freezing the record as **rejected**.
+/// `decision reject <id>` — ends review, freezing the record as **rejected**.
 pub fn reject(ctx: &mut Ctx, no_commit: bool, id: &str) -> Result<(), Error> {
     transition(
         ctx,
@@ -187,7 +187,7 @@ fn transition(
     )
 }
 
-/// `dec errata <id> <text>` — the only write v1 makes to a frozen record.
+/// `decision errata <id> <text>` — the only write v1 makes to a frozen record.
 pub fn errata(ctx: &mut Ctx, no_commit: bool, id: &str, text: &str) -> Result<(), Error> {
     let repo = git::discover(&ctx.cwd)?;
     let path = record::path_for(id);

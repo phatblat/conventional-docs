@@ -83,9 +83,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 {{< /details >}}
 
-[`condoc`](/condoc/) writes all four of these mechanically: `condoc init`
+[`doc`](/doc/) writes all four of these mechanically: `doc init`
 writes `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, and `CHANGELOG.md` in one
-commit, and `condoc dec propose <title>` writes the first decision with its
+commit, and `doc decision propose <title>` writes the first decision with its
 own.
 
 ## Wire the events (optional)

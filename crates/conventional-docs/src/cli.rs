@@ -2,7 +2,7 @@ use clap::{Args, Parser, Subcommand};
 
 /// Writes the Conventional Docs artifacts and their lifecycle commits.
 #[derive(Debug, Parser)]
-#[command(name = "condoc", version)]
+#[command(name = "doc", version)]
 pub struct Cli {
     /// Write the files without committing them.
     #[arg(long, global = true)]
@@ -12,36 +12,59 @@ pub struct Cli {
     pub command: Command,
 }
 
+/// A command scoped to one artifact is `<artifact> <verb>`; a command that
+/// acts on the whole docset is a bare verb.
 #[derive(Debug, Subcommand)]
 pub enum Command {
-    /// Create the artifacts that have no lifecycle event.
-    #[command(subcommand)]
-    New(NewCommand),
-
     /// Create the artifacts a fresh repo starts with: Charter, Design,
     /// Roadmap, and CHANGELOG.
     Init(InitArgs),
 
+    /// `CHARTER.md`.
+    #[command(subcommand)]
+    Charter(GraduatingCommand),
+
+    /// `DESIGN.md`.
+    #[command(subcommand)]
+    Design(GraduatingCommand),
+
+    /// `ROADMAP.md`.
+    #[command(subcommand)]
+    Roadmap(GraduatingCommand),
+
+    /// `docs/runbooks/<slug>.md`.
+    #[command(subcommand)]
+    Runbook(RunbookCommand),
+
+    /// `docs/incidents/<today>-<slug>.md`.
+    #[command(subcommand)]
+    Incident(IncidentCommand),
+
     /// Write a decision record and its lifecycle commits.
-    #[command(alias = "decision", subcommand)]
-    Dec(DecCommand),
+    #[command(alias = "dec", subcommand)]
+    Decision(DecisionCommand),
+}
+
+/// The only verb on an artifact that announces no lifecycle event.
+#[derive(Debug, Subcommand)]
+pub enum GraduatingCommand {
+    /// Write it at its root path, committing `docs: add <name>`.
+    New,
 }
 
 #[derive(Debug, Subcommand)]
-pub enum NewCommand {
-    /// `CHARTER.md`.
-    Charter,
-    /// `DESIGN.md`.
-    Design,
-    /// `ROADMAP.md`.
-    Roadmap,
-    /// `docs/runbooks/<slug>.md`.
-    Runbook {
+pub enum RunbookCommand {
+    /// Write it under `docs/runbooks/`, committing `docs: add runbook <slug>`.
+    New {
         /// What fires the runbook, slugged for the filename and heading.
         trigger: String,
     },
-    /// `docs/incidents/<today>-<slug>.md`.
-    Incident {
+}
+
+#[derive(Debug, Subcommand)]
+pub enum IncidentCommand {
+    /// Write it under `docs/incidents/`, committing `docs: add incident <id>`.
+    New {
         /// A short description, slugged for the filename and heading.
         slug: String,
     },
@@ -56,7 +79,7 @@ pub struct InitArgs {
 }
 
 #[derive(Debug, Subcommand)]
-pub enum DecCommand {
+pub enum DecisionCommand {
     /// Write a new record in the **draft** state.
     Draft {
         /// The record's title.

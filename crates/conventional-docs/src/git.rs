@@ -26,7 +26,7 @@ pub fn discover(cwd: &Path) -> Result<Repo, Error> {
 
 /// Stages exactly `paths` and commits exactly `paths` under `subject`.
 ///
-/// This is the only write path to git history in condoc (decision clauses 5
+/// This is the only write path to git history in `doc` (decision clauses 5
 /// and 6): never `add -A`, `add .`, or `commit -a`. `add` is required first —
 /// a pathspec commit cannot introduce an untracked file — and the pathspec on
 /// `commit` is what keeps any other staged change out of this commit.

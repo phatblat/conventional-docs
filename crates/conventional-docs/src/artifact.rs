@@ -45,7 +45,7 @@ pub fn locate(repo: &Repo, a: Artifact) -> Option<PathBuf> {
 }
 
 /// The path a newly created artifact is written to: always the root,
-/// small-repo form. condoc never guesses that a document should be born
+/// small-repo form. `doc` never guesses that a document should be born
 /// graduated — graduation triggers are per-document judgments.
 pub fn create_path(a: Artifact) -> PathBuf {
     PathBuf::from(a.root_name())

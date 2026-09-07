@@ -33,7 +33,7 @@ fn create_graduating(
     )
 }
 
-/// `new charter` — `CHARTER.md`.
+/// `charter new` — `CHARTER.md`.
 pub fn charter(ctx: &mut Ctx, no_commit: bool) -> Result<(), Error> {
     create_graduating(
         ctx,
@@ -44,7 +44,7 @@ pub fn charter(ctx: &mut Ctx, no_commit: bool) -> Result<(), Error> {
     )
 }
 
-/// `new design` — `DESIGN.md`.
+/// `design new` — `DESIGN.md`.
 pub fn design(ctx: &mut Ctx, no_commit: bool) -> Result<(), Error> {
     create_graduating(
         ctx,
@@ -55,7 +55,7 @@ pub fn design(ctx: &mut Ctx, no_commit: bool) -> Result<(), Error> {
     )
 }
 
-/// `new roadmap` — `ROADMAP.md`.
+/// `roadmap new` — `ROADMAP.md`.
 pub fn roadmap(ctx: &mut Ctx, no_commit: bool) -> Result<(), Error> {
     create_graduating(
         ctx,
@@ -66,7 +66,7 @@ pub fn roadmap(ctx: &mut Ctx, no_commit: bool) -> Result<(), Error> {
     )
 }
 
-/// `new runbook <trigger>` — `docs/runbooks/<slug>.md`.
+/// `runbook new <trigger>` — `docs/runbooks/<slug>.md`.
 pub fn runbook(ctx: &mut Ctx, no_commit: bool, trigger: &str) -> Result<(), Error> {
     let repo = git::discover(&ctx.cwd)?;
     let slug = slug(trigger, RUNBOOK_SLUG_MAX)?;
@@ -84,7 +84,7 @@ pub fn runbook(ctx: &mut Ctx, no_commit: bool, trigger: &str) -> Result<(), Erro
     )
 }
 
-/// `new incident <slug>` — `docs/incidents/<today>-<slug>.md`.
+/// `incident new <slug>` — `docs/incidents/<today>-<slug>.md`.
 pub fn incident(ctx: &mut Ctx, no_commit: bool, raw_slug: &str) -> Result<(), Error> {
     let repo = git::discover(&ctx.cwd)?;
     let normalized = slug(raw_slug, INCIDENT_SLUG_MAX)?;

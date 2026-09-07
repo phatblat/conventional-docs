@@ -5,7 +5,10 @@ use common::*;
 #[test]
 fn propose_writes_golden_bytes_and_commits() {
     let mut f = repo();
-    let code = run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    let code = run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     assert_eq!(code, 0);
 
     let id = "2026-09-06-cache-the-resolver-output";
@@ -20,7 +23,7 @@ fn propose_writes_golden_bytes_and_commits() {
 fn draft_then_propose_promotes_and_produces_two_commits() {
     let mut f = repo();
     assert_eq!(
-        run(&mut f, &["dec", "draft", "Cache the resolver output"]),
+        run(&mut f, &["decision", "draft", "Cache the resolver output"]),
         0
     );
 
@@ -28,7 +31,7 @@ fn draft_then_propose_promotes_and_produces_two_commits() {
     let path = format!("docs/decisions/{id}.md");
     assert_eq!(read(&f, &path), golden("decision-draft.md"));
 
-    assert_eq!(run(&mut f, &["dec", "propose", id]), 0);
+    assert_eq!(run(&mut f, &["decision", "propose", id]), 0);
     assert_eq!(read(&f, &path), golden("decision-proposed.md"));
 
     let subjects = log_subjects(&f);
@@ -39,12 +42,12 @@ fn draft_then_propose_promotes_and_produces_two_commits() {
 #[test]
 fn accept_on_a_draft_is_rejected() {
     let mut f = repo();
-    run(&mut f, &["dec", "draft", "Cache the resolver output"]);
+    run(&mut f, &["decision", "draft", "Cache the resolver output"]);
     let id = "2026-09-06-cache-the-resolver-output";
     let before = read(&f, &format!("docs/decisions/{id}.md"));
     let commits_before = log_subjects(&f).len();
 
-    assert_eq!(run(&mut f, &["dec", "accept", id]), 1);
+    assert_eq!(run(&mut f, &["decision", "accept", id]), 1);
 
     assert_eq!(read(&f, &format!("docs/decisions/{id}.md")), before);
     assert_eq!(log_subjects(&f).len(), commits_before);
@@ -53,25 +56,31 @@ fn accept_on_a_draft_is_rejected() {
 #[test]
 fn accept_on_proposed_writes_golden_bytes_then_rejects_a_second_accept() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let id = "2026-09-06-cache-the-resolver-output";
 
-    assert_eq!(run(&mut f, &["dec", "accept", id]), 0);
+    assert_eq!(run(&mut f, &["decision", "accept", id]), 0);
     assert_eq!(
         read(&f, &format!("docs/decisions/{id}.md")),
         golden("decision-accepted.md")
     );
 
-    assert_eq!(run(&mut f, &["dec", "accept", id]), 1);
+    assert_eq!(run(&mut f, &["decision", "accept", id]), 1);
 }
 
 #[test]
 fn reject_on_proposed_writes_golden_bytes() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let id = "2026-09-06-cache-the-resolver-output";
 
-    assert_eq!(run(&mut f, &["dec", "reject", id]), 0);
+    assert_eq!(run(&mut f, &["decision", "reject", id]), 0);
     assert_eq!(
         read(&f, &format!("docs/decisions/{id}.md")),
         golden("decision-rejected.md")
@@ -81,13 +90,16 @@ fn reject_on_proposed_writes_golden_bytes() {
 #[test]
 fn extends_a_proposed_target_edits_it_in_place() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let target_id = "2026-09-06-cache-the-resolver-output";
 
     let code = run(
         &mut f,
         &[
-            "dec",
+            "decision",
             "propose",
             "Reuse the cached parse tree",
             "--extends",
@@ -117,14 +129,17 @@ fn extends_a_proposed_target_edits_it_in_place() {
 #[test]
 fn extends_a_frozen_target_appends_an_erratum() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let target_id = "2026-09-06-cache-the-resolver-output";
-    run(&mut f, &["dec", "accept", target_id]);
+    run(&mut f, &["decision", "accept", target_id]);
 
     let code = run(
         &mut f,
         &[
-            "dec",
+            "decision",
             "propose",
             "Reuse the cached parse tree",
             "--extends",
@@ -142,13 +157,16 @@ fn extends_a_frozen_target_appends_an_erratum() {
 #[test]
 fn supersedes_an_unfrozen_target_is_rejected() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let target_id = "2026-09-06-cache-the-resolver-output";
 
     let code = run(
         &mut f,
         &[
-            "dec",
+            "decision",
             "propose",
             "Reuse the cached parse tree",
             "--supersedes",
@@ -165,14 +183,17 @@ fn supersedes_an_unfrozen_target_is_rejected() {
 #[test]
 fn supersedes_a_frozen_target_appends_an_erratum() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let target_id = "2026-09-06-cache-the-resolver-output";
-    run(&mut f, &["dec", "accept", target_id]);
+    run(&mut f, &["decision", "accept", target_id]);
 
     let code = run(
         &mut f,
         &[
-            "dec",
+            "decision",
             "propose",
             "Reuse the cached parse tree",
             "--supersedes",
@@ -202,7 +223,7 @@ fn extends_a_nonexistent_target_is_rejected() {
     let code = run(
         &mut f,
         &[
-            "dec",
+            "decision",
             "propose",
             "Reuse the cached parse tree",
             "--extends",
@@ -223,7 +244,7 @@ fn supersedes_a_nonexistent_target_is_rejected() {
     let code = run(
         &mut f,
         &[
-            "dec",
+            "decision",
             "propose",
             "Reuse the cached parse tree",
             "--supersedes",
@@ -240,14 +261,17 @@ fn supersedes_a_nonexistent_target_is_rejected() {
 #[test]
 fn errata_on_a_frozen_record_appends_dated_lines_in_order() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let id = "2026-09-06-cache-the-resolver-output";
-    run(&mut f, &["dec", "accept", id]);
+    run(&mut f, &["decision", "accept", id]);
 
     assert_eq!(
         run(
             &mut f,
-            &["dec", "errata", id, "The flag shipped as --pedantic."]
+            &["decision", "errata", id, "The flag shipped as --pedantic."]
         ),
         0
     );
@@ -255,7 +279,7 @@ fn errata_on_a_frozen_record_appends_dated_lines_in_order() {
     assert!(after_first.ends_with("## Errata\n\n- 2026-09-06: The flag shipped as --pedantic.\n"));
 
     assert_eq!(
-        run(&mut f, &["dec", "errata", id, "A second correction."]),
+        run(&mut f, &["decision", "errata", id, "A second correction."]),
         0
     );
     let after_second = read(&f, &format!("docs/decisions/{id}.md"));
@@ -267,18 +291,27 @@ fn errata_on_a_frozen_record_appends_dated_lines_in_order() {
 #[test]
 fn errata_on_a_proposed_record_is_rejected() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     let id = "2026-09-06-cache-the-resolver-output";
 
-    assert_eq!(run(&mut f, &["dec", "errata", id, "Too early."]), 1);
+    assert_eq!(run(&mut f, &["decision", "errata", id, "Too early."]), 1);
 }
 
 #[test]
 fn propose_on_an_id_that_already_exists_is_rejected() {
     let mut f = repo();
-    run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
 
-    let code = run(&mut f, &["dec", "propose", "Cache the resolver output"]);
+    let code = run(
+        &mut f,
+        &["decision", "propose", "Cache the resolver output"],
+    );
     assert_eq!(code, 1);
 }
 
@@ -288,7 +321,10 @@ fn propose_commits_only_its_own_record_leaving_an_unrelated_staged_file_alone() 
     stage_unrelated(&f, "unrelated.txt");
 
     assert_eq!(
-        run(&mut f, &["dec", "propose", "Cache the resolver output"]),
+        run(
+            &mut f,
+            &["decision", "propose", "Cache the resolver output"]
+        ),
         0
     );
 
@@ -305,7 +341,12 @@ fn no_commit_writes_the_file_without_committing() {
     assert_eq!(
         run(
             &mut f,
-            &["--no-commit", "dec", "propose", "Cache the resolver output"]
+            &[
+                "--no-commit",
+                "decision",
+                "propose",
+                "Cache the resolver output"
+            ]
         ),
         0
     );

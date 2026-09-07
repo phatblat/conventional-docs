@@ -1,6 +1,6 @@
 use std::fmt;
 
-/// The one error type every condoc command returns.
+/// The one error type every `doc` command returns.
 ///
 /// The exit-code mapping is clause 9 of
 /// `docs/decisions/2026-09-05-condoc-a-binary-for-the-document-lifecycle.md`:
