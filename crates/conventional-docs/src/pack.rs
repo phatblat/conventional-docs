@@ -146,6 +146,13 @@ impl Pack {
     /// The body for `(kind, id)` from the first source that carries it:
     /// each external directory in order, then the embedded pack.
     pub fn body(&self, kind: Kind, id: &str) -> Result<Cow<'static, str>, Error> {
+        if !is_valid_id(id) {
+            return Err(Error::Usage(format!(
+                "invalid {} id '{id}': expected [A-Za-z0-9][A-Za-z0-9.+-]*",
+                kind.label()
+            )));
+        }
+
         for dir in &self.dirs {
             let path = dir.join(kind.dir_name()).join(format!("{id}.txt"));
             if path.is_file() {
@@ -222,6 +229,19 @@ impl Pack {
 
         entries
     }
+}
+
+/// Whether `id` is safe to join onto a pack directory path: matches
+/// `^[A-Za-z0-9][A-Za-z0-9.+-]*$`, the charset `cmd/adjacent.rs` already
+/// assumes for every id it writes. Rejects `..`, `/`, and any other
+/// character that could escape the pack directory.
+fn is_valid_id(id: &str) -> bool {
+    let mut chars = id.chars();
+    match chars.next() {
+        Some(c) if c.is_ascii_alphanumeric() => {}
+        _ => return false,
+    }
+    chars.all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '+' | '-'))
 }
 
 /// Substitutes each `{{name}}` in `body` with its value from `vars`, then
