@@ -47,9 +47,9 @@ impl Adjacent {
     /// alternate name the same standard recognizes (only the license has
     /// more than one).
     ///
-    /// `License` also probes `LICENSE`, `LICENSE.txt`, `COPYING`,
-    /// `COPYING.md`, and a `LICENSES/` directory (REUSE), so `license new`
-    /// cannot clobber a license living under another conventional name.
+    /// `License` also probes `LICENSE`, `LICENSE.txt`, `COPYING`, and
+    /// `COPYING.md`, so `license new` cannot clobber a license living under
+    /// another conventional name.
     fn recognized_names(self) -> &'static [&'static str] {
         match self {
             Adjacent::License => &[
