@@ -1,16 +1,12 @@
 use std::io::Write;
 
-use super::write_files;
+use super::{already_exists, write_files};
 use crate::adjacent::{self, Adjacent};
 use crate::ctx::Ctx;
 use crate::error::Error;
 use crate::git;
 use crate::pack::{self, Kind};
 use crate::template;
-
-fn already_exists(name: &str, path: &std::path::Path) -> Error {
-    Error::Convention(format!("{name} already exists at {}", path.display()))
-}
 
 /// Writes one of the four convention-owned templates (`readme`,
 /// `contributing`, `security`, `support`) at its root path, refusing when the
