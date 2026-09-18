@@ -232,3 +232,8 @@ closing the gap properly is a separate question for `README.md` and the skill.
   [2026-09-06-rename-condoc-to-doc-and-group-commands-by-artifact](./2026-09-06-rename-condoc-to-doc-and-group-commands-by-artifact.md):
   the binary is `doc`, the cargo package is `conventional-docs`, and the
   subcommands group by artifact.
+- 2026-09-07: This decision is extended by
+  [2026-09-07-adjacent-files-and-the-standards-pack](./2026-09-07-adjacent-files-and-the-standards-pack.md):
+  new commands for the adjacent-files ring, backed by a standards pack whose
+  layout-as-metadata keeps clause 4's no-configuration-file constraint
+  intact.

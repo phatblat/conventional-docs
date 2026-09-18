@@ -2,6 +2,11 @@
 
 ## Issue
 
+This decision extends
+[2026-09-05-condoc-a-binary-for-the-document-lifecycle](./2026-09-05-condoc-a-binary-for-the-document-lifecycle.md)
+with new commands and a standards pack; nothing from that decision is
+restated here.
+
 The convention defines nine lifecycle artifacts and, in passing, four root
 files that never graduate: `README.md`, the license, `CHANGELOG.md`,
 `AGENTS.md`. Every other file a repository is expected to carry —
