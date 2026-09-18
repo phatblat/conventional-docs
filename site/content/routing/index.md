@@ -55,6 +55,7 @@ the answer.
 | --------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Root-only, permanent                          | `README.md`, license, `CITATION.cff`                                               |
 | One of `.github/` / root / `docs/`, permanent | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, `CODEOWNERS` |
+| `.github/` only, permanent                    | `FUNDING.yml`, issue / PR / discussion templates                                   |
 
 ## Common mis-routes
 
