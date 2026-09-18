@@ -197,8 +197,23 @@ pub fn pack_list(
     Ok(())
 }
 
-/// Escapes `"` and `\` for the flat `--json` array; ids and kinds are
-/// `[A-Za-z0-9.+-]` and never need it, so only a `--pack` path can trigger it.
+/// Escapes `"`, `\`, and raw control bytes (`\n`, `\r`, `\t`, and the rest of
+/// `U+0000..=U+001F`) for the flat `--json` array. Ids and kinds are
+/// `[A-Za-z0-9.+-]` and never need it, but a `--pack <dir>` path can legally
+/// contain any of these on Unix, and `pack list --json` is documented for
+/// hook consumers expecting valid JSON.
 fn json_escape(s: &str) -> String {
-    s.replace('\\', "\\\\").replace('"', "\\\"")
+    let mut out = String::with_capacity(s.len());
+    for c in s.chars() {
+        match c {
+            '\\' => out.push_str("\\\\"),
+            '"' => out.push_str("\\\""),
+            '\n' => out.push_str("\\n"),
+            '\r' => out.push_str("\\r"),
+            '\t' => out.push_str("\\t"),
+            c if (c as u32) < 0x20 => out.push_str(&format!("\\u{:04x}", c as u32)),
+            c => out.push(c),
+        }
+    }
+    out
 }
