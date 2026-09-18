@@ -33,8 +33,9 @@ interpreted as described in
    where both are defined.
 3. A repository MUST NOT commit a stub, pointer file, or symlink at an
    artifact's vacated path.
-4. `README.md`, the license file, `CHANGELOG.md`, and `AGENTS.md` MUST stay at
-   the repository root and MUST NOT move into `docs/`.
+4. `README.md`, the license file, `CHANGELOG.md`, `AGENTS.md`, and
+   `CITATION.cff` MUST stay at the repository root and MUST NOT move into
+   `docs/`.
 5. A conforming repository MUST have a Charter at `CHARTER.md` or
    `docs/charter.md` stating why the project exists, who it is for, and what
    is out of scope.
@@ -133,9 +134,34 @@ interpreted as described in
 30. An artifact MAY graduate out of the repository into an external system;
     the Charter's `## Artifacts` section MUST then record the external
     location and the stale in-repo file MUST be deleted.
-31. A repository conforms when every MUST above holds for the artifacts it
-    has. Tooling SHOULD report SHOULD violations as warnings and MUST NOT
-    reject a repository for them alone.
+31. An _adjacent file_ is a document a repository is expected to have that
+    this specification places but does not define: `README.md`, the license
+    file, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`,
+    `SUPPORT.md`, `CODEOWNERS`, `CITATION.cff`, `.github/FUNDING.yml`, and
+    issue, pull request, and discussion templates. Their content is owned by
+    the standard or host that defines them; this specification fixes only
+    placement. Adjacent files are not artifacts; no clause above binds them.
+32. An adjacent file MUST exist in at most one of its host's recognized
+    locations. GitHub resolves community health files in the order
+    `.github/`, repository root, `docs/`, first found wins, so a copy in a
+    lower-precedence location is a file nobody reads.
+33. An adjacent file MUST NOT graduate: it MUST keep its host-recognized
+    name, and clause 23's graduation triggers MUST NOT be applied to it. A
+    copy under `docs/` is a placement choice among the host's recognized
+    locations, not a graduation.
+34. The license file MUST be committed to the repository and MUST NOT be
+    inherited from an organization-level default.
+35. The Charter's `## Artifacts` section MUST record an adjacent file's
+    location when it is not the repository root, and MAY record it
+    otherwise.
+36. `CONTRIBUTING.md` SHOULD state how change flows through the repository —
+    the Decision and Plan thresholds, the changelog rule, the lifecycle
+    event vocabulary — or link the documents that state them.
+37. A tool MUST report a missing or duplicated adjacent file as a warning
+    and MUST NOT reject a repository for it.
+38. A repository conforms when every MUST above holds for the artifacts and
+    adjacent files it has. Tooling SHOULD report SHOULD violations as
+    warnings and MUST NOT reject a repository for them alone.
 
 ## Why
 

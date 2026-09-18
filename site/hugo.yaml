@@ -35,6 +35,9 @@ menus:
     - name: Artifacts
       pageRef: /artifacts
       weight: 30
+    - name: Adjacent
+      pageRef: /adjacent
+      weight: 35
     - name: Quickstart
       pageRef: /quickstart
       weight: 40
@@ -54,6 +57,9 @@ menus:
     - name: Artifacts
       pageRef: /artifacts
       weight: 30
+    - name: Adjacent
+      pageRef: /adjacent
+      weight: 32
     - name: Example
       pageRef: /example
       weight: 35

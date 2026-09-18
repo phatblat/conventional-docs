@@ -43,6 +43,34 @@ pub enum Command {
     /// Write a decision record and its lifecycle commits.
     #[command(alias = "dec", subcommand)]
     Decision(DecisionCommand),
+
+    /// `README.md`.
+    #[command(subcommand)]
+    Readme(AdjacentCommand),
+
+    /// `CONTRIBUTING.md`.
+    #[command(subcommand)]
+    Contributing(AdjacentCommand),
+
+    /// `SECURITY.md`.
+    #[command(subcommand)]
+    Security(AdjacentCommand),
+
+    /// `SUPPORT.md`.
+    #[command(subcommand)]
+    Support(AdjacentCommand),
+
+    /// `LICENSE.md`, rendered from the standards pack.
+    #[command(subcommand)]
+    License(LicenseCommand),
+
+    /// `CODE_OF_CONDUCT.md`, rendered from the standards pack.
+    #[command(alias = "coc", subcommand)]
+    CodeOfConduct(CodeOfConductCommand),
+
+    /// Reports the resolved standards pack's entries.
+    #[command(subcommand)]
+    Pack(PackCommand),
 }
 
 /// The only verb on an artifact that announces no lifecycle event.
@@ -70,12 +98,82 @@ pub enum IncidentCommand {
     },
 }
 
+/// The only verb on an adjacent file with no third-party body: `readme`,
+/// `contributing`, `security`, `support`.
+#[derive(Debug, Subcommand)]
+pub enum AdjacentCommand {
+    /// Write it at the repository root, committing `docs: add <name>`.
+    New,
+}
+
+/// `--pack <dir>`, shared by every command that resolves a standards pack.
+#[derive(Debug, Args)]
+pub struct PackArgs {
+    /// Check this directory before the user data directory and the
+    /// embedded pack. Must exist; a missing path is a usage error.
+    #[arg(long)]
+    pub pack: Option<std::path::PathBuf>,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum LicenseCommand {
+    /// Write `LICENSE.md` from the standards pack, committing
+    /// `docs: add license <spdx>`.
+    New {
+        /// The SPDX identifier the standards pack carries a body for.
+        #[arg(long)]
+        spdx: String,
+        /// Defaults to the repository's configured `user.name`.
+        #[arg(long)]
+        holder: Option<String>,
+        /// Defaults to today's year.
+        #[arg(long)]
+        year: Option<i16>,
+        #[command(flatten)]
+        pack: PackArgs,
+    },
+}
+
+#[derive(Debug, Subcommand)]
+pub enum CodeOfConductCommand {
+    /// Write `CODE_OF_CONDUCT.md` from the standards pack, committing
+    /// `docs: add code-of-conduct <standard>`.
+    New {
+        /// How a violation should be reported: an email address, a URL, or
+        /// another contact method.
+        #[arg(long)]
+        contact: String,
+        /// The standards-pack id to render. Defaults to the Contributor
+        /// Covenant's current embedded version.
+        #[arg(long, default_value = "contributor-covenant-3.0")]
+        standard: String,
+        #[command(flatten)]
+        pack: PackArgs,
+    },
+}
+
+#[derive(Debug, Subcommand)]
+pub enum PackCommand {
+    /// List every `(kind, id, source)` the resolved pack can serve. Writes
+    /// and commits nothing.
+    List {
+        /// Emit a flat JSON array instead of tab-separated text.
+        #[arg(long)]
+        json: bool,
+        #[command(flatten)]
+        pack: PackArgs,
+    },
+}
+
 #[derive(Debug, Args)]
 pub struct InitArgs {
     /// Create only the artifacts that are missing; otherwise report and exit
     /// 0 without writing anything when some already exist.
     #[arg(long)]
     pub add: bool,
+    /// The changelog preamble's Semantic Versioning link version.
+    #[arg(long, default_value = "2.0.0")]
+    pub semver: String,
 }
 
 #[derive(Debug, Subcommand)]

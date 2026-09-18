@@ -102,6 +102,19 @@ pub fn run(f: &mut Fixture, args: &[&str]) -> i32 {
     }
 }
 
+/// Like [`run`], but also returns the error's `Display` text (empty on
+/// success), for tests asserting on what a failure says rather than just
+/// that it failed.
+pub fn run_err(f: &mut Fixture, args: &[&str]) -> (i32, String) {
+    let mut argv = vec!["doc"];
+    argv.extend_from_slice(args);
+    let cli = Cli::parse_from(argv);
+    match conventional_docs::run(&cli, &mut f.ctx) {
+        Ok(()) => (0, String::new()),
+        Err(err) => (err.exit_code(), err.to_string()),
+    }
+}
+
 /// The output `doc` has written so far, then clears the buffer so the next
 /// call only sees new output.
 pub fn take_output(f: &Fixture) -> String {

@@ -139,6 +139,11 @@ The Design row's claim is the repo's stated split (see `AGENTS.md`):
 `skills/conventional-docs/SKILL.md` is the agent-facing procedure, so a
 separate `DESIGN.md` here would only duplicate them.
 
+This repo's adjacent files — `README.md`, `LICENSE.md`, `CHANGELOG.md`,
+`AGENTS.md`, and `CONTRIBUTING.md` — are all at the repository root, so the
+[adjacent-files](site/content/adjacent/index.md) rule that this table record a
+non-root location requires no additional rows here.
+
 ## Route
 
 Current stage: draft, nothing versioned yet (same posture as the README's

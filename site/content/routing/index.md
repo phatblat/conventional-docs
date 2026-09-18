@@ -32,8 +32,13 @@ the answer.
     user documentation — [Diátaxis](https://diataxis.fr/) territory, outside
     this convention.
 11. **Is it where this branch's work currently stands, for a cold restart or
-    handoff?** → [Todo](../artifacts/todo/index.md) (`TODO.md`, no graduated form), committed and
-    refreshed at each checkpoint, deleted before merge.
+    handoff?** → [Todo](../artifacts/todo/index.md) (`TODO.md`, no graduated
+    form), committed and refreshed at each checkpoint, deleted before merge.
+12. **Is it a community, legal, or process expectation the host or an outside
+    standard already defines — a code of conduct, a security policy, who
+    owns review?** → its [adjacent file](../adjacent/), in whichever of
+    `.github/`, the repository root, or `docs/` the host resolves first —
+    never more than one of them at once.
 
 ## By lifetime
 
@@ -44,15 +49,24 @@ the answer.
 | Append-only           | Decisions, Incidents              |
 | One branch / worktree | Plan, Todo                        |
 
+## Adjacent files
+
+| Lifetime                                      | File                                                                               |
+| --------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Root-only, permanent                          | `README.md`, license, `CITATION.cff`                                               |
+| One of `.github/` / root / `docs/`, permanent | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, `CODEOWNERS` |
+| `.github/` only, permanent                    | `FUNDING.yml`, issue / PR / discussion templates                                   |
+
 ## Common mis-routes
 
-| Wrong place                                          | Right place                                                                         |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Planned work written into Design                     | Decision, plus a Plan for the steps                                                 |
-| An accepted decision edited in place                 | An erratum for a correction; a new decision that supersedes it for a change of mind |
-| A changelog reconstructed from commits at release    | A line in `[Unreleased]`, written alongside the change                              |
-| This branch's steps appended to the Roadmap          | Plan                                                                                |
-| Architecture rationale left only in a PR description | Decision, committed to the repo                                                     |
+| Wrong place                                                                            | Right place                                                                         |
+| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Planned work written into Design                                                       | Decision, plus a Plan for the steps                                                 |
+| An accepted decision edited in place                                                   | An erratum for a correction; a new decision that supersedes it for a change of mind |
+| A changelog reconstructed from commits at release                                      | A line in `[Unreleased]`, written alongside the change                              |
+| This branch's steps appended to the Roadmap                                            | Plan                                                                                |
+| Architecture rationale left only in a PR description                                   | Decision, committed to the repo                                                     |
+| A second copy of `CONTRIBUTING.md` under `.github/` while one already sits at the root | One location, whichever the host resolves first; delete the other                   |
 
 ## If two answers fit
 

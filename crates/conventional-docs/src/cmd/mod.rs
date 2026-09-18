@@ -1,3 +1,4 @@
+pub mod adjacent;
 pub mod decision;
 pub mod init;
 pub mod new;
@@ -10,6 +11,11 @@ use crate::ctx::Ctx;
 use crate::error::Error;
 use crate::git::Repo;
 
+/// Error for a file already existing at `path`, shared by `new` and
+/// `adjacent`.
+pub fn already_exists(name: &str, path: &Path) -> Error {
+    Error::Convention(format!("{name} already exists at {}", path.display()))
+}
 /// Writes every `(path, contents)` pair relative to the worktree root,
 /// printing each written path, then commits them all under `subject` unless
 /// `no_commit` — in which case the files are written, git is untouched, and

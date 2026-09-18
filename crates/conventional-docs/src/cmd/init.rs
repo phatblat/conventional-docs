@@ -26,9 +26,30 @@ const COMMITLINT_CANDIDATES: &[&str] = &[
 /// The convention's custom commit types a `type-enum` must allow.
 const REQUIRED_TYPES: &[&str] = &["decision", "deploy", "plan", "release", "todo"];
 
-/// `init [--add]` — creates the artifacts a fresh repo starts with: Charter,
-/// Design, Roadmap, and CHANGELOG. Never `EVENTS.md`, `PLAN.md`, or `TODO.md`.
-pub fn init(ctx: &mut Ctx, no_commit: bool, add: bool) -> Result<(), Error> {
+/// Validates `--semver`'s three dot-separated numeric components (`x.y.z`);
+/// anything else is a usage error the CLI itself cannot catch (`clap` only
+/// sees a `String`).
+fn validate_semver(semver: &str) -> Result<(), Error> {
+    let parts: Vec<&str> = semver.split('.').collect();
+    let valid = parts.len() == 3
+        && parts
+            .iter()
+            .all(|p| !p.is_empty() && p.bytes().all(|b| b.is_ascii_digit()));
+    if valid {
+        Ok(())
+    } else {
+        Err(Error::Usage(format!(
+            "--semver {semver} is not three dot-separated numbers (x.y.z)"
+        )))
+    }
+}
+
+/// `init [--add] [--semver <x.y.z>]` — creates the artifacts a fresh repo
+/// starts with: Charter, Design, Roadmap, and CHANGELOG. Never `EVENTS.md`,
+/// `PLAN.md`, or `TODO.md`.
+pub fn init(ctx: &mut Ctx, no_commit: bool, add: bool, semver: &str) -> Result<(), Error> {
+    validate_semver(semver)?;
+
     let repo = git::discover(&ctx.cwd)?;
 
     let charter = artifact::locate(&repo, Artifact::Charter);
@@ -116,7 +137,7 @@ pub fn init(ctx: &mut Ctx, no_commit: bool, add: bool) -> Result<(), Error> {
                 "CHANGELOG.md: no [Unreleased] compare link (needs a github.com origin and a tag)"
             )?;
         }
-        files.push((changelog_path, template::changelog(link.as_deref())));
+        files.push((changelog_path, template::changelog(link.as_deref(), semver)));
         names.push("changelog");
     }
 

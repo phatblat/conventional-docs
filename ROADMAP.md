@@ -27,7 +27,15 @@ applies.
       `doc plan start|done` — so `TODO.md` and `PLAN.md` are written, synced,
       and cleared mechanically rather than by hand.
 - [ ] Build the validation slice — `doc lint|fix|check` — including the drift
-      check that diffs a frozen record against its freeze commit.
+      check that diffs a frozen record against its freeze commit, and
+      adjacent-file findings: a missing README or license, the same adjacent
+      file present in two recognized locations, a code of conduct whose
+      attribution names a superseded Covenant version, and a non-root
+      adjacent file missing from the Charter's `## Artifacts` table.
+- [ ] Build `doc citation new` (Citation File Format 1.2.0) and
+      `doc agents new`, once their input shapes are fixed.
+- [ ] Vendor more license bodies in the embedded standards pack (start with
+      the SPDX list's next-most-requested identifiers).
 - [ ] Build `doc release`, then `doc decision import` and
       `doc <artifact> graduate`.
 - [ ] Build `doc` for linux amd64/arm64 and windows; v1 is macOS arm64 only.

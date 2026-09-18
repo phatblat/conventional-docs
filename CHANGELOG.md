@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `EVENTS.md`, a proposed home for the lifecycle event vocabulary, graduating to `docs/events.md`.
 - `todo: sync` and `todo: clear` commit events, plus the rule that a `plan:` or `todo:` commit touches only its own artifact so the bookkeeping can be dropped or squashed away.
 - `doc`, a binary that writes the convention's artifacts and their lifecycle commits: `doc init`, `doc <artifact> new`, and the `doc decision` verbs, with `dec` as its one alias (`2026-09-05-condoc-a-binary-for-the-document-lifecycle`, `2026-09-06-rename-condoc-to-doc-and-group-commands-by-artifact`).
+- `doc readme|contributing|security|support new`, `doc license new --spdx <id>`, `doc code-of-conduct new --contact <method>`, and `doc pack list [--json]`, writing the adjacent-files ring's convention-owned templates and standards-pack bodies (`2026-09-07-adjacent-files-and-the-standards-pack`).
+- A standards pack embedded in the binary: Apache-2.0, BSD-2-Clause, BSD-3-Clause, GPL-3.0-or-later, ISC, MIT, MPL-2.0, and Unlicense license texts, plus the Contributor Covenant 3.0 code of conduct, resolved in order from `--pack <dir>`, `$XDG_DATA_HOME/conventional-docs/pack`, then the embedded copy.
+- The adjacent-files ring — `README.md`, the license, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, `CODEOWNERS`, `CITATION.cff`, `.github/FUNDING.yml`, and issue/PR/discussion templates — as files this convention places but does not define, with a fixed set of recognized locations per file and a one-location rule.
+- `doc init --semver <x.y.z>`, so a repository on a different SemVer version isn't forced to hand-edit the generated changelog preamble.
 - A website presenting Conventional Docs as a versioned specification, with a routing guide, artifact reference, and quickstart.
 - A `details` shortcode that renders code samples as native, no-JS collapsible `<details>`/`<summary>` blocks, initially collapsed.
 - An `Example` page showing a conforming repository, small and graduated, moved off the spec page.

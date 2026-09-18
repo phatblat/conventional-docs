@@ -1,16 +1,10 @@
-use std::path::Path;
-
-use super::write_files;
+use super::{already_exists, write_files};
 use crate::artifact::{self, Artifact};
 use crate::ctx::Ctx;
 use crate::error::Error;
 use crate::git;
 use crate::slug::{INCIDENT_SLUG_MAX, RUNBOOK_SLUG_MAX, slug};
 use crate::template;
-
-fn already_exists(name: &str, path: &Path) -> Error {
-    Error::Convention(format!("{name} already exists at {}", path.display()))
-}
 
 fn create_graduating(
     ctx: &mut Ctx,
