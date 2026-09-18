@@ -282,7 +282,7 @@ Or copy `skills/conventional-docs/` into the agent's skills directory by hand.
 - **[Contributor Covenant](https://www.contributor-covenant.org/)**,
   **[Citation File Format](https://citation-file-format.github.io/)**,
   **[SPDX](https://spdx.org/licenses/)** / **[REUSE](https://reuse.software/)**,
-  and [GitHub's community health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions) —
+  and **[GitHub's community health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions)** —
   the standards that own the content of the adjacent-files ring. Conventional
   Docs places these; it does not restate what they say.
 
