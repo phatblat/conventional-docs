@@ -24,6 +24,6 @@ text is itself the license; SPDX's list data is CC0.
 
 ## Codes of conduct
 
-| File                           | Source                                                                                | License   | Edit                                                                                                                                                        |
-| ------------------------------ | ------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `contributor-covenant-3.0.txt` | `https://www.contributor-covenant.org/version/3/0/code_of_conduct/code_of_conduct.md` | CC BY 4.0 | `## Reporting an Issue`: `**[NOTE: describe your means of reporting here.]**` → `**{{contact}}**`. The document's own attribution section is kept verbatim. |
+| File                           | Source                                                                                | License      | Edit                                                                                                                                                        |
+| ------------------------------ | ------------------------------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contributor-covenant-3.0.txt` | `https://www.contributor-covenant.org/version/3/0/code_of_conduct/code_of_conduct.md` | CC BY-SA 4.0 | `## Reporting an Issue`: `**[NOTE: describe your means of reporting here.]**` → `**{{contact}}**`. The document's own attribution section is kept verbatim. |
