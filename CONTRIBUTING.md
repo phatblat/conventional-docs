@@ -22,8 +22,9 @@ This project's documentation follows
 
 ## Where documents live
 
-See [`CHARTER.md`'s `## Artifacts` section](CHARTER.md#artifacts); every
-document this repository keeps currently lives at its repository-root path.
+See [`CHARTER.md`'s `## Artifacts` section](CHARTER.md#artifacts) for where
+each document actually lives; most sit at the repository root, but decision
+records live under `docs/decisions/`.
 
 `mise.toml` pins every tool this repository uses, and `just` is the only
 command surface — prefer adding a recipe over documenting a raw command.
