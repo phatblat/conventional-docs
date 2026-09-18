@@ -73,14 +73,16 @@ GitHub resolves them in that order, first found wins — but only in one of
 those places at a time; a second copy in a lower-precedence location is a file
 nobody reads.
 
-| File                 | Content standard              | Locations                 |
-| -------------------- | ----------------------------- | ------------------------- |
-| `CONTRIBUTING.md`    | this convention (below)       | `.github/`, root, `docs/` |
-| `CODE_OF_CONDUCT.md` | Contributor Covenant, or none | `.github/`, root, `docs/` |
-| `SECURITY.md`        | none                          | `.github/`, root, `docs/` |
-| `SUPPORT.md`         | none                          | `.github/`, root, `docs/` |
-| `CODEOWNERS`         | GitHub syntax                 | `.github/`, root, `docs/` |
-| `CITATION.cff`       | Citation File Format 1.2.0    | root                      |
+| File                              | Content standard              | Locations                 |
+| --------------------------------- | ----------------------------- | ------------------------- |
+| `CONTRIBUTING.md`                 | this convention (below)       | `.github/`, root, `docs/` |
+| `CODE_OF_CONDUCT.md`              | Contributor Covenant, or none | `.github/`, root, `docs/` |
+| `SECURITY.md`                     | none                          | `.github/`, root, `docs/` |
+| `SUPPORT.md`                      | none                          | `.github/`, root, `docs/` |
+| `CODEOWNERS`                      | GitHub syntax                 | `.github/`, root, `docs/` |
+| `CITATION.cff`                    | Citation File Format 1.2.0    | root                      |
+| `.github/FUNDING.yml`             | GitHub schema                 | `.github/` only           |
+| issue / PR / discussion templates | GitHub schema                 | `.github/`                |
 
 An adjacent file never graduates — it keeps its host-recognized name, and a
 copy under `docs/` is a placement choice, not a graduation. The Charter's
