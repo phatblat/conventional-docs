@@ -19,6 +19,11 @@ pub enum Adjacent {
 
 impl Adjacent {
     /// The host-recognized file name this adjacent file is written as.
+    /// `License` writes `LICENSE.md` rather than the extension-less
+    /// `LICENSE`, deliberately: it matches this repository's own root file
+    /// and keeps every `doc *new` output markdown, at the cost of formatters
+    /// needing an explicit exclusion for a `.md` file that isn't prose (see
+    /// the "verbatim legal text" notice `license new` prints).
     pub fn file_name(self) -> &'static str {
         match self {
             Adjacent::Readme => "README.md",
