@@ -5,10 +5,10 @@ This project's documentation follows
 
 ## How a change flows
 
-1. **Decide.** A change that alters behavior, a published interface, or a
-   dependency gets a decision record at `docs/decisions/YYYY-MM-DD-slug.md`
-   before it merges. A **proposed** record is the spec; **accept**ing it
-   freezes the record's body.
+1. **Decide.** A PR over ~100 lines, or one that alters behavior, a published
+   interface, or a dependency, gets a decision record at
+   `docs/decisions/YYYY-MM-DD-slug.md` before it merges. A **proposed** record
+   is the spec; **accept**ing it freezes the record's body.
 2. **Plan.** Work spanning more than one session, or handed off to someone
    else, gets a `PLAN.md` on the branch — the ordered steps to carry out the
    accepted decision — deleted before merge.
