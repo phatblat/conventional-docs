@@ -11,11 +11,12 @@ live, and leaves what it says to whatever standard already owns that content.
 
 ## Root-only
 
-`README.md`, the license file, `CHANGELOG.md`, and `AGENTS.md` stay at the
-repository root permanently. Their consumers — registries, GitHub, coding
-agents — look only there, and several of them don't go through a filesystem
-that could follow a link. `CITATION.cff` joins them: GitHub's "Cite this
-repository" feature reads it from the default branch root only.
+`README.md`, the license file, and `CITATION.cff` are the ring's root-only
+members: GitHub's "Cite this repository" feature reads `CITATION.cff` from
+the default branch root only, and the license and `README.md` have the same
+single-location expectation. `CHANGELOG.md` and `AGENTS.md` are **not**
+adjacent files — they are artifacts this convention itself defines and binds
+to the root; see [Artifacts](../artifacts/).
 
 ## The rest of the ring
 
