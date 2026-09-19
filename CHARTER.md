@@ -35,6 +35,7 @@ Each SDLC phase ends by writing the artifact the next phase reads.
 | --------------- | ------------------------------------------ | ------------------- |
 | Inception       | why this exists, what it is for            | Charter             |
 | Prioritization  | what is next, in order                     | Roadmap             |
+| Grooming        | the named work items, one per file         | Backlog             |
 | Proposal        | what should change, why, and what it costs | Decision (proposed) |
 | Review          | the frozen spec                            | Decision (accepted) |
 | Planning        | the exact steps and the files they touch   | Plan                |
@@ -93,6 +94,11 @@ are deliberately not fixed here; that is a later decision. The Todo is that
 rule turned inward, its source being the session that wrote it, so it names
 the session and the time the list was taken.
 
+A Backlog is the last stop before an external system: when items need
+dispatch to named workers, with claims and reaping a dead worker's stale
+one, the queue is a message bus or a tracker, and the Backlog item is what
+its records point at, not the queue itself.
+
 ## What the shape is designed to enable
 
 ### Scope gates
@@ -128,7 +134,8 @@ Where this project keeps its own artifacts.
 | Charter   | `CHARTER.md`      | this file                                                            |
 | Design    | —                 | the convention is the product; its spec is `README.md` and the skill |
 | Decisions | `docs/decisions/` | in use                                                               |
-| Roadmap   | `ROADMAP.md`      | in use                                                               |
+| Roadmap   | `ROADMAP.md`      | the ordered index over `docs/backlog/`                               |
+| Backlog   | `docs/backlog/`   | in use                                                               |
 | Plan      | —                 | written per branch as `PLAN.md`, deleted at `plan: done`             |
 | Runbooks  | —                 | not used                                                             |
 | Incidents | —                 | not used                                                             |
