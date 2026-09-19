@@ -23,6 +23,25 @@ What's next, in order.
 A graduated Roadmap that needs per-item status or grouping can grow headings
 and metadata; the ordering is the one thing that must survive that growth.
 
+## As the index over a Backlog
+
+Once a repository also has a [Backlog](../backlog/index.md), the Roadmap
+stops describing work and starts indexing it: an ordered list of links, one
+per item, never a restated body. Bullets stay plain `-`, not checkboxes — an
+item's presence in `docs/backlog/` is its open state, so there is nothing to
+check off:
+
+```markdown
+# Roadmap
+
+## Now
+
+- [Support .brambleignore glob negation](docs/backlog/support-brambleignore-glob-negation.md)
+```
+
+An item's line here and its file are added and deleted together, by the same
+change.
+
 ## Example
 
 ```markdown
@@ -50,6 +69,8 @@ queue, not a history — once an item ships it belongs in the
 [Changelog](../changelog/index.md), and once it's abandoned it's deleted
 outright.
 
-A repo whose existing `TODO.md` is actually a durable backlog has a Roadmap
-under the wrong name; rename it to `ROADMAP.md` and keep the real
+A repo whose existing `TODO.md` is a single durable file is actually a
+Roadmap under the wrong name; rename it to `ROADMAP.md`. Where it is a
+directory of per-item files, it is a [Backlog](../backlog/index.md) and
+moves to `docs/backlog/`. Either way, keep the real
 [Todo](../todo/index.md) for branch-scoped work in flight.

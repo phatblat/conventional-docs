@@ -76,6 +76,8 @@ branch reads it and takes it over.
 
 **Anti-pattern:** treating a committed `TODO.md` as a durable backlog. A repo
 whose existing `TODO.md` already means "durable backlog" has a
-[Roadmap](../roadmap/index.md) under the wrong name, and renames it on
-adoption — the two are told apart by lifetime: the Roadmap outlives every
-branch, the Todo does not outlive the one it's on.
+[Roadmap](../roadmap/index.md) under the wrong name if it's a single file, or
+a [Backlog](../backlog/index.md) if it's a directory of per-item files;
+either way it renames or moves on adoption. The two are told apart from a
+Todo by lifetime: a Roadmap or a Backlog item outlives every branch, the
+Todo does not outlive the one it's on.

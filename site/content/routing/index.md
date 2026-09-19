@@ -18,7 +18,11 @@ the answer.
 4. **Are these the ordered steps to carry out an accepted decision?** →
    [Plan](../artifacts/plan/index.md) (`PLAN.md`, no graduated form).
 5. **Is it something intended for later, not now?** → Roadmap
-   (`ROADMAP.md` / `docs/roadmap.md`).
+   (`ROADMAP.md` / `docs/roadmap.md`) when it's a line with no real
+   description, or, once this repo has a Backlog,
+   [Backlog](../artifacts/backlog/index.md) (`docs/backlog/<slug>.md`, no
+   small-repo form) indexed from the Roadmap when it needs a real problem
+   statement and outcome.
 6. **Will a user of the software notice this change?** → a line in
    [the changelog](../artifacts/changelog/index.md)'s `## [Unreleased]`
    section (`CHANGELOG.md`).
@@ -46,6 +50,7 @@ the answer.
 | --------------------- | --------------------------------- |
 | Project               | Charter                           |
 | Living                | Design, Roadmap, Runbooks, Events |
+| Until done            | Backlog                           |
 | Append-only           | Decisions, Incidents              |
 | One branch / worktree | Plan, Todo                        |
 
@@ -65,8 +70,9 @@ the answer.
 | An accepted decision edited in place                                                   | An erratum for a correction; a new decision that supersedes it for a change of mind |
 | A changelog reconstructed from commits at release                                      | A line in `[Unreleased]`, written alongside the change                              |
 | This branch's steps appended to the Roadmap                                            | Plan                                                                                |
-| Architecture rationale left only in a PR description                                   | Decision, committed to the repo                                                     |
+| A work item's full description pasted into the Roadmap                                 | A [Backlog](../artifacts/backlog/index.md) item, with the Roadmap linking it        |
 | A second copy of `CONTRIBUTING.md` under `.github/` while one already sits at the root | One location, whichever the host resolves first; delete the other                   |
+| Architecture rationale left only in a PR description                                   | Decision, committed to the repo                                                     |
 
 ## If two answers fit
 

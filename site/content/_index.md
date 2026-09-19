@@ -32,6 +32,7 @@ maintainers read `docs/`.
 | [Todo](artifacts/todo/index.md)           | `TODO.md`    | —                                   | one branch / worktree | where the work left off                            |
 | [Design](artifacts/design/index.md)       | `DESIGN.md`  | `docs/design.md`                    | living                | what the system is and does _now_                  |
 | [Events](events/index.md)                 | `EVENTS.md`  | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce |
+| [Backlog](artifacts/backlog/index.md)     | —            | `docs/backlog/<slug>.md`            | until done            | what one queued item is, in full                   |
 | [Decisions](artifacts/decisions/index.md) | —            | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                    |
 | [Runbooks](artifacts/runbooks/index.md)   | —            | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                          |
 | [Incidents](artifacts/incidents/index.md) | —            | `docs/incidents/YYYY-MM-DD-slug.md` | append-only           | what broke, what we learned                        |
