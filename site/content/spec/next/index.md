@@ -9,10 +9,10 @@ specVersion: next
 
 Conventional Docs is a convention for where a repository's lifecycle
 documentation lives, in markdown, in git. It defines a fixed set of artifacts —
-Charter, Design, Decisions, Roadmap, Plan, Events, Runbooks, Incidents, and
-Todo — each at a defined path, some with both a small-repo and a graduated
-form, so a human or an agent can find the right document without asking. Two
-axes decide everything else: how long a document stays true (its
+Charter, Design, Decisions, Roadmap, Backlog, Plan, Events, Runbooks,
+Incidents, and Todo — each at a defined path, some with both a small-repo and
+a graduated form, so a human or an agent can find the right document without
+asking. Two axes decide everything else: how long a document stays true (its
 **lifetime**), and who is expected to read it (its **audience**).
 
 See [Artifacts](../../artifacts/index.md) for the full table of small-repo
@@ -74,24 +74,50 @@ interpreted as described in
     SHOULD have an accepted decision before it merges.
 13. A Roadmap at `ROADMAP.md` or `docs/roadmap.md` is OPTIONAL; when present
     it MUST list intended work in intended order, and items that no longer
-    apply MUST be deleted rather than archived in place.
-14. A Plan at `PLAN.md` is OPTIONAL and has no graduated form; when present it
+    apply MUST be deleted rather than archived in place. A Roadmap MAY carry
+    each item's whole description inline; when the repository has a Backlog
+    it MUST instead carry an ordered index of links to Backlog items and
+    MUST NOT restate an item's body.
+14. A Backlog is OPTIONAL and is one file per work item at
+    `docs/backlog/<slug>.md`, with no small-repo form. A repository with a
+    Backlog MUST have a Roadmap; the Roadmap's own location is independent
+    of the Backlog's existence.
+15. A Backlog item's id is a kebab-case slug of its title and MUST NOT carry
+    a number or a date prefix. The slug MAY change while the item exists.
+    Two items whose slugs collide are the same item and MUST be merged into
+    one file.
+16. A Backlog item MUST use these H2 sections, in this order: Problem,
+    Outcome. `## Notes` MAY appear last. An item MUST NOT carry a status,
+    priority, assignment, claim, or date field: presence in `docs/backlog/`
+    is the item's open state, order is the Roadmap's, and dates are `git
+log`'s.
+17. A Backlog item MUST be deleted by the change that implements it, in the
+    same pull request as that change and together with its Roadmap entry;
+    an item that will not be implemented MUST be deleted rather than kept.
+    A decision record MUST NOT link to a Backlog item; a Backlog item MAY
+    link to a decision record.
+18. A Backlog item MUST NOT record who is working on it. A branch that
+    implements an item SHOULD end with the item's slug, so that any prefix
+    convention (`feat/`, `fix/`, an author or agent name) survives and
+    concurrent work is found by suffix match over the refs a clone already
+    fetches.
+19. A Plan at `PLAN.md` is OPTIONAL and has no graduated form; when present it
     MUST correspond to exactly one accepted decision, MUST contain the
     ordered steps to execute it, and MUST be deleted no later than the merge
     of the work it describes.
-15. Work spanning more than one working session, or handed to another person
+20. Work spanning more than one working session, or handed to another person
     or agent, SHOULD have a Plan.
-16. A Todo at `TODO.md` is OPTIONAL and has no graduated form; when an agent
+21. A Todo at `TODO.md` is OPTIONAL and has no graduated form; when an agent
     or contributor is tracking a working list for the branch, `TODO.md` MUST
     be committed and refreshed at each checkpoint, MUST record the session
     identity and the UTC time it was last synced, and MUST be deleted no
     later than the merge of the work it describes. Consumers MUST NOT treat
     it as durable state beyond the branch.
-17. A notable user-facing change SHOULD add its line to `CHANGELOG.md`'s
+22. A notable user-facing change SHOULD add its line to `CHANGELOG.md`'s
     `## [Unreleased]` section in the same commit or pull request as the
     change. Notability is a judgment: nothing MUST require a changelog
     edit on a change.
-18. `CHANGELOG.md` MUST follow
+23. `CHANGELOG.md` MUST follow
     [Keep a Changelog 2.0.0](https://keepachangelog.com/en/2.0.0/): a
     `# Changelog` heading with its preamble, `## [Unreleased]` first,
     released versions as `## [x.y.z] - YYYY-MM-DD` newest first, the six
@@ -99,67 +125,73 @@ interpreted as described in
     category they belong to, and reference-style links resolving each
     version to a compare diff, with `[Unreleased]` comparing the newest
     tag to `HEAD`.
-19. A released section MUST NOT be edited after its release, and a version
+24. A released section MUST NOT be edited after its release, and a version
     heading or version field MUST NOT be hand-bumped. The `release:` event
     MUST rename `[Unreleased]` to the new version in both the heading and
     its reference link, and MUST open a fresh empty `[Unreleased]`.
-20. A changelog line MAY cite the decision id it came from.
-21. Runbooks are OPTIONAL; when present they MUST live at
+25. A changelog line MAY cite the decision id it came from.
+26. Runbooks are OPTIONAL; when present they MUST live at
     `docs/runbooks/<trigger>.md`, one file per trigger.
-22. Incident records are OPTIONAL; when present they MUST live at
+27. Incident records are OPTIONAL; when present they MUST live at
     `docs/incidents/YYYY-MM-DD-slug.md` and MUST NOT be rewritten after the
     incident closes, except to append follow-up references.
-23. An artifact SHOULD graduate from root form to graduated form when the
+28. An artifact SHOULD graduate from root form to graduated form when the
     repository root has become crowded with top-level files, or when the
-    artifact needs siblings, per-item status, or internal structure.
-24. A graduation MUST move the file, rewrite every inbound link, and update
-    the Charter's `## Artifacts` section in a single commit.
-25. `docs/decisions/` is the only location for decision records; a repository
+    artifact needs siblings, per-item status, or internal structure. A
+    Roadmap whose items need more than a line each, or whose single file
+    conflicts between concurrent branches, SHOULD decompose into a Backlog
+    instead of only moving.
+29. A graduation MUST move the file, rewrite every inbound link, and update
+    the Charter's `## Artifacts` section in a single commit. Decomposing a
+    Roadmap into a Backlog MUST, in a single commit, write one
+    `docs/backlog/<slug>.md` per item, rewrite the Roadmap as the ordered
+    index over them, and update the Charter's `## Artifacts` section.
+30. `docs/decisions/` is the only location for decision records; a repository
     using `adr-tools` MUST add a root `.adr-dir` file containing
     `docs/decisions`.
-26. `AGENTS.md` is the canonical agent instruction file. A tool-specific
+31. `AGENTS.md` is the canonical agent instruction file. A tool-specific
     instruction file MUST be a real committed file that includes `AGENTS.md`
     by reference, MUST NOT duplicate its content, and MUST NOT be a symlink.
-27. A repository that publishes lifecycle events MUST publish them as
+32. A repository that publishes lifecycle events MUST publish them as
     Conventional Commits with the types `decision`, `plan`, `todo`,
     `release`, `deploy` and these subject forms: `decision: draft <id>`,
     `decision: propose <id>`, `decision: accept <id>`,
     `decision: reject <id>`, `plan: start <id>`, `plan: done <id>`,
     `todo: sync`, `todo: clear`, `release: v<semver>`,
     `deploy: <environment> v<semver>`, where `<id>` is `YYYY-MM-DD-slug`.
-28. A `plan:` or `todo:` commit MUST touch only its own artifact, so that
+33. A `plan:` or `todo:` commit MUST touch only its own artifact, so that
     dropping or squashing those commits leaves the tree unchanged.
-29. The commit MUST be the event of record; a notification MAY point at it
+34. The commit MUST be the event of record; a notification MAY point at it
     and MUST NOT carry state that is absent from the repository.
-30. An artifact MAY graduate out of the repository into an external system;
+35. An artifact MAY graduate out of the repository into an external system;
     the Charter's `## Artifacts` section MUST then record the external
     location and the stale in-repo file MUST be deleted.
-31. An _adjacent file_ is a document a repository is expected to have that
+36. An _adjacent file_ is a document a repository is expected to have that
     this specification places but does not define: `README.md`, the license
     file, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`,
     `SUPPORT.md`, `CODEOWNERS`, `CITATION.cff`, `.github/FUNDING.yml`, and
     issue, pull request, and discussion templates. Their content is owned by
     the standard or host that defines them; this specification fixes only
     placement. Adjacent files are not artifacts; no clause above binds them.
-32. An adjacent file MUST exist in at most one of its host's recognized
+37. An adjacent file MUST exist in at most one of its host's recognized
     locations. GitHub resolves community health files in the order
     `.github/`, repository root, `docs/`, first found wins, so a copy in a
     lower-precedence location is a file nobody reads.
-33. An adjacent file MUST NOT graduate: it MUST keep its host-recognized
-    name, and clause 23's graduation triggers MUST NOT be applied to it. A
+38. An adjacent file MUST NOT graduate: it MUST keep its host-recognized
+    name, and clause 28's graduation triggers MUST NOT be applied to it. A
     copy under `docs/` is a placement choice among the host's recognized
     locations, not a graduation.
-34. The license file MUST be committed to the repository and MUST NOT be
+39. The license file MUST be committed to the repository and MUST NOT be
     inherited from an organization-level default.
-35. The Charter's `## Artifacts` section MUST record an adjacent file's
+40. The Charter's `## Artifacts` section MUST record an adjacent file's
     location when it is not the repository root, and MAY record it
     otherwise.
-36. `CONTRIBUTING.md` SHOULD state how change flows through the repository —
+41. `CONTRIBUTING.md` SHOULD state how change flows through the repository —
     the Decision and Plan thresholds, the changelog rule, the lifecycle
     event vocabulary — or link the documents that state them.
-37. A tool MUST report a missing or duplicated adjacent file as a warning
+42. A tool MUST report a missing or duplicated adjacent file as a warning
     and MUST NOT reject a repository for it.
-38. A repository conforms when every MUST above holds for the artifacts and
+43. A repository conforms when every MUST above holds for the artifacts and
     adjacent files it has. Tooling SHOULD report SHOULD violations as
     warnings and MUST NOT reject a repository for them alone.
 

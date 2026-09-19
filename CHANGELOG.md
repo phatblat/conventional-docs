@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A diagram of the loop on the homepage, alongside the existing text version.
 - The Events artifact to the site's artifacts tables, with the same "proposed, not settled" note as `README.md`.
 - A `/doc/` page documenting the `doc` binary's commands, design constraints, and roadmap.
+- A Backlog artifact — one work item per file at `docs/backlog/<slug>.md`, deleted by the change that implements it — as the second remedy for a Roadmap that has outgrown one file (`2026-09-18-graduate-the-roadmap-into-a-backlog`).
 
 ### Changed
 
@@ -46,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The single-file `DECISIONS.md` form; every decision is its own file under `docs/decisions/`, following a fixed skeleton.
 - The `docs/plan.md` and `docs/todo.md` graduated forms — a Plan and a Todo never graduate.
-- The Changes artifact (`.changes/<slug>.md`), its validator, and its release plugin; the convention's artifact set is nine documents.
+- The Changes artifact (`.changes/<slug>.md`), its validator, and its release plugin; the convention's artifact set is ten documents.
 
 ### Fixed
 

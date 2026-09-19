@@ -109,6 +109,7 @@ every worker can push.
    An item carries no status, priority, assignment, claim, or date field:
    presence in `docs/backlog/` is the open state, order is the Roadmap's, and
    dates are `git log`'s.
+
 5. Once a repository has a Backlog, the Roadmap carries an ordered index of
    links to Backlog items and MUST NOT restate an item's body. A Roadmap with
    no Backlog MAY continue to carry each item's whole description inline, as
@@ -135,6 +136,7 @@ every worker can push.
    branches, and the second to open a pull request loses the work, not the
    repo. An unpushed branch is an invisible claim, and renaming an item's
    slug while a branch is open breaks the match — rename the branch with it.
+
 8. An artifact SHOULD graduate from root form to graduated form when the root
    is crowded, or when the artifact needs siblings, per-item status, or
    internal structure (existing rule). A Roadmap whose items need more than a

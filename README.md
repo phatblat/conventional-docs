@@ -15,7 +15,7 @@ agent can walk into any project cold and know where to look.
 Two axes decide everything else:
 
 - **Lifetime** — how long a document stays true. Project, living, append-only,
-  branch, session, or per-release.
+  until done, branch, session, or per-release.
 - **Audience** — who reads it. Outsiders and machines read the repo root;
   maintainers read `docs/`.
 
@@ -36,6 +36,7 @@ RFC 2119 keywords and is a draft until version 1.0.0.
 | Design    | `DESIGN.md`  | `docs/design.md`                    | living                | what the system is and does _now_                  |
 | Decisions | —            | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                    |
 | Roadmap   | `ROADMAP.md` | `docs/roadmap.md`                   | living                | what's next, in order                              |
+| Backlog   | —            | `docs/backlog/<slug>.md`            | until done            | what one queued item is, in full                   |
 | Plan      | `PLAN.md`    | —                                   | one branch / worktree | exact steps for the current decision               |
 | Events    | `EVENTS.md`  | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce |
 | Runbooks  | —            | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                          |
@@ -103,7 +104,9 @@ first entry. Move a document to `docs/` when either trigger fires:
    (dotfiles don't count — that's where config conventions live), or
 2. the document has outgrown a single file: it needs siblings, status, or
    structure (a `ROADMAP.md` that needs per-item status becomes
-   `docs/roadmap.md`).
+   `docs/roadmap.md`; a `ROADMAP.md` whose items need real descriptions or
+   conflict between concurrent branches decomposes into `docs/backlog/` plus
+   a Roadmap that indexes it — see [The backlog](#the-backlog)).
 
 `PLAN.md` and `TODO.md` never move: neither trigger can fire for a document
 that lives on one branch and is deleted rather than grown. There is no
@@ -121,6 +124,61 @@ defaults to that path. A root `.adr-dir` file containing `docs/decisions`
 points tools that only need the location — `adr list`, `adr generate` — at
 it. `adr new` allocates the next sequential number, so records are copied
 from the skeleton instead.
+
+### The backlog
+
+A Backlog is one file per work item, `docs/backlog/<slug>.md`, with no
+small-repo form: a repository either has no Backlog or has the directory.
+Its id is a kebab-case slug of the title, never a number or a date — an
+allocated id races the same way two branches filing the same week would
+race on a decision number, which is why decisions moved off numbers too.
+
+Every item uses exactly this skeleton:
+
+```markdown
+# <Title>
+
+## Problem
+
+<What is wrong or missing, and who it costs. For a bug: what happens, what
+should happen, and how to reproduce it.>
+
+## Outcome
+
+<What is observably true when this is done.>
+
+## Notes
+
+<Optional, last: evidence, links, a related decision, a suggested direction
+the decision record is free to overrule.>
+```
+
+No status, priority, assignment, claim, or date field: presence in
+`docs/backlog/` is the open state, order lives in the Roadmap, and dates are
+`git log`'s. Once a repository has a Backlog, the Roadmap stops describing
+work and starts indexing it — an ordered list of links, never a restated
+body. A decision record must never link to a Backlog item, because the item
+is deleted at implementation and the link would go stale; a Backlog item may
+link to a decision.
+
+An item is deleted by the change that implements it, together with its
+Roadmap line, in the same pull request — never by a separate bookkeeping
+commit. An item that will not be implemented is deleted rather than marked
+closed.
+
+A Backlog item never records who is working on it. A branch that implements
+one should end with the item's slug, so any prefix a team already uses
+(`feat/`, `fix/`, an author or agent name) survives and concurrent work is
+found by a suffix match over the refs a clone already fetches:
+
+```bash
+git ls-remote --heads origin '*<slug>'   # anyone, anywhere
+git branch --all --list '*<slug>'        # what this clone already knows
+```
+
+That is detection, not arbitration: two workers who both start get two
+branches, and the second to open a pull request loses the work, not the
+repo. An unpushed branch is an invisible claim.
 
 ### The changelog
 
@@ -175,10 +233,12 @@ it was, and a squash merge erases them for free. A commit that mixes one of
 these files with real work cannot be dropped, so it is not one of these
 events.
 
-`TODO.md` is not a backlog. Where a repo already keeps one under that name, it
-is a Roadmap and is renamed to `ROADMAP.md` when the convention is adopted;
-the Roadmap outlives every branch and the Todo does not outlive the one it is
-on.
+`TODO.md` is not a backlog. Where a repo already keeps one under that name as
+a single durable file, it is a Roadmap and is renamed to `ROADMAP.md` when
+the convention is adopted; where it is a directory of per-item files, it is a
+Backlog and moves to `docs/backlog/`. Either way it is told apart from a Todo
+by lifetime: a Roadmap or a Backlog item outlives every branch, and a Todo
+does not outlive the one it is on.
 
 ## The loop
 
