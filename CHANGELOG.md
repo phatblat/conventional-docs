@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The Events artifact to the site's artifacts tables, with the same "proposed, not settled" note as `README.md`.
 - A `/doc/` page documenting the `doc` binary's commands, design constraints, and roadmap.
 - A Backlog artifact — one work item per file at `docs/backlog/<slug>.md`, deleted by the change that implements it — as the second remedy for a Roadmap that has outgrown one file (`2026-09-18-graduate-the-roadmap-into-a-backlog`).
+- A `What's different` section in `README.md` and a `What this convention adds` section in `CHARTER.md`, naming the three rules that distinguish the convention from the artifact set it assembles: a decision that freezes when review ends, a declared lifetime as a commitment to delete, and net-zero `plan:`/`todo:` bookkeeping commits.
 
 ### Changed
 

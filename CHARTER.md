@@ -74,6 +74,58 @@ memory, which is not durable at all; committing it makes a rollback point,
 pushing it makes the list survive the machine, and nothing else in the repo
 can answer where a lost session left off.
 
+## What this convention adds
+
+The artifacts are not new. A charter, a design document, an ADR log, a
+roadmap, a runbook, an incident report — each already has a home in some
+existing practice, and a project that adopted all of them piecemeal would
+arrive at a similar list of files. What this convention adds is three rules
+about how those files behave over time, and each of them rests on the
+founding rule above.
+
+### A decision freezes when review ends
+
+Accepting or rejecting a record is the last write to its body. A correction
+is a dated line in an append-only `## Errata` tail, and a reversal is a new
+record that supersedes the old one without either record's status changing.
+
+A decision log that stays editable answers what the project currently
+believes — which is the Design document's job, and it is already better at
+it. Freezing gives up that answer to buy a different one: what was decided,
+when, and on what argument. That is the question that survives turnover, and
+the only one nothing else in the repository can answer. It also makes
+`git log` on a record worth reading, because the file's history becomes the
+history of the decision rather than a record of edits to it.
+
+### A declared lifetime is a commitment to delete
+
+Declaring how long a document stays true is half the rule. The other half is
+that its expiry is an event in the repository rather than a matter of
+judgment: a Backlog item is deleted by the pull request that implements it,
+together with its Roadmap line; a Plan and a Todo by the merge of the work
+they describe; and a Roadmap item that no longer applies is deleted rather
+than archived in place.
+
+Documentation decays because it only ever grows. Every stale file is a
+reader's wasted trip, and that cost is paid long after whoever wrote it
+stopped maintaining it — most heavily by the cold-start reader this
+convention exists to serve, who has no way to tell a current document from
+an abandoned one. Binding deletion to an event that was going to happen
+anyway is what keeps the set honest without anyone scheduling an audit.
+
+### Bookkeeping is net-zero
+
+A `plan:` or `todo:` commit touches only its own artifact, so dropping every
+one of them from a branch leaves the tree exactly as it was, and a squash
+merge erases them for free.
+
+That is what makes it safe to ask an agent to checkpoint its state as often
+as it likes: the habit costs the reader nothing, because the commits it
+produces are removable by construction rather than by cleanup. It also gives
+a sharp test for what counts as bookkeeping — a commit that mixes one of
+these files with real work cannot be dropped, so it is not one of these
+events.
+
 ## When a project outgrows git
 
 Defect tracking, ticket workflow, and cross-project planning do outgrow flat
