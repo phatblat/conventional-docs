@@ -157,7 +157,7 @@ surface. Both are tracked as Backlog items rather than specified here, since
 neither is built yet.
 
 This repository's own `ROADMAP.md` is split in the same change that adds this
-decision: its 13 existing lines become 15 files (one Roadmap line spanned two
+decision: its 16 existing lines become 17 files (one Roadmap line spanned two
 items that are one piece of work, and two new items are filed for the tool
 work above), and `ROADMAP.md` is rewritten as the index.
 
