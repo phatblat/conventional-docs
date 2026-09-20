@@ -22,6 +22,33 @@ Two axes decide everything else:
 Why this convention exists, what it is trying to achieve, and what it is
 designed to enable: [CHARTER.md](CHARTER.md).
 
+## What's different
+
+The artifacts themselves are not new — a charter, a design document, an ADR
+log, a roadmap, a runbook, an incident report each already has a home in some
+existing practice, and a repo that adopted all of them piecemeal would end up
+with a similar list of files. What this convention adds is three rules about
+how those files behave over time:
+
+- **A decision freezes when review ends.** `accept` and `reject` are the last
+  writes to a record's body. A correction is a dated line in an append-only
+  `## Errata` tail; changing your mind is a new record that supersedes the old
+  one, and neither record's status changes. An editable decision log answers
+  what the project currently believes, which is the Design document's job. A
+  frozen one answers what was decided, when, and on what argument.
+- **A declared lifetime is a commitment to delete.** Expiry is an event in the
+  repository rather than a matter of judgment: a Backlog item is deleted by
+  the pull request that implements it, a Plan and a Todo by the merge of the
+  work they describe, a Roadmap line by the change that finishes it.
+  Documentation decays because it only ever grows, and binding deletion to an
+  event that was going to happen anyway is what keeps this set the same size
+  next year.
+- **Bookkeeping commits are net-zero.** A `plan:` or `todo:` commit touches
+  only its own artifact, so dropping every one of them leaves the tree exactly
+  as it was and a squash merge erases them for free. An agent can checkpoint
+  as often as it likes without putting that noise in the history a human
+  reads.
+
 ## Specification
 
 The normative specification lives at
