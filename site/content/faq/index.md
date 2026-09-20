@@ -24,11 +24,28 @@ discarded once the feature ships. Conventional Docs is project-level state
 plus an append-only decision log; only the Plan is discarded, at merge, and
 the Decision it came from stays forever.
 
-## Do I need all nine artifacts?
+## Do I need all ten artifacts?
 
-No. Charter, Design, and Decisions are the load-bearing three. Roadmap, Plan,
-Todo, Events, Runbooks, and Incidents are OPTIONAL — add them when the
-project actually needs them.
+No. Charter, Design, and Decisions are the load-bearing three. Roadmap,
+Backlog, Plan, Todo, Events, Runbooks, and Incidents are OPTIONAL — add them
+when the project actually needs them.
+
+## Roadmap or Backlog?
+
+Different jobs. The Roadmap is order and direction — what's next, in what
+sequence. A Backlog item is one piece of work's full description — a
+problem and an outcome. A repo with only a Roadmap keeps short descriptions
+inline; once it also has a Backlog, the Roadmap stops describing work and
+becomes the ordered index of links into it.
+
+## How do two workers avoid picking up the same item?
+
+A branch that implements a Backlog item should end with the item's slug, so
+`git ls-remote --heads origin '*<slug>'` finds it — any prefix (`feat/`,
+`fix/`, an author or agent name) still matches. That's detection, not
+arbitration: it tells a second worker someone is already on it, but two
+workers who both start at once still both get a branch, and only the first
+to open a pull request keeps the work.
 
 ## What if my repo already has a `docs/` site?
 

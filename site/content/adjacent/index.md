@@ -4,7 +4,7 @@ description: The files this convention places but does not define.
 ---
 
 Every project also carries a set of files that are not part of this
-convention's nine artifacts, but that a repository is still expected to have —
+convention's ten artifacts, but that a repository is still expected to have —
 `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, and the rest. This
 convention calls that set **adjacent files**: it fixes where each one may
 live, and leaves what it says to whatever standard already owns that content.

@@ -153,3 +153,11 @@ moves with the rest of the vocabulary.
   under review.
 - [Conventional Commits](https://www.conventionalcommits.org/) — the type
   syntax `todo:` extends.
+
+## Errata
+
+- 2026-09-18: Extended by
+  [2026-09-18-graduate-the-roadmap-into-a-backlog](./2026-09-18-graduate-the-roadmap-into-a-backlog.md),
+  which adds the Backlog artifact; clause 9's rename advice applies to a
+  single-file durable backlog, while a directory of per-item files is a
+  Backlog.

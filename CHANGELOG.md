@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A diagram of the loop on the homepage, alongside the existing text version.
 - The Events artifact to the site's artifacts tables, with the same "proposed, not settled" note as `README.md`.
 - A `/doc/` page documenting the `doc` binary's commands, design constraints, and roadmap.
+- A Backlog artifact — one work item per file at `docs/backlog/<slug>.md`, deleted by the change that implements it — as the second remedy for a Roadmap that has outgrown one file (`2026-09-18-graduate-the-roadmap-into-a-backlog`).
 
 ### Changed
 
@@ -33,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A decision record is frozen when review ends: four states (draft, proposed, accepted, rejected), no `## Dates` section, and later corrections in an append-only `## Errata` tail (`2026-09-05-freeze-a-decision-when-review-ends`).
 - The five code samples on the Quickstart page now use the `details` shortcode.
 - Every mention of Keep a Changelog on the site now links to the pinned `2.0.0` version (`https://keepachangelog.com/en/2.0.0/`).
-- The artifacts table (homepage and `/artifacts/`) now lists the six root-capable artifacts first, then the three that live only under `docs/`, each group ordered by where it falls in the Charter's lifecycle phases.
+- The artifacts table (homepage and `/artifacts/`) now lists the six root-capable artifacts first, then the four that live only under `docs/`, each group ordered by where it falls in the Charter's lifecycle phases.
 - The spec page now links to `Artifacts` and `Example` instead of duplicating their tables and file trees.
 - The site now ships a single Doks theme; the preview theme switcher, FixIt, and Hugoplate styles are gone.
 - The "Where does this go?" nav item, hero button, and card are now labeled `wheredoc`.
@@ -41,12 +42,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Todo is now listed and documented immediately after Plan wherever artifacts are enumerated.
 - The "no required CI check, no required generator" wording now recommends both as checkpoints and integration points, without making them mandatory.
 - The site now documents the four-state decision lifecycle (draft, proposed, accepted, rejected) with its append-only `## Errata` tail, and the `[Unreleased]` changelog rules, replacing the removed Changes artifact and `.changes/` fragments.
+- A graduated Roadmap is the ordered index over `docs/backlog/`, linking each item instead of describing it; this project's own `ROADMAP.md` is now that index.
 
 ### Removed
 
 - The single-file `DECISIONS.md` form; every decision is its own file under `docs/decisions/`, following a fixed skeleton.
 - The `docs/plan.md` and `docs/todo.md` graduated forms — a Plan and a Todo never graduate.
-- The Changes artifact (`.changes/<slug>.md`), its validator, and its release plugin; the convention's artifact set is nine documents.
+- The Changes artifact (`.changes/<slug>.md`), its validator, and its release plugin; the convention's artifact set is ten documents.
 
 ### Fixed
 

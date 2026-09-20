@@ -14,8 +14,10 @@ folding `TODO.md` into a commit that carries work. This branch's own history is
 the worked example: `PLAN.md` was 167 lines with `###` groups inside
 `## Steps` (commit `1d53`), `TODO.md` carried a session UUID and a `Synced`
 stamp (commit `2cb0`), and both were deleted by `plan: done` / `todo: clear`
-(`badc`, `b563`). Both `ROADMAP.md:20-22` and `ROADMAP.md:26-28` name this
-work.
+(`badc`, `b563`). Before the split into `docs/backlog/`, both
+`ROADMAP.md:20-22` and `ROADMAP.md:26-28` named this work; since
+[2026-09-18-graduate-the-roadmap-into-a-backlog](./2026-09-18-graduate-the-roadmap-into-a-backlog.md)
+it is the single item `docs/backlog/build-the-doc-bookkeeping-slice.md`.
 
 ## Status
 
@@ -211,9 +213,8 @@ This is a proposal that is **awaiting review**.
 the validation slice needs anyway; `Ctx` grows a clock, and the existing tests
 pin it.
 
-The two roadmap items are one piece of work. The `## Convention` paired-CLI
-item (`ROADMAP.md:20-22`) is deleted and the `## doc` bookkeeping item
-(`ROADMAP.md:26-28`) is checked off when the slice lands, not now.
+The single backlog item this answers, `docs/backlog/build-the-doc-bookkeeping-slice.md`,
+is deleted together with its `ROADMAP.md` line when the slice lands, not now.
 
 `lint` inherits two findings this decision defines but does not implement:
 `Session: unknown`, and a `PLAN.md` or `TODO.md` still present at merge.
@@ -267,4 +268,7 @@ will follow its shape.
   the Todo's cache rules and its branch-scoped lifetime.
 - [../../EVENTS.md](../../EVENTS.md) — the `plan:` and `todo:` subjects these
   commands write.
-- [../../ROADMAP.md](../../ROADMAP.md) — the two items this answers.
+- [../../ROADMAP.md](../../ROADMAP.md) — currently links the backlog item
+  this answers, `docs/backlog/build-the-doc-bookkeeping-slice.md`.
+- [2026-09-18-graduate-the-roadmap-into-a-backlog](./2026-09-18-graduate-the-roadmap-into-a-backlog.md) —
+  the decision that split `ROADMAP.md` into `docs/backlog/`.

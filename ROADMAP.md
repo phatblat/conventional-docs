@@ -1,59 +1,37 @@
 # Roadmap
 
-What's next, in order. This is a living document — check items off in place rather
-than filing a separate issue for each one, and delete anything that no longer
-applies.
+Where this project is going, in order. Each item's description is its own file
+under `docs/backlog/`; this file says what comes next. An item's line here and
+its file are deleted together by the change that implements it.
+
+Current stage: draft, nothing versioned yet — the reference implementation is
+the agent skill and Claude Code plugin published from this repo.
 
 ## Setup
 
-- [ ] Set the `NPM_TOKEN` repository secret so the `release` CI job can publish
-      to npm (`gh secret set NPM_TOKEN --repo phatblat/conventional-docs`).
+- [Set the NPM_TOKEN repository secret](docs/backlog/set-the-npm-token-secret.md)
 
 ## Convention
 
-- [ ] Decide whether `docs:`-only commits should keep triggering a patch
-      release indefinitely, or whether that rule needs narrowing once the
-      convention stabilizes.
-- [ ] State an explicit release rule in `.releaserc.json` for every custom
-      event type (`decision`, `deploy`, `plan`, `release`, `todo`) instead of
-      relying on the commit analyzer ignoring unknown types.
-- [ ] Build the paired CLI that writes, syncs, and clears `TODO.md` and
-      `PLAN.md`, so the bookkeeping commits are produced and dropped
-      mechanically rather than by hand.
+- [Narrow the docs-only patch release rule](docs/backlog/narrow-the-docs-only-release-rule.md)
+- [State a release rule for every custom event type](docs/backlog/state-release-rules-for-custom-event-types.md)
+- [Decide how agents claim a backlog item](docs/backlog/decide-how-agents-claim-a-backlog-item.md)
 
 ## doc
 
-- [ ] Build the bookkeeping slice — `doc status`, `doc todo sync|clear`, and
-      `doc plan start|done` — so `TODO.md` and `PLAN.md` are written, synced,
-      and cleared mechanically rather than by hand.
-- [ ] Build the validation slice — `doc lint|fix|check` — including the drift
-      check that diffs a frozen record against its freeze commit, and
-      adjacent-file findings: a missing README or license, the same adjacent
-      file present in two recognized locations, a code of conduct whose
-      attribution names a superseded Covenant version, and a non-root
-      adjacent file missing from the Charter's `## Artifacts` table.
-- [ ] Build `doc citation new` (Citation File Format 1.2.0) and
-      `doc agents new`, once their input shapes are fixed.
-- [ ] Vendor more license bodies in the embedded standards pack (start with
-      the SPDX list's next-most-requested identifiers).
-- [ ] Build `doc release`, then `doc decision import` and
-      `doc <artifact> graduate`.
-- [ ] Build `doc` for linux amd64/arm64 and windows; v1 is macOS arm64 only.
-- [ ] Ship `doc` binaries from a tag job, alongside the npm package
-      semantic-release publishes.
+- [Build the doc bookkeeping slice](docs/backlog/build-the-doc-bookkeeping-slice.md)
+- [Build the doc validation slice](docs/backlog/build-the-doc-validation-slice.md)
+- [Build doc citation and agents commands](docs/backlog/build-doc-citation-and-agents-commands.md)
+- [Vendor more license bodies](docs/backlog/vendor-more-license-bodies.md)
+- [Build doc release, decision import, and graduate](docs/backlog/build-doc-release-import-and-graduate.md)
+- [Add the doc backlog commands](docs/backlog/add-the-doc-backlog-commands.md)
+- [Build doc for linux and windows](docs/backlog/build-doc-for-linux-and-windows.md)
+- [Ship doc binaries from a tag job](docs/backlog/ship-doc-binaries-from-a-tag-job.md)
 
 ## Site
 
-- [ ] Pick one of the three preview styles, delete the other two
-      `site/assets/css/theme-*.css` files, set `params.style` to the winner, and
-      set `params.stylePreview` to `false` (removes the switcher partial and its
-      bootstrap script).
-- [ ] Enable GitHub Pages (Settings → Pages → Source: GitHub Actions), then add
-      `push: branches: [main]` to `.github/workflows/pages.yml`.
-- [ ] At go-live, add the site URL to `package.json` as `homepage`, add the
-      badge and site link to `README.md`, and trim the README sections the site
-      now owns.
-- [ ] Add a social preview image at `site/static/og.png` and reference it from
-      `head.html` once the visual direction is settled.
-- [ ] If a custom domain is registered, update `baseURL` in `site/hugo.yaml` and
-      add `site/static/CNAME`.
+- [Pick the site style](docs/backlog/pick-the-site-style.md)
+- [Enable GitHub Pages](docs/backlog/enable-github-pages.md)
+- [Add the site URL and badge at go-live](docs/backlog/add-the-site-url-and-badge-at-go-live.md)
+- [Add a social preview image](docs/backlog/add-a-social-preview-image.md)
+- [Point the site at a custom domain](docs/backlog/point-the-site-at-a-custom-domain.md)

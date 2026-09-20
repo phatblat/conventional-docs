@@ -1,6 +1,6 @@
 ---
 name: conventional-docs
-description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Plan, Todo, Events, and the CHANGELOG. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when recording a user-facing change in the changelog's Unreleased section, when caching an agent's todo list in TODO.md, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/. Also use when placing an adjacent file - CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, CODEOWNERS, CITATION.cff, or a LICENSE - or when deciding where such a file belongs; CONTRIBUTING.md's content is this convention's own, the rest defer to their owning standard.
+description: Follow the Conventional Docs convention for a repository documentation set - Charter, Design, Decisions, Roadmap, Backlog, Plan, Todo, Events, and the CHANGELOG. Use when creating or updating any of those documents, when deciding whether a change needs a decision record or a plan, when recording a user-facing change in the changelog's Unreleased section, when caching an agent's todo list in TODO.md, when filing a work item under docs/backlog/, when writing decision, plan, todo, release, or deploy commit events, or when graduating root documents into docs/. Also use when placing an adjacent file - CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, CODEOWNERS, CITATION.cff, or a LICENSE - or when deciding where such a file belongs; CONTRIBUTING.md's content is this convention's own, the rest defer to their owning standard.
 license: MIT
 ---
 
@@ -15,12 +15,12 @@ look. Full rationale and rendered tables:
 ## When to use this skill
 
 Use it when creating or editing a `CHARTER.md`, `DESIGN.md`, `docs/decisions/`,
-`ROADMAP.md`, or `EVENTS.md` (or their graduated `docs/` forms), or a
-`PLAN.md` or `TODO.md`; when deciding whether a change needs a Decision or a
-Plan; when a change is user-facing and needs a changelog line; when writing a
-`decision:`, `plan:`, `todo:`, `release:`, or `deploy:` commit; or when a root
-document has outgrown a single file and needs to graduate into
-`docs/`.
+`ROADMAP.md`, `docs/backlog/`, or `EVENTS.md` (or their graduated `docs/`
+forms), or a `PLAN.md` or `TODO.md`; when deciding whether a change needs a
+Decision or a Plan; when a change is user-facing and needs a changelog line;
+when writing a `decision:`, `plan:`, `todo:`, `release:`, or `deploy:`
+commit; or when a root document has outgrown a single file and needs to
+graduate into `docs/`.
 
 Do not use it for user-facing documentation — tutorials, how-tos, and
 reference docs belong to [Diátaxis](https://diataxis.fr/), not this
@@ -32,9 +32,9 @@ adopted Conventional Docs; ask first.
 1. Look for root `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `PLAN.md`,
    `TODO.md`, and `EVENTS.md`.
 2. Look for the graduated forms under `docs/` (`docs/charter.md`,
-   `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/events.md`,
-   `docs/runbooks/`, `docs/incidents/`); `PLAN.md` and `TODO.md` have no
-   graduated form.
+   `docs/design.md`, `docs/decisions/`, `docs/roadmap.md`, `docs/backlog/`,
+   `docs/events.md`, `docs/runbooks/`, `docs/incidents/`); `PLAN.md` and
+   `TODO.md` have no graduated form.
 3. When a Charter exists, its `## Artifacts` table is authoritative for where
    each document lives; trust it over guessing.
 4. When `PLAN.md` exists, read it first — it is the cold-start handoff for
@@ -51,6 +51,7 @@ adopted Conventional Docs; ask first.
 | Design    | `DESIGN.md`  | `docs/design.md`                    | living                | what the system is and does _now_                  |
 | Decisions | —            | `docs/decisions/YYYY-MM-DD-slug.md` | append-only           | what changed, why, what it cost                    |
 | Roadmap   | `ROADMAP.md` | `docs/roadmap.md`                   | living                | what's next, in order                              |
+| Backlog   | —            | `docs/backlog/<slug>.md`            | until done            | what one queued item is, in full                   |
 | Plan      | `PLAN.md`    | —                                   | one branch / worktree | exact steps for the current decision               |
 | Events    | `EVENTS.md`  | `docs/events.md`                    | living                | which lifecycle events the repo's commits announce |
 | Runbooks  | —            | `docs/runbooks/<trigger>.md`        | living                | what to do when _x_ fires                          |
@@ -69,7 +70,9 @@ merge.
 
 A PR over ~100 lines, or one that changes behavior, an interface, or a
 dependency, needs a Decision. Work spanning more than one session, or handed
-to another agent, needs a Plan. Anything smaller just happens.
+to another agent, needs a Plan. File a Backlog item when the work is real but
+not being done now; work being done now needs no item. Anything smaller just
+happens.
 
 ## The loop
 
@@ -92,6 +95,63 @@ intent → Decision (proposed) → review → Decision (accepted)
 - **PR merged / Design updated** — the living Design doc is updated to match
   reality; `PLAN.md` is deleted by `plan: done` and `TODO.md` by
   `todo: clear`, both before merge.
+
+## Backlog
+
+A Backlog item is one file per work item, `docs/backlog/<slug>.md`, with no
+small-repo form: a repository either has no Backlog or has the directory. Its
+id is a kebab-case slug of the title — never a number or a date, both of
+which race the same way an allocated decision number once did. The slug may
+change while the item exists; two items whose slugs collide are the same
+item and must be merged into one file.
+
+Use exactly this skeleton:
+
+```markdown
+# <Title>
+
+## Problem
+
+<What is wrong or missing, and who it costs. For a bug: what happens, what
+should happen, and how to reproduce it.>
+
+## Outcome
+
+<What is observably true when this is done.>
+
+## Notes
+
+<Optional, last: evidence, links, a related decision, a suggested direction
+the decision record is free to overrule.>
+```
+
+No status, priority, assignment, claim, or date field: presence in
+`docs/backlog/` is the item's open state, order is the Roadmap's, and dates
+are `git log`'s.
+
+Once a repository has a Backlog, the Roadmap stops describing work and
+starts indexing it: an ordered list of links, never a restated body. A
+decision record must never link to a Backlog item — the item is deleted at
+implementation and the link would go stale — but a Backlog item may link to
+a decision. An item is deleted by the change that implements it, together
+with its Roadmap line, in the same pull request; an item that will not be
+implemented is deleted rather than kept.
+
+### Before starting an item
+
+A Backlog item never records who is working on it. A branch that implements
+one should end with the item's slug — any prefix (`feat/`, `fix/`, an author
+or agent name) is fine — so concurrent work is found by suffix match before
+you start, and your own claim is visible the moment you push:
+
+```bash
+git ls-remote --heads origin '*<slug>'   # a hit means someone is on it
+git switch -c <prefix>/<slug> && git push -u origin HEAD
+```
+
+This is detection, not arbitration: a hit means look before you start, not
+that the item is locked. Push before doing the work, not after, so the next
+agent who checks sees it too.
 
 ## Decisions
 
@@ -313,8 +373,10 @@ made mid-flight. Omit this section when there is nothing to say.
   carries work.
 - `TODO.md` passes the same markdown gates as every other file, so keep the
   skeleton's shape: `-` bullets, a blank line around every list and heading.
-- A repo whose existing `TODO.md` is a durable backlog has a Roadmap under
-  the wrong name and renames it to `ROADMAP.md` when adopting.
+- A repo whose existing `TODO.md` is a single durable file has a Roadmap
+  under the wrong name and renames it to `ROADMAP.md` when adopting; where
+  it is a directory of per-item files, it is a Backlog and moves to
+  `docs/backlog/`.
 
 ## Changelog
 
@@ -410,7 +472,9 @@ first entry. Move a document to `docs/` when either trigger fires:
    don't count — that's where config conventions live), or
 2. the document has outgrown a single file: it needs siblings, status, or
    structure (a `ROADMAP.md` that needs per-item status becomes
-   `docs/roadmap.md`).
+   `docs/roadmap.md`; a `ROADMAP.md` whose items need real descriptions or
+   conflict between concurrent branches decomposes into `docs/backlog/` plus
+   a Roadmap that indexes it, per `## Backlog` above).
 
 `PLAN.md` and `TODO.md` never move: neither trigger can fire for a document
 that lives on one branch and is deleted rather than grown; there is no
@@ -420,6 +484,11 @@ Graduate in one commit, rewrite inbound links in the same commit. No stub file
 at the old path, and no mirror in either direction; renaming a numbered
 decision log, above, is the one exception. Update the Charter's `## Artifacts`
 table to record the new location, and let a link check in CI catch stale links.
+
+Decomposing a Roadmap into a Backlog is the same one-commit move with one
+addition: write one `docs/backlog/<slug>.md` per item first, then rewrite
+the Roadmap as the ordered index over them, then update the Charter. No stub
+is left at any old anchor inside the Roadmap.
 
 ## Adjacent files
 
