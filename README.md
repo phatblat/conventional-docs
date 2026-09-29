@@ -36,13 +36,15 @@ how those files behave over time:
   one, and neither record's status changes. An editable decision log answers
   what the project currently believes, which is the Design document's job. A
   frozen one answers what was decided, when, and on what argument.
-- **A declared lifetime is a commitment to delete.** Expiry is an event in the
-  repository rather than a matter of judgment: a Backlog item is deleted by
-  the pull request that implements it, a Plan and a Todo by the merge of the
-  work they describe, a Roadmap line by the change that finishes it.
-  Documentation decays because it only ever grows, and binding deletion to an
-  event that was going to happen anyway is what keeps this set the same size
-  next year.
+- **Lifetimes that expire are a commitment to delete.** Expiry is an event
+  in the repository rather than a matter of judgment: a Backlog item is
+  deleted by the change that implements it, in that pull request, together
+  with its Roadmap entry, and an item that will not be implemented is
+  deleted rather than kept; a Plan is deleted at `plan: done` and a Todo at
+  `todo: clear`, both before merge; a Roadmap item that no longer applies
+  is deleted rather than archived. Documentation decays because it only
+  ever grows, and binding deletion to an event that was going to happen
+  anyway is what keeps those files honest.
 - **Bookkeeping commits are net-zero.** A `plan:` or `todo:` commit touches
   only its own artifact, so dropping every one of them leaves the tree exactly
   as it was and a squash merge erases them for free. An agent can checkpoint

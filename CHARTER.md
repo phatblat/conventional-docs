@@ -97,14 +97,16 @@ the only one nothing else in the repository can answer. It also makes
 `git log` on a record worth reading, because the file's history becomes the
 history of the decision rather than a record of edits to it.
 
-### A declared lifetime is a commitment to delete
+### Lifetimes that expire are a commitment to delete
 
-Declaring how long a document stays true is half the rule. The other half is
-that its expiry is an event in the repository rather than a matter of
-judgment: a Backlog item is deleted by the pull request that implements it,
-together with its Roadmap line; a Plan and a Todo by the merge of the work
-they describe; and a Roadmap item that no longer applies is deleted rather
-than archived in place.
+Declaring how long a document stays true is half the rule. The other half,
+for the lifetimes that expire, is that expiry is an event in the repository
+rather than a matter of judgment: a Backlog item is deleted by the change
+that implements it, in that pull request, together with its Roadmap entry,
+and an item that will not be implemented is deleted rather than kept; a
+Plan is deleted at `plan: done` and a Todo at `todo: clear`, both before
+merge; and a Roadmap item that no longer applies is deleted rather than
+archived.
 
 Documentation decays because it only ever grows. Every stale file is a
 reader's wasted trip, and that cost is paid long after whoever wrote it
