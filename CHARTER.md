@@ -86,8 +86,9 @@ founding rule above.
 ### A decision freezes when review ends
 
 Accepting or rejecting a record is the last write to its body. A correction
-is a dated line in an append-only `## Errata` tail, and a reversal is a new
-record that supersedes the old one without either record's status changing.
+is a dated line in an append-only `## Errata` tail. A reversal is a new
+record, the superseded record gains an Errata pointer, and neither record's
+status changes.
 
 A decision log that stays editable answers what the project currently
 believes — which is the Design document's job, and it is already better at

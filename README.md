@@ -32,10 +32,11 @@ how those files behave over time:
 
 - **A decision freezes when review ends.** `accept` and `reject` are the last
   writes to a record's body. A correction is a dated line in an append-only
-  `## Errata` tail; changing your mind is a new record that supersedes the old
-  one, and neither record's status changes. An editable decision log answers
-  what the project currently believes, which is the Design document's job. A
-  frozen one answers what was decided, when, and on what argument.
+  `## Errata` tail. A reversal is a new record, the superseded record gains
+  an Errata pointer, and neither record's status changes. An editable
+  decision log answers what the project currently believes, which is the
+  Design document's job. A frozen one answers what was decided, when, and on
+  what argument.
 - **Lifetimes that expire are a commitment to delete.** Expiry is an event
   in the repository rather than a matter of judgment: a Backlog item is
   deleted by the change that implements it, in that pull request, together
