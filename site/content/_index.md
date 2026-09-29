@@ -20,6 +20,36 @@ Two axes decide everything else: **lifetime** — how long a document stays
 true — and **audience** — outsiders and machines read the repo root,
 maintainers read `docs/`.
 
+## What's different
+
+The artifacts themselves are not new — a charter, a design document, an ADR
+log, a roadmap, a runbook, an incident report each already has a home in some
+existing practice, and a repo that adopted all of them piecemeal would end up
+with a similar list of files. What this convention adds is three rules about
+how those files behave over time:
+
+- **A decision freezes when review ends.** `accept` and `reject` are the last
+  writes to a record's body. A correction is a dated line in an append-only
+  `## Errata` tail. A reversal is a new record, the superseded record gains
+  an Errata pointer, and neither record's status changes. An editable
+  decision log answers what the project currently believes, which is the
+  Design document's job. A frozen one answers what was decided, when, and on
+  what argument.
+- **Lifetimes that expire are a commitment to delete.** Expiry is an event
+  in the repository rather than a matter of judgment: a Backlog item is
+  deleted by the change that implements it, in that pull request, together
+  with its Roadmap entry, and an item that will not be implemented is
+  deleted rather than kept; a Plan is deleted at `plan: done` and a Todo at
+  `todo: clear`, both before merge; a Roadmap item that no longer applies
+  is deleted rather than archived. Documentation decays because it only
+  ever grows, and binding deletion to an event that was going to happen
+  anyway is what keeps those files honest.
+- **Bookkeeping commits are net-zero.** A `plan:` or `todo:` commit touches
+  only its own artifact, so dropping every one of them leaves the tree exactly
+  as it was and a squash merge erases them for free. An agent can checkpoint
+  as often as it likes without putting that noise in the history a human
+  reads.
+
 {{< cards >}}
 
 ## The artifacts
